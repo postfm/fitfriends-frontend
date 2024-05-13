@@ -1,191 +1,35 @@
+import { useQuery } from '@tanstack/react-query';
+import { useParams } from 'react-router-dom';
+import { loadTrainings } from '../../api/loadTrainings';
+import { loadReviews } from '../../api/loadReviews';
+import ReviewCard from '../../components/review/review-card';
+import { loadUsers } from '../../api/loadUsers';
+
 export default function TrainingCardUserPage(): JSX.Element {
+  const { id } = useParams();
+  const trainings = useQuery({
+    queryKey: ['trainings'],
+    queryFn: loadTrainings,
+  });
+  const reviews = useQuery({
+    queryKey: ['reviews'],
+    queryFn: loadReviews,
+  });
+  const users = useQuery({
+    queryKey: ['users'],
+    queryFn: loadUsers,
+  });
+
+  const training = trainings.data?.filter(
+    (item) => item.trainingId === +(id as string)
+  )[0];
+
+  const coach = users.data?.filter(
+    (item) => item.id === +(training?.trainingId as number)
+  )[0];
+
   return (
     <div className="wrapper">
-      <header className="header">
-        <div className="container">
-          <a
-            className="header__logo"
-            href="index.html"
-            aria-label="Переход на главную"
-          >
-            <svg width={187} height={70} aria-hidden="true">
-              <use xlinkHref="#logo" />
-            </svg>
-          </a>
-          <nav className="main-nav">
-            <ul className="main-nav__list">
-              <li className="main-nav__item">
-                <a
-                  className="main-nav__link is-active"
-                  href="#"
-                  aria-label="На главную"
-                >
-                  <svg width={18} height={18} aria-hidden="true">
-                    <use xlinkHref="#icon-home" />
-                  </svg>
-                </a>
-              </li>
-              <li className="main-nav__item">
-                <a
-                  className="main-nav__link"
-                  href="#"
-                  aria-label="Личный кабинет"
-                >
-                  <svg width={16} height={18} aria-hidden="true">
-                    <use xlinkHref="#icon-user" />
-                  </svg>
-                </a>
-              </li>
-              <li className="main-nav__item">
-                <a className="main-nav__link" href="#" aria-label="Друзья">
-                  <svg width={22} height={16} aria-hidden="true">
-                    <use xlinkHref="#icon-friends" />
-                  </svg>
-                </a>
-              </li>
-              <li className="main-nav__item main-nav__item--notifications">
-                <a className="main-nav__link" href="#" aria-label="Уведомления">
-                  <svg width={14} height={18} aria-hidden="true">
-                    <use xlinkHref="#icon-notification" />
-                  </svg>
-                </a>
-                <div className="main-nav__dropdown">
-                  <p className="main-nav__label">Оповещения</p>
-                  <ul className="main-nav__sublist">
-                    <li className="main-nav__subitem">
-                      <a className="notification is-active" href="#">
-                        <p className="notification__text">
-                          Катерина пригласила вас на&nbsp;тренировку
-                        </p>
-                        <time
-                          className="notification__time"
-                          dateTime="2023-12-23 12:35"
-                        >
-                          23 декабря, 12:35
-                        </time>
-                      </a>
-                    </li>
-                    <li className="main-nav__subitem">
-                      <a className="notification is-active" href="#">
-                        <p className="notification__text">
-                          Никита отклонил приглашение на&nbsp;совместную
-                          тренировку
-                        </p>
-                        <time
-                          className="notification__time"
-                          dateTime="2023-12-22 09:22"
-                        >
-                          22 декабря, 09:22
-                        </time>
-                      </a>
-                    </li>
-                    <li className="main-nav__subitem">
-                      <a className="notification is-active" href="#">
-                        <p className="notification__text">
-                          Татьяна добавила вас в&nbsp;друзья
-                        </p>
-                        <time
-                          className="notification__time"
-                          dateTime="2023-12-18 18:50"
-                        >
-                          18 декабря, 18:50
-                        </time>
-                      </a>
-                    </li>
-                    {/*<li class="main-nav__subitem"><a class="notification" href="#">
-                  <p class="notification__text">Наталья приняла приглашение на&nbsp;совместную тренировку</p>
-                  <time class="notification__time" datetime="2023-12-14 08:15">14 декабря, 08:15</time></a>
-              </li>*/}
-                  </ul>
-                </div>
-              </li>
-            </ul>
-          </nav>
-          <div className="search">
-            <form action="#" method="get">
-              <label>
-                <span className="search__label">Поиск</span>
-                <input type="search" name="search" />
-                <svg
-                  className="search__icon"
-                  width={20}
-                  height={20}
-                  aria-hidden="true"
-                >
-                  <use xlinkHref="#icon-search" />
-                </svg>
-              </label>
-              <ul className="search__list">
-                <li className="search__item">
-                  <a className="search__link" href="#">
-                    Бокс
-                  </a>
-                </li>
-                <li className="search__item">
-                  <a className="search__link is-active" href="#">
-                    Бег
-                  </a>
-                </li>
-                <li className="search__item">
-                  <a className="search__link" href="#">
-                    Аэробика
-                  </a>
-                </li>
-                <li className="search__item">
-                  <a className="search__link" href="#">
-                    Text
-                  </a>
-                </li>
-                <li className="search__item">
-                  <a className="search__link" href="#">
-                    Text
-                  </a>
-                </li>
-                <li className="search__item">
-                  <a className="search__link" href="#">
-                    Text
-                  </a>
-                </li>
-                <li className="search__item">
-                  <a className="search__link" href="#">
-                    Text
-                  </a>
-                </li>
-                <li className="search__item">
-                  <a className="search__link" href="#">
-                    Text
-                  </a>
-                </li>
-                <li className="search__item">
-                  <a className="search__link" href="#">
-                    Text
-                  </a>
-                </li>
-                <li className="search__item">
-                  <a className="search__link" href="#">
-                    Text
-                  </a>
-                </li>
-                <li className="search__item">
-                  <a className="search__link" href="#">
-                    Text
-                  </a>
-                </li>
-                <li className="search__item">
-                  <a className="search__link" href="#">
-                    Text
-                  </a>
-                </li>
-                <li className="search__item">
-                  <a className="search__link" href="#">
-                    Text
-                  </a>
-                </li>
-              </ul>
-            </form>
-          </div>
-        </div>
-      </header>
       <main>
         <section className="inner-page">
           <div className="container">
@@ -203,201 +47,9 @@ export default function TrainingCardUserPage(): JSX.Element {
                 </button>
                 <h2 className="reviews-side-bar__title">Отзывы</h2>
                 <ul className="reviews-side-bar__list">
-                  <li className="reviews-side-bar__item">
-                    <div className="review">
-                      <div className="review__user-info">
-                        <div className="review__user-photo">
-                          <picture>
-                            <source
-                              type="image/webp"
-                              srcSet="img/content/avatars/users//photo-1.webp, img/content/avatars/users//photo-1@2x.webp 2x"
-                            />
-                            <img
-                              src="img/content/avatars/users//photo-1.png"
-                              srcSet="img/content/avatars/users//photo-1@2x.png 2x"
-                              width={64}
-                              height={64}
-                              alt="Изображение пользователя"
-                            />
-                          </picture>
-                        </div>
-                        <span className="review__user-name">Никита</span>
-                        <div className="review__rating">
-                          <svg width={16} height={16} aria-hidden="true">
-                            <use xlinkHref="#icon-star" />
-                          </svg>
-                          <span>5</span>
-                        </div>
-                      </div>
-                      <p className="review__comment">
-                        Эта тренировка для меня зарядка по&nbsp;утрам, помогает
-                        проснуться.
-                      </p>
-                    </div>
-                  </li>
-                  <li className="reviews-side-bar__item">
-                    <div className="review">
-                      <div className="review__user-info">
-                        <div className="review__user-photo">
-                          <picture>
-                            <source
-                              type="image/webp"
-                              srcSet="img/content/avatars/users//photo-2.webp, img/content/avatars/users//photo-2@2x.webp 2x"
-                            />
-                            <img
-                              src="img/content/avatars/users//photo-2.png"
-                              srcSet="img/content/avatars/users//photo-2@2x.png 2x"
-                              width={64}
-                              height={64}
-                              alt="Изображение пользователя"
-                            />
-                          </picture>
-                        </div>
-                        <span className="review__user-name">Дарья</span>
-                        <div className="review__rating">
-                          <svg width={16} height={16} aria-hidden="true">
-                            <use xlinkHref="#icon-star" />
-                          </svg>
-                          <span>5</span>
-                        </div>
-                      </div>
-                      <p className="review__comment">
-                        Спасибо, классная тренировка! Понятная
-                        и&nbsp;интересная, с&nbsp;акцентом на&nbsp;правильную
-                        технику, как я&nbsp;люблю.
-                      </p>
-                    </div>
-                  </li>
-                  <li className="reviews-side-bar__item">
-                    <div className="review">
-                      <div className="review__user-info">
-                        <div className="review__user-photo">
-                          <picture>
-                            <source
-                              type="image/webp"
-                              srcSet="img/content/avatars/users//photo-3.webp, img/content/avatars/users//photo-3@2x.webp 2x"
-                            />
-                            <img
-                              src="img/content/avatars/users//photo-3.png"
-                              srcSet="img/content/avatars/users//photo-3@2x.png 2x"
-                              width={64}
-                              height={64}
-                              alt="Изображение пользователя"
-                            />
-                          </picture>
-                        </div>
-                        <span className="review__user-name">Катерина</span>
-                        <div className="review__rating">
-                          <svg width={16} height={16} aria-hidden="true">
-                            <use xlinkHref="#icon-star" />
-                          </svg>
-                          <span>4</span>
-                        </div>
-                      </div>
-                      <p className="review__comment">
-                        Хорошая тренировка, но&nbsp;все&nbsp;же не&nbsp;хватило
-                        немного динамики. Для меня оказалась слишком легкой.
-                      </p>
-                    </div>
-                  </li>
-                  <li className="reviews-side-bar__item">
-                    <div className="review">
-                      <div className="review__user-info">
-                        <div className="review__user-photo">
-                          <picture>
-                            <source
-                              type="image/webp"
-                              srcSet="img/content/avatars/users//photo-4.webp, img/content/avatars/users//photo-4@2x.webp 2x"
-                            />
-                            <img
-                              src="img/content/avatars/users//photo-4.png"
-                              srcSet="img/content/avatars/users//photo-4@2x.png 2x"
-                              width={64}
-                              height={64}
-                              alt="Изображение пользователя"
-                            />
-                          </picture>
-                        </div>
-                        <span className="review__user-name">Татьяна</span>
-                        <div className="review__rating">
-                          <svg width={16} height={16} aria-hidden="true">
-                            <use xlinkHref="#icon-star" />
-                          </svg>
-                          <span>5</span>
-                        </div>
-                      </div>
-                      <p className="review__comment">
-                        Регулярно выполняю эту тренировку дома и&nbsp;вижу
-                        результат! Спина стала прямее, появилось больше сил
-                        и&nbsp;гибкость тоже стала лучше, хотя упражнения
-                        довольно простые.
-                      </p>
-                    </div>
-                  </li>
-                  <li className="reviews-side-bar__item">
-                    <div className="review">
-                      <div className="review__user-info">
-                        <div className="review__user-photo">
-                          <picture>
-                            <source
-                              type="image/webp"
-                              srcSet="img/content/avatars/users//photo-5.webp, img/content/avatars/users//photo-5@2x.webp 2x"
-                            />
-                            <img
-                              src="img/content/avatars/users//photo-5.png"
-                              srcSet="img/content/avatars/users//photo-5@2x.png 2x"
-                              width={64}
-                              height={64}
-                              alt="Изображение пользователя"
-                            />
-                          </picture>
-                        </div>
-                        <span className="review__user-name">Наталья</span>
-                        <div className="review__rating">
-                          <svg width={16} height={16} aria-hidden="true">
-                            <use xlinkHref="#icon-star" />
-                          </svg>
-                          <span>5</span>
-                        </div>
-                      </div>
-                      <p className="review__comment">
-                        Ну&nbsp;какой&nbsp;же кайф! Спасибо, крутая программа.
-                        С&nbsp;музыкой вообще супер! Действительно, Energy!
-                      </p>
-                    </div>
-                  </li>
-                  <li className="reviews-side-bar__item">
-                    <div className="review">
-                      <div className="review__user-info">
-                        <div className="review__user-photo">
-                          <picture>
-                            <source
-                              type="image/webp"
-                              srcSet="img/content/avatars/users//photo-1.webp, img/content/avatars/users//photo-1@2x.webp 2x"
-                            />
-                            <img
-                              src="img/content/avatars/users//photo-1.png"
-                              srcSet="img/content/avatars/users//photo-1@2x.png 2x"
-                              width={64}
-                              height={64}
-                              alt="Изображение пользователя"
-                            />
-                          </picture>
-                        </div>
-                        <span className="review__user-name">Никита</span>
-                        <div className="review__rating">
-                          <svg width={16} height={16} aria-hidden="true">
-                            <use xlinkHref="#icon-star" />
-                          </svg>
-                          <span>5</span>
-                        </div>
-                      </div>
-                      <p className="review__comment">
-                        Эта тренировка для меня зарядка по&nbsp;утрам, помогает
-                        проснуться.
-                      </p>
-                    </div>
-                  </li>
+                  {reviews.data?.map((review) => (
+                    <ReviewCard key={review.id} review={review} />
+                  ))}
                 </ul>
                 <button
                   className="btn btn--medium reviews-side-bar__button"
@@ -413,13 +65,8 @@ export default function TrainingCardUserPage(): JSX.Element {
                     <div className="training-info__coach">
                       <div className="training-info__photo">
                         <picture>
-                          <source
-                            type="image/webp"
-                            srcSet="img/content/avatars/coaches//photo-1.webp, img/content/avatars/coaches//photo-1@2x.webp 2x"
-                          />
                           <img
-                            src="img/content/avatars/coaches//photo-1.png"
-                            srcSet="img/content/avatars/coaches//photo-1@2x.png 2x"
+                            src="/img/content/avatars/coaches//photo-1.png"
                             width={64}
                             height={64}
                             alt="Изображение тренера"
@@ -428,7 +75,9 @@ export default function TrainingCardUserPage(): JSX.Element {
                       </div>
                       <div className="training-info__coach-info">
                         <span className="training-info__label">Тренер</span>
-                        <span className="training-info__name">Валерия</span>
+                        <span className="training-info__name">
+                          {coach?.name}
+                        </span>
                       </div>
                     </div>
                   </div>
@@ -444,7 +93,7 @@ export default function TrainingCardUserPage(): JSX.Element {
                               <input
                                 type="text"
                                 name="training"
-                                defaultValue="energy"
+                                defaultValue={training?.name}
                                 disabled
                               />
                             </label>
@@ -460,9 +109,7 @@ export default function TrainingCardUserPage(): JSX.Element {
                               <textarea
                                 name="description"
                                 disabled
-                                defaultValue={
-                                  'Упражнения укрепляют мышечный корсет, делают суставы более гибкими, улучшают осанку и координацию.'
-                                }
+                                defaultValue={training?.description}
                               />
                             </label>
                           </div>
@@ -481,7 +128,7 @@ export default function TrainingCardUserPage(): JSX.Element {
                               <input
                                 type="number"
                                 name="rating"
-                                defaultValue={4}
+                                defaultValue={training?.rating}
                                 disabled
                               />
                             </label>
@@ -489,12 +136,12 @@ export default function TrainingCardUserPage(): JSX.Element {
                           <ul className="training-info__list">
                             <li className="training-info__item">
                               <div className="hashtag hashtag--white">
-                                <span>#пилатес</span>
+                                <span>{`#${training?.type as string}`}</span>
                               </div>
                             </li>
                             <li className="training-info__item">
                               <div className="hashtag hashtag--white">
-                                <span>#для_всех</span>
+                                <span>{`#${training?.gender as string}`}</span>
                               </div>
                             </li>
                             <li className="training-info__item">
@@ -504,7 +151,9 @@ export default function TrainingCardUserPage(): JSX.Element {
                             </li>
                             <li className="training-info__item">
                               <div className="hashtag hashtag--white">
-                                <span>#30_50минут</span>
+                                <span>
+                                  {`#${training?.duration as string}`}
+                                </span>
                               </div>
                             </li>
                           </ul>
@@ -518,7 +167,7 @@ export default function TrainingCardUserPage(): JSX.Element {
                               <input
                                 type="text"
                                 name="price"
-                                defaultValue="800 ₽"
+                                defaultValue={`${training?.price as number} ₽`}
                                 disabled
                               />
                             </label>
@@ -542,13 +191,8 @@ export default function TrainingCardUserPage(): JSX.Element {
                   <div className="training-video__video">
                     <div className="training-video__thumbnail">
                       <picture>
-                        <source
-                          type="image/webp"
-                          srcSet="img/content/training-video/video-thumbnail.webp, img/content/training-video/video-thumbnail@2x.webp 2x"
-                        />
                         <img
-                          src="img/content/training-video/video-thumbnail.png"
-                          srcSet="img/content/training-video/video-thumbnail@2x.png 2x"
+                          src="/img/content/training-video/video-thumbnail.png"
                           width={922}
                           height={566}
                           alt="Обложка видео"

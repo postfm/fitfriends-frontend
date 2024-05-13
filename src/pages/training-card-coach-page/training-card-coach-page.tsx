@@ -13,6 +13,7 @@ const DISCORD = 0.9;
 export default function TrainingCardCoachPage(): JSX.Element {
   const [isEdit, setIsEdit] = useState(false);
   const [isDiscord, setIsDiscord] = useState(false);
+  const [isDeleteVideo, setIsDeleteVideo] = useState(false);
   const currentCoach = useUser();
   const { id } = useParams();
   const trainings = useQuery({
@@ -37,6 +38,14 @@ export default function TrainingCardCoachPage(): JSX.Element {
     setIsDiscord(!isDiscord);
     const currentPrice = !isDiscord ? price * DISCORD : price / DISCORD;
     setPrice(currentPrice);
+  };
+
+  const handleButtonDeleteVideoClick = () => {
+    setIsDeleteVideo(true);
+  };
+
+  const handleButtonSaveVideoClick = () => {
+    setIsDeleteVideo(false);
   };
 
   return (
@@ -78,7 +87,7 @@ export default function TrainingCardCoachPage(): JSX.Element {
                       <div className="training-info__photo">
                         <picture>
                           <img
-                            src={`/${currentCoach.avatar}`}
+                            src={currentCoach.avatar}
                             width={64}
                             height={64}
                             alt="Изображение тренера"
@@ -183,16 +192,16 @@ export default function TrainingCardCoachPage(): JSX.Element {
                             </li>
                             <li className="training-info__item">
                               <div className="hashtag hashtag--white">
-                                <span>{`#${
-                                  training?.calories as number
-                                }`}</span>
+                                <span>
+                                  {`#${training?.calories as number}`}
+                                </span>
                               </div>
                             </li>
                             <li className="training-info__item">
                               <div className="hashtag hashtag--white">
-                                <span>{`#${
-                                  training?.duration as string
-                                }`}</span>
+                                <span>
+                                  {`#${training?.duration as string}`}
+                                </span>
                               </div>
                             </li>
                           </ul>
@@ -237,7 +246,14 @@ export default function TrainingCardCoachPage(): JSX.Element {
                 </div>
                 <div className="training-video">
                   <h2 className="training-video__title">Видео</h2>
-                  <div className="training-video__video">
+                  <div
+                    className="training-video__video"
+                    style={
+                      isDeleteVideo
+                        ? { display: 'none' }
+                        : { display: 'contents' }
+                    }
+                  >
                     <div className="training-video__thumbnail">
                       <picture>
                         <img
@@ -254,7 +270,14 @@ export default function TrainingCardCoachPage(): JSX.Element {
                       </svg>
                     </button>
                   </div>
-                  <div className="training-video__drop-files">
+                  <div
+                    className="training-video__drop-files"
+                    style={
+                      !isDeleteVideo
+                        ? { display: 'none' }
+                        : { display: 'contents' }
+                    }
+                  >
                     <form action="#" method="post">
                       <div className="training-video__form-wrapper">
                         <div className="drag-and-drop">
@@ -286,10 +309,18 @@ export default function TrainingCardCoachPage(): JSX.Element {
                         Приступить
                       </button>
                       <div className="training-video__edit-buttons">
-                        <button className="btn" type="button">
+                        <button
+                          className="btn"
+                          type="button"
+                          onClick={handleButtonSaveVideoClick}
+                        >
                           Сохранить
                         </button>
-                        <button className="btn btn--outlined" type="button">
+                        <button
+                          className="btn btn--outlined"
+                          type="button"
+                          onClick={handleButtonDeleteVideoClick}
+                        >
                           Удалить
                         </button>
                       </div>
