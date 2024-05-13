@@ -58,7 +58,7 @@ export default function TrainingCardCoachPage(): JSX.Element {
               <aside className="reviews-side-bar">
                 <Link
                   className="btn-flat btn-flat--underlined reviews-side-bar__back"
-                  to={AuthAppRoutes.MyAccount}
+                  to={AuthAppRoutes.MyTrainings}
                 >
                   <svg width={14} height={10} aria-hidden="true">
                     <use xlinkHref="#arrow-left" />
