@@ -1,0 +1,15 @@
+.specialization__error {
+  position: absolute;
+  left: 125px;
+  top: 190px;
+  color: red;
+  font-size: 13px;
+}
+
+.merits__error {
+  position: absolute;
+  left: 5px;
+  top: 110px;
+  color: red;
+  font-size: 13px;
+}

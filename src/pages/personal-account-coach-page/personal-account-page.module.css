@@ -1,0 +1,7 @@
+.specialization__error {
+  position: absolute;
+  left: 35px;
+  top: 5px;
+  color: red;
+  font-size: 13px;
+}

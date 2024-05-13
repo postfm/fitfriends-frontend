@@ -1,0 +1,7 @@
+.password__error {
+  position: absolute;
+  left: 10px;
+  bottom: -30px;
+  color: red;
+  font-size: 13px;
+}

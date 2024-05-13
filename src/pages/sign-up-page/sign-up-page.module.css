@@ -1,0 +1,12 @@
+.display_list {
+  visibility: visible;
+  opacity: 1;
+}
+
+.location__error {
+  position: absolute;
+  left: 10px;
+  bottom: -30px;
+  color: red;
+  font-size: 13px;
+}
