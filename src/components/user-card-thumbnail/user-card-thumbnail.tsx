@@ -1,29 +1,28 @@
-import { Link, generatePath } from 'react-router-dom';
+import React from 'react';
 import { User } from '../../types';
 import { renderHashtag } from '../../utils';
-import { AppRoutes } from '../../constants/constants';
+import { Link, generatePath } from 'react-router-dom';
+import { AppRoutes, UserRole } from '../../constants/constants';
+import classNames from 'classnames';
 
-interface UserCardProps {
+interface UserCardThumbnailProps {
   user: User;
 }
-const UserCard: React.FC<UserCardProps> = ({ user }) => (
-  <li className="look-for-company__item">
-    <div className="thumbnail-user thumbnail-user--role-user thumbnail-user--dark">
+
+const UserCardThumbnail: React.FC<UserCardThumbnailProps> = ({ user }) => (
+  <li className="users-catalog__item">
+    <div
+      className={classNames({
+        'thumbnail-user thumbnail-user--role-user':
+          user.roles === UserRole.sportsman,
+        'thumbnail-user thumbnail-user--role-coach':
+          user.roles === UserRole.coach,
+      })}
+    >
       <div className="thumbnail-user__image">
         <picture>
-          <img
-            src={user.avatar}
-            srcSet={`${user.avatar}@2x.png 2x`}
-            width={82}
-            height={82}
-            alt=""
-          />
+          <img src={user.avatar} width={82} height={82} alt="" />
         </picture>
-      </div>
-      <div className="thumbnail-user__top-status thumbnail-user__top-status--role-user">
-        <svg width={12} height={12} aria-hidden="true">
-          <use xlinkHref="#icon-crown" />
-        </svg>
       </div>
       <div className="thumbnail-user__header">
         <h3 className="thumbnail-user__name">{user.name}</h3>
@@ -46,7 +45,7 @@ const UserCard: React.FC<UserCardProps> = ({ user }) => (
         ))}
       </ul>
       <Link
-        className="btn btn--outlined btn--dark-bg btn--medium thumbnail-user__button"
+        className="btn btn--medium thumbnail-user__button"
         to={generatePath(AppRoutes.UserCard, {
           id: String(user.id),
         })}
@@ -57,4 +56,4 @@ const UserCard: React.FC<UserCardProps> = ({ user }) => (
   </li>
 );
 
-export default UserCard;
+export default UserCardThumbnail;
