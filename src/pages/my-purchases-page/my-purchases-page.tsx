@@ -92,10 +92,6 @@ export default function MyPurchasesPage(): JSX.Element {
                         </time>
                       </a>
                     </li>
-                    {/*<li class="main-nav__subitem"><a class="notification" href="#">
-                  <p class="notification__text">Наталья приняла приглашение на&nbsp;совместную тренировку</p>
-                  <time class="notification__time" datetime="2023-12-14 08:15">14 декабря, 08:15</time></a>
-              </li>*/}
                   </ul>
                 </div>
               </li>

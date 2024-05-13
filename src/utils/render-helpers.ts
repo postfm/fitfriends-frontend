@@ -9,3 +9,7 @@ export function renderHashtag(name: string) {
 export function renderCal(amount: number) {
   return `${amount}ккал`;
 }
+
+export function renderLocation(location: string) {
+  return `ст. м. ${location}`;
+}

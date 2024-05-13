@@ -1,194 +1,15 @@
 import { Link } from 'react-router-dom';
-import { AppRoutes } from '../../constants/constants';
+import { AppRoutes, TypesOfTrainings } from '../../constants/constants';
+import { useUser } from '../../hooks';
+import { renderLocation } from '../../utils';
+
+const DAYS_IN_WEEK = 7;
 
 export default function PersonalAccountUserPage(): JSX.Element {
+  const currentUser = useUser();
+
   return (
     <div className="wrapper">
-      <header className="header">
-        <div className="container">
-          <a
-            className="header__logo"
-            href="index.html"
-            aria-label="Переход на главную"
-          >
-            <svg width="187" height="70" aria-hidden="true">
-              <use xlinkHref="#logo"></use>
-            </svg>
-          </a>
-          <nav className="main-nav">
-            <ul className="main-nav__list">
-              <li className="main-nav__item">
-                <a
-                  className="main-nav__link is-active"
-                  href="#"
-                  aria-label="На главную"
-                >
-                  <svg width="18" height="18" aria-hidden="true">
-                    <use xlinkHref="#icon-home"></use>
-                  </svg>
-                </a>
-              </li>
-              <li className="main-nav__item">
-                <a
-                  className="main-nav__link"
-                  href="#"
-                  aria-label="Личный кабинет"
-                >
-                  <svg width="16" height="18" aria-hidden="true">
-                    <use xlinkHref="#icon-user"></use>
-                  </svg>
-                </a>
-              </li>
-              <li className="main-nav__item">
-                <a className="main-nav__link" href="#" aria-label="Друзья">
-                  <svg width="22" height="16" aria-hidden="true">
-                    <use xlinkHref="#icon-friends"></use>
-                  </svg>
-                </a>
-              </li>
-              <li className="main-nav__item main-nav__item--notifications">
-                <a className="main-nav__link" href="#" aria-label="Уведомления">
-                  <svg width="14" height="18" aria-hidden="true">
-                    <use xlinkHref="#icon-notification"></use>
-                  </svg>
-                </a>
-                <div className="main-nav__dropdown">
-                  <p className="main-nav__label">Оповещения</p>
-                  <ul className="main-nav__sublist">
-                    <li className="main-nav__subitem">
-                      <a className="notification is-active" href="#">
-                        <p className="notification__text">
-                          Катерина пригласила вас на&nbsp;тренировку
-                        </p>
-                        <time
-                          className="notification__time"
-                          dateTime="2023-12-23 12:35"
-                        >
-                          23 декабря, 12:35
-                        </time>
-                      </a>
-                    </li>
-                    <li className="main-nav__subitem">
-                      <a className="notification is-active" href="#">
-                        <p className="notification__text">
-                          Никита отклонил приглашение на&nbsp;совместную
-                          тренировку
-                        </p>
-                        <time
-                          className="notification__time"
-                          dateTime="2023-12-22 09:22"
-                        >
-                          22 декабря, 09:22
-                        </time>
-                      </a>
-                    </li>
-                    <li className="main-nav__subitem">
-                      <a className="notification is-active" href="#">
-                        <p className="notification__text">
-                          Татьяна добавила вас в&nbsp;друзья
-                        </p>
-                        <time
-                          className="notification__time"
-                          dateTime="2023-12-18 18:50"
-                        >
-                          18 декабря, 18:50
-                        </time>
-                      </a>
-                    </li>
-                    {/* <li className="main-nav__subitem"><a className="notification" href="#">
-                      <p className="notification__text">Наталья приняла приглашение на&nbsp;совместную тренировку</p>
-                      <time className="notification__time" dateTime="2023-12-14 08:15">14 декабря, 08:15</time></a>
-                    </li> */}
-                  </ul>
-                </div>
-              </li>
-            </ul>
-          </nav>
-          <div className="search">
-            <form action="#" method="get">
-              <label>
-                <span className="search__label">Поиск</span>
-                <input type="search" name="search" />
-                <svg
-                  className="search__icon"
-                  width="20"
-                  height="20"
-                  aria-hidden="true"
-                >
-                  <use xlinkHref="#icon-search"></use>
-                </svg>
-              </label>
-              <ul className="search__list">
-                <li className="search__item">
-                  <a className="search__link" href="#">
-                    Бокс
-                  </a>
-                </li>
-                <li className="search__item">
-                  <a className="search__link is-active" href="#">
-                    Бег
-                  </a>
-                </li>
-                <li className="search__item">
-                  <a className="search__link" href="#">
-                    Аэробика
-                  </a>
-                </li>
-                <li className="search__item">
-                  <a className="search__link" href="#">
-                    Text
-                  </a>
-                </li>
-                <li className="search__item">
-                  <a className="search__link" href="#">
-                    Text
-                  </a>
-                </li>
-                <li className="search__item">
-                  <a className="search__link" href="#">
-                    Text
-                  </a>
-                </li>
-                <li className="search__item">
-                  <a className="search__link" href="#">
-                    Text
-                  </a>
-                </li>
-                <li className="search__item">
-                  <a className="search__link" href="#">
-                    Text
-                  </a>
-                </li>
-                <li className="search__item">
-                  <a className="search__link" href="#">
-                    Text
-                  </a>
-                </li>
-                <li className="search__item">
-                  <a className="search__link" href="#">
-                    Text
-                  </a>
-                </li>
-                <li className="search__item">
-                  <a className="search__link" href="#">
-                    Text
-                  </a>
-                </li>
-                <li className="search__item">
-                  <a className="search__link" href="#">
-                    Text
-                  </a>
-                </li>
-                <li className="search__item">
-                  <a className="search__link" href="#">
-                    Text
-                  </a>
-                </li>
-              </ul>
-            </form>
-          </div>
-        </div>
-      </header>
       <main>
         <section className="inner-page">
           <div className="container">
@@ -206,8 +27,7 @@ export default function PersonalAccountUserPage(): JSX.Element {
                       />
                       <span className="input-load-avatar__avatar">
                         <img
-                          src="img/content/user-photo-1.png"
-                          srcSet="img/content/user-photo-1@2x.png 2x"
+                          src={currentUser.avatar}
                           width="98"
                           height="98"
                           alt="user photo"
@@ -236,7 +56,7 @@ export default function PersonalAccountUserPage(): JSX.Element {
                           <input
                             type="text"
                             name="name"
-                            value="Валерия"
+                            value={currentUser.name}
                             disabled
                           />
                         </span>
@@ -246,10 +66,7 @@ export default function PersonalAccountUserPage(): JSX.Element {
                       <label>
                         <span className="custom-textarea__label">Описание</span>
                         <textarea name="description" placeholder=" " disabled>
-                          Персональный тренер и инструктор групповых программ с
-                          опытом более 4х лет. Специализация: коррекция фигуры и
-                          осанки, снижение веса, восстановление после травм,
-                          пилатес.
+                          {currentUser.description}
                         </textarea>
                       </label>
                     </div>
@@ -263,7 +80,7 @@ export default function PersonalAccountUserPage(): JSX.Element {
                         <input
                           type="checkbox"
                           name="ready-for-training"
-                          checked
+                          checked={currentUser.readyToTrain as boolean}
                         />
                         <span className="custom-toggle__icon">
                           <svg width="9" height="6" aria-hidden="true">
@@ -271,7 +88,7 @@ export default function PersonalAccountUserPage(): JSX.Element {
                           </svg>
                         </span>
                         <span className="custom-toggle__label">
-                          Готов тренировать
+                          Готов к тренировкам
                         </span>
                       </label>
                     </div>
@@ -281,104 +98,28 @@ export default function PersonalAccountUserPage(): JSX.Element {
                       Специализация
                     </h2>
                     <div className="specialization-checkbox user-info__specialization">
-                      <div className="btn-checkbox">
-                        <label>
-                          <input
-                            className="visually-hidden"
-                            type="checkbox"
-                            name="specialization"
-                            value="yoga"
-                            checked
-                          />
-                          <span className="btn-checkbox__btn">Йога</span>
-                        </label>
-                      </div>
-                      <div className="btn-checkbox">
-                        <label>
-                          <input
-                            className="visually-hidden"
-                            type="checkbox"
-                            name="specialization"
-                            value="running"
-                          />
-                          <span className="btn-checkbox__btn">Бег</span>
-                        </label>
-                      </div>
-                      <div className="btn-checkbox">
-                        <label>
-                          <input
-                            className="visually-hidden"
-                            type="checkbox"
-                            name="specialization"
-                            value="aerobics"
-                            checked
-                          />
-                          <span className="btn-checkbox__btn">Аэробика</span>
-                        </label>
-                      </div>
-                      <div className="btn-checkbox">
-                        <label>
-                          <input
-                            className="visually-hidden"
-                            type="checkbox"
-                            name="specialization"
-                            value="boxing"
-                          />
-                          <span className="btn-checkbox__btn">Бокс</span>
-                        </label>
-                      </div>
-                      <div className="btn-checkbox">
-                        <label>
-                          <input
-                            className="visually-hidden"
-                            type="checkbox"
-                            name="specialization"
-                            value="power"
-                          />
-                          <span className="btn-checkbox__btn">Силовые</span>
-                        </label>
-                      </div>
-                      <div className="btn-checkbox">
-                        <label>
-                          <input
-                            className="visually-hidden"
-                            type="checkbox"
-                            name="specialization"
-                            value="pilates"
-                            checked
-                          />
-                          <span className="btn-checkbox__btn">Пилатес</span>
-                        </label>
-                      </div>
-                      <div className="btn-checkbox">
-                        <label>
-                          <input
-                            className="visually-hidden"
-                            type="checkbox"
-                            name="specialization"
-                            value="stretching"
-                            checked
-                          />
-                          <span className="btn-checkbox__btn">Стрейчинг</span>
-                        </label>
-                      </div>
-                      <div className="btn-checkbox">
-                        <label>
-                          <input
-                            className="visually-hidden"
-                            type="checkbox"
-                            name="specialization"
-                            value="crossfit"
-                          />
-                          <span className="btn-checkbox__btn">Кроссфит</span>
-                        </label>
-                      </div>
+                      {TypesOfTrainings.map((type) => (
+                        <div className="btn-checkbox" key={type}>
+                          <label>
+                            <input
+                              className="visually-hidden"
+                              type="checkbox"
+                              name="specialization"
+                              value={type.toLowerCase()}
+                              checked={currentUser.typeOfTraining.includes(
+                                type.toLowerCase()
+                              )}
+                            />
+                            <span className="btn-checkbox__btn">{type}</span>
+                          </label>
+                        </div>
+                      ))}
                     </div>
                   </div>
                   <div className="custom-select--readonly custom-select user-info__select">
                     <span className="custom-select__label">Локация</span>
                     <div className="custom-select__placeholder">
-                      ст. м. Адмиралтейская
+                      {renderLocation(currentUser.location)}
                     </div>
                     <button
                       className="custom-select__button"
@@ -397,7 +138,9 @@ export default function PersonalAccountUserPage(): JSX.Element {
                   </div>
                   <div className="custom-select--readonly custom-select user-info__select">
                     <span className="custom-select__label">Пол</span>
-                    <div className="custom-select__placeholder">Женский</div>
+                    <div className="custom-select__placeholder">
+                      {currentUser.gender}
+                    </div>
                     <button
                       className="custom-select__button"
                       type="button"
@@ -416,7 +159,7 @@ export default function PersonalAccountUserPage(): JSX.Element {
                   <div className="custom-select--readonly custom-select user-info__select">
                     <span className="custom-select__label">Уровень</span>
                     <div className="custom-select__placeholder">
-                      Профессионал
+                      {currentUser.levelOfTrain}
                     </div>
                     <button
                       className="custom-select__button"
@@ -448,7 +191,9 @@ export default function PersonalAccountUserPage(): JSX.Element {
                             <input
                               type="text"
                               name="schedule-for-the-day"
-                              value="3 300"
+                              defaultValue={
+                                currentUser.caloriesPerDay as number
+                              }
                             />
                           </label>
                         </div>
@@ -460,7 +205,10 @@ export default function PersonalAccountUserPage(): JSX.Element {
                             <input
                               type="text"
                               name="schedule-for-the-week"
-                              value="23 100"
+                              value={
+                                Number(currentUser.caloriesPerDay) *
+                                DAYS_IN_WEEK
+                              }
                             />
                           </label>
                         </div>
@@ -498,7 +246,7 @@ export default function PersonalAccountUserPage(): JSX.Element {
                             srcSet="img/content/thumbnails/nearest-gym-01.webp, img/content/thumbnails/nearest-gym-01@2x.webp 2x"
                           />
                           <img
-                            src="img/content/thumbnails/nearest-gym-01.jpg"
+                            src="/img/content/thumbnails/nearest-gym-01.jpg"
                             srcSet="img/content/thumbnails/nearest-gym-01@2x.jpg 2x"
                             width="330"
                             height="190"
