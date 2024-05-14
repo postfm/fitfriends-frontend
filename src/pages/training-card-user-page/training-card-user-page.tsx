@@ -4,8 +4,14 @@ import { loadTrainings } from '../../api/loadTrainings';
 import { loadReviews } from '../../api/loadReviews';
 import ReviewCard from '../../components/review/review-card';
 import { loadUsers } from '../../api/loadUsers';
+import { useState } from 'react';
+import PopupModal from '../../components/modal/popup-modal';
+import { PurchaseForm } from '../../components/popup-forms';
+import FeedbackForm from '../../components/popup-forms/feedback-form';
 
 export default function TrainingCardUserPage(): JSX.Element {
+  const [purchasePopupOpen, setPurchasePopupOpen] = useState(false);
+  const [feedbackPopupOpen, setFeedbackPopupOpen] = useState(false);
   const { id } = useParams();
   const trainings = useQuery({
     queryKey: ['trainings'],
@@ -54,6 +60,7 @@ export default function TrainingCardUserPage(): JSX.Element {
                 <button
                   className="btn btn--medium reviews-side-bar__button"
                   type="button"
+                  onClick={() => setFeedbackPopupOpen(true)}
                 >
                   Оставить отзыв
                 </button>
@@ -178,6 +185,7 @@ export default function TrainingCardUserPage(): JSX.Element {
                           <button
                             className="btn training-info__buy"
                             type="button"
+                            onClick={() => setPurchasePopupOpen(true)}
                           >
                             Купить
                           </button>
@@ -226,6 +234,20 @@ export default function TrainingCardUserPage(): JSX.Element {
           </div>
         </section>
       </main>
+      <PopupModal
+        isOpen={purchasePopupOpen}
+        onClose={() => setPurchasePopupOpen(false)}
+        title="Купить тренировку"
+      >
+        <PurchaseForm />
+      </PopupModal>
+      <PopupModal
+        isOpen={feedbackPopupOpen}
+        onClose={() => setFeedbackPopupOpen(false)}
+        title="Оставить отзыв"
+      >
+        <FeedbackForm />
+      </PopupModal>
     </div>
   );
 }

@@ -3,8 +3,11 @@ import { useUser } from '../../hooks';
 import { AuthAppRoutes } from '../../constants/constants';
 import { useState } from 'react';
 import { renderHashtag } from '../../utils';
+import PopupModal from '../../components/modal/popup-modal';
+import LocationMap from '../../components/location-map';
 
 export default function UserCardUserPage(): JSX.Element {
+  const [locationMapOpen, setLocationMapOpen] = useState(false);
   const user = useUser();
   const navigate = useNavigate();
   const [isAddFriend, setIsaddFriend] = useState(false);
@@ -38,7 +41,7 @@ export default function UserCardUserPage(): JSX.Element {
                         <h2 className="user-card__title">{user.name}</h2>
                       </div>
                       <div className="user-card__label">
-                        <a href="">
+                        <a onClick={() => setLocationMapOpen(true)}>
                           <svg
                             className="user-card-coach__icon-location"
                             width={12}
@@ -108,6 +111,14 @@ export default function UserCardUserPage(): JSX.Element {
           </div>
         </div>
       </main>
+      <PopupModal
+        isOpen={locationMapOpen}
+        title={user.name}
+        subtitle={user.location}
+        onClose={() => setLocationMapOpen(false)}
+      >
+        <LocationMap />
+      </PopupModal>
     </div>
   );
 }
