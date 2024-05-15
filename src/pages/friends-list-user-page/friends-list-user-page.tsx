@@ -1,11 +1,27 @@
+import { useNavigate } from 'react-router-dom';
+import { AuthAppRoutes } from '../../constants/constants';
+import { useQuery } from '@tanstack/react-query';
+import { loadFriendsUser } from '../../api/loadFriendsUser';
+import FriendsUserCard from '../../components/friends-user-card/friends-user-card';
+
 export default function FriendsListUserPage(): JSX.Element {
+  const navigate = useNavigate();
+  const friendsUser = useQuery({
+    queryKey: ['friendsUser'],
+    queryFn: loadFriendsUser,
+  });
+
   return (
     <div className="wrapper">
       <main>
         <section className="friends-list">
           <div className="container">
             <div className="friends-list__wrapper">
-              <button className="btn-flat friends-list__back" type="button">
+              <button
+                className="btn-flat friends-list__back"
+                type="button"
+                onClick={() => navigate(AuthAppRoutes.MyAccount)}
+              >
                 <svg width={14} height={10} aria-hidden="true">
                   <use xlinkHref="#arrow-left" />
                 </svg>
@@ -15,87 +31,11 @@ export default function FriendsListUserPage(): JSX.Element {
                 <h1 className="friends-list__title">Мои друзья</h1>
               </div>
               <ul className="friends-list__list">
-                <li className="friends-list__item">
-                  <div className="thumbnail-friend">
-                    <div className="thumbnail-friend__info thumbnail-friend__info--theme-light">
-                      <div className="thumbnail-friend__image-status">
-                        <div className="thumbnail-friend__image">
-                          <picture>
-                            <source
-                              type="image/webp"
-                              srcSet="img/content/thumbnails/friend-08.webp, img/content/thumbnails/friend-08@2x.webp 2x"
-                            />
-                            <img
-                              src="img/content/thumbnails/friend-08.jpg"
-                              srcSet="img/content/thumbnails/friend-08@2x.jpg 2x"
-                              width={78}
-                              height={78}
-                              alt=""
-                            />
-                          </picture>
-                        </div>
-                      </div>
-                      <div className="thumbnail-friend__header">
-                        <h2 className="thumbnail-friend__name">Елизавета</h2>
-                        <div className="thumbnail-friend__location">
-                          <svg width={14} height={16} aria-hidden="true">
-                            <use xlinkHref="#icon-location" />
-                          </svg>
-                          <address className="thumbnail-friend__location-address">
-                            Петроградская
-                          </address>
-                        </div>
-                      </div>
-                      <ul className="thumbnail-friend__training-types-list">
-                        <li>
-                          <div className="hashtag thumbnail-friend__hashtag">
-                            <span>#стретчинг</span>
-                          </div>
-                        </li>
-                      </ul>
-                      <div className="thumbnail-friend__activity-bar">
-                        <div className="thumbnail-friend__ready-status thumbnail-friend__ready-status--is-ready">
-                          <span>Готов к&nbsp;тренировке</span>
-                        </div>
-                        <button
-                          className="thumbnail-friend__invite-button"
-                          type="button"
-                        >
-                          <svg
-                            width={43}
-                            height={46}
-                            aria-hidden="true"
-                            focusable="false"
-                          >
-                            <use xlinkHref="#icon-invite" />
-                          </svg>
-                          <span className="visually-hidden">
-                            Пригласить друга на совместную тренировку
-                          </span>
-                        </button>
-                      </div>
-                    </div>
-                    <div className="thumbnail-friend__request-status thumbnail-friend__request-status--role-user">
-                      <p className="thumbnail-friend__request-text">
-                        Запрос на&nbsp;совместную тренировку
-                      </p>
-                      <div className="thumbnail-friend__button-wrapper">
-                        <button
-                          className="btn btn--medium btn--dark-bg thumbnail-friend__button"
-                          type="button"
-                        >
-                          Принять
-                        </button>
-                        <button
-                          className="btn btn--medium btn--outlined btn--dark-bg thumbnail-friend__button"
-                          type="button"
-                        >
-                          Отклонить
-                        </button>
-                      </div>
-                    </div>
-                  </div>
-                </li>
+                {friendsUser.data?.map((friend) => (
+                  <li className="friends-list__item" key={friend.id}>
+                    <FriendsUserCard user={friend} />
+                  </li>
+                ))}
                 <li className="friends-list__item">
                   <div className="thumbnail-friend">
                     <div className="thumbnail-friend__info thumbnail-friend__info--theme-light">
@@ -114,7 +54,6 @@ export default function FriendsListUserPage(): JSX.Element {
                               alt=""
                             />
                           </picture>
-                          {/*<div class="thumbnail-friend__online-status thumbnail-friend__online-status--is-online"></div>*/}
                         </div>
                       </div>
                       <div className="thumbnail-friend__header">
@@ -196,7 +135,6 @@ export default function FriendsListUserPage(): JSX.Element {
                               alt=""
                             />
                           </picture>
-                          {/*<div class="thumbnail-friend__online-status thumbnail-friend__online-status--is-online"></div>*/}
                         </div>
                       </div>
                       <div className="thumbnail-friend__header">
@@ -264,7 +202,6 @@ export default function FriendsListUserPage(): JSX.Element {
                               alt=""
                             />
                           </picture>
-                          {/*<div class="thumbnail-friend__online-status thumbnail-friend__online-status--is-online"></div>*/}
                         </div>
                       </div>
                       <div className="thumbnail-friend__header">
@@ -332,7 +269,6 @@ export default function FriendsListUserPage(): JSX.Element {
                               alt=""
                             />
                           </picture>
-                          {/*<div class="thumbnail-friend__online-status thumbnail-friend__online-status--is-online"></div>*/}
                         </div>
                       </div>
                       <div className="thumbnail-friend__header">
@@ -384,7 +320,6 @@ export default function FriendsListUserPage(): JSX.Element {
                               alt=""
                             />
                           </picture>
-                          {/*<div class="thumbnail-friend__online-status thumbnail-friend__online-status--is-offline"></div>*/}
                         </div>
                       </div>
                       <div className="thumbnail-friend__header">
@@ -436,7 +371,6 @@ export default function FriendsListUserPage(): JSX.Element {
                               alt=""
                             />
                           </picture>
-                          {/*<div class="thumbnail-friend__online-status thumbnail-friend__online-status--is-offline"></div>*/}
                         </div>
                       </div>
                       <div className="thumbnail-friend__header">
@@ -483,7 +417,6 @@ export default function FriendsListUserPage(): JSX.Element {
                               alt=""
                             />
                           </picture>
-                          {/*<div class="thumbnail-friend__online-status thumbnail-friend__online-status--is-online"></div>*/}
                         </div>
                       </div>
                       <div className="thumbnail-friend__header">
@@ -530,7 +463,6 @@ export default function FriendsListUserPage(): JSX.Element {
                               alt=""
                             />
                           </picture>
-                          {/*<div class="thumbnail-friend__online-status thumbnail-friend__online-status--is-online"></div>*/}
                         </div>
                       </div>
                       <div className="thumbnail-friend__header">
