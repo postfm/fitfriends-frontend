@@ -46,9 +46,13 @@ const UserCardThumbnail: React.FC<UserCardThumbnailProps> = ({ user }) => (
       </ul>
       <Link
         className="btn btn--medium thumbnail-user__button"
-        to={generatePath(AppRoutes.UserCard, {
-          id: String(user.id),
-        })}
+        to={
+          user.roles === UserRole.coach
+            ? generatePath(AppRoutes.СoachCard, { id: String(user.id) })
+            : generatePath(AppRoutes.UserCard, {
+                id: String(user.id),
+              })
+        }
       >
         Подробнее
       </Link>
