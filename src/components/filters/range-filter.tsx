@@ -9,6 +9,7 @@ interface RangeFilterProps {
   max: number;
   step?: number;
   hideValueInputs?: boolean;
+  showOutputs?: boolean;
   onChange?: (values: [number, number]) => void;
 }
 
@@ -22,6 +23,7 @@ export const RangeFilter: React.FC<RangeFilterProps> = (props) => {
     onChange,
     title,
     hideValueInputs,
+    showOutputs,
   } = props;
   const [values, setValues] = useState([defaultMin, defaultMax]);
 
@@ -118,6 +120,19 @@ export const RangeFilter: React.FC<RangeFilterProps> = (props) => {
           )}
         />
       </div>
+      {showOutputs && (
+        <div
+          style={{
+            display: 'flex',
+            position: 'relative',
+            justifyContent: 'space-between',
+            marginTop: '10px',
+          }}
+        >
+          <span>{min}</span>
+          <span>{max}</span>
+        </div>
+      )}
     </div>
   );
 };

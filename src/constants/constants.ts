@@ -64,4 +64,4 @@ export const TimeOfTraining = [
 
 export const Genders = ['женский', 'мужской', 'неважно'];
 
-export const LevelOfTraining = ['Новичок', 'Любитель', 'Профессионал'];
+export const LevelOfTraining = ['новичок', 'любитель', 'профессионал'];

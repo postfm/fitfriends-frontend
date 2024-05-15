@@ -34,7 +34,6 @@ export default function MyTrainingsPage(): JSX.Element {
                   <h3 className="my-training-form__title">фильтры</h3>
                   <form className="my-training-form__form">
                     <div className="my-training-form__block my-training-form__block--price">
-                      <h4 className="my-training-form__block-title">Цена, ₽</h4>
                       <RangeFilter
                         title="Цена, ₽"
                         min={0}
@@ -63,6 +62,7 @@ export default function MyTrainingsPage(): JSX.Element {
                         defaultMin={1}
                         defaultMax={5}
                         hideValueInputs
+                        showOutputs
                       />
                     </div>
                     <div className="my-training-form__block my-training-form__block--duration">

@@ -8,14 +8,14 @@ import { noop } from 'lodash';
 interface AuthContext {
   user: User | null;
   setCurrentUser: (data: User) => void;
+  saveCurrentUser: (data: User) => void;
   logoutCurrentUser: () => void;
 }
 
 export const AuthContext = createContext<AuthContext>({
   user: null,
-  // eslint-disable-next-line @typescript-eslint/no-unsafe-assignment
   setCurrentUser: noop,
-  // eslint-disable-next-line @typescript-eslint/no-unsafe-assignment
+  saveCurrentUser: noop,
   logoutCurrentUser: noop,
 });
 
@@ -39,6 +39,7 @@ export const AuthProvider: React.FC<{ children: React.ReactNode }> = ({
     () => ({
       user,
       setCurrentUser,
+      saveCurrentUser: setUser,
       logoutCurrentUser,
     }),
     [user]

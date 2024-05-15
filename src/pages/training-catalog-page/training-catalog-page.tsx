@@ -77,6 +77,7 @@ export default function TrainingCatalogPage(): JSX.Element {
                         step={1}
                         defaultMin={1}
                         defaultMax={5}
+                        showOutputs
                       />
                     </div>
                     {options.length > 0 && (

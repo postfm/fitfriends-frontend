@@ -144,7 +144,7 @@ export const USERS_MOCK = {
       caloriesToLose: null,
       caloriesPerDay: null,
       readyToTrain: null,
-      certificates: 'img/content/certificates-and-diplomas/2.pdf',
+      certificates: 'img/content/certificates-and-diplomas/certificate-1.jpg',
       merits: 'Чемпионка республики',
       personalTrainings: true,
       refreshToken:

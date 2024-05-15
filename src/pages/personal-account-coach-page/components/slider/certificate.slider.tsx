@@ -30,7 +30,7 @@ const CertificateSlider: React.FC<CertificateSliderProps> = ({
       <div className="personal-account-coach__label-wrapper">
         <h2 className="personal-account-coach__label">Дипломы и сертификаты</h2>
         <label className="btn-flat btn-flat--underlined personal-account-coach__button">
-          <label>
+          <label style={{display: 'flex', alignItems: 'center'}}>
             <input
               className="visually-hidden"
               type="file"
@@ -39,7 +39,7 @@ const CertificateSlider: React.FC<CertificateSliderProps> = ({
             <svg width={14} height={14} aria-hidden="true">
               <use xlinkHref="#icon-import" />
             </svg>
-            <span>Загрузить</span>
+            <span style={{marginLeft: '5px'}}>Загрузить</span>
           </label>
         </label>
         <div className="personal-account-coach__controls">
