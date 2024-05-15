@@ -68,22 +68,13 @@ export interface PersonalTraining {
 }
 
 export interface MyOrder {
-  trainingId: number;
-  name: string;
-  image: string;
-  level: string;
   type: string;
-  duration: string;
   price: number;
-  calories: number;
-  description: string;
-  gender: string;
-  video: string;
-  rating: number;
-  specialOffer: boolean;
-  userId: number;
-  quantity: string;
-  cost: string;
+  amount: number;
+  sum: number;
+  pay: string;
+  training: Training;
+  user: User;
 }
 
 export interface Review {

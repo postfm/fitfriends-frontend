@@ -1,12 +1,28 @@
 import { useNavigate } from 'react-router-dom';
 import { AuthAppRoutes } from '../../constants/constants';
 import { useUser } from '../../hooks';
+import { loadMyOrders } from '../../api/loadMyOrders';
+import { useQuery } from '@tanstack/react-query';
+import TrainingCard from '../../components/training-card';
+import { useState } from 'react';
 
 export default function MyPurchasesPage(): JSX.Element {
+  const [onlyActive, setOnlyActive] = useState(false);
   const navigate = useNavigate();
   const currentUser = useUser();
 
-  console.log(currentUser);
+  const purchases = useQuery({
+    queryKey: ['puchases'],
+    queryFn: loadMyOrders,
+  });
+
+  const myPuchases = purchases.data?.filter(
+    (purchase) => purchase.user.id === currentUser.id
+  );
+
+  const handleCheckBoxChange = () => {
+    setOnlyActive(!onlyActive);
+  };
 
   return (
     <div className="wrapper">
@@ -36,6 +52,8 @@ export default function MyPurchasesPage(): JSX.Element {
                         type="checkbox"
                         defaultValue="user-agreement-1"
                         name="user-agreement"
+                        checked={!onlyActive}
+                        onChange={handleCheckBoxChange}
                       />
                       <span className="custom-toggle__icon">
                         <svg width={9} height={6} aria-hidden="true">
@@ -43,227 +61,27 @@ export default function MyPurchasesPage(): JSX.Element {
                         </svg>
                       </span>
                       <span className="custom-toggle__label">
-                        Только активные
+                        {onlyActive ? 'Только активные' : 'Все'}
                       </span>
                     </label>
                   </div>
                 </div>
               </div>
               <ul className="my-purchases__list">
-                <li className="my-purchases__item">
-                  <div className="thumbnail-training">
-                    <div className="thumbnail-training__inner">
-                      <div className="thumbnail-training__image">
-                        <picture>
-                          <source
-                            type="image/webp"
-                            srcSet="img/content/thumbnails/training-01.webp, img/content/thumbnails/training-01@2x.webp 2x"
-                          />
-                          <img
-                            src="img/content/thumbnails/training-01.jpg"
-                            srcSet="img/content/thumbnails/training-01@2x.jpg 2x"
-                            width={330}
-                            height={190}
-                            alt=""
-                          />
-                        </picture>
-                      </div>
-                      <p className="thumbnail-training__price">
-                        <span className="thumbnail-training__price-value">
-                          800
-                        </span>
-                        <span>₽</span>
-                      </p>
-                      <h2 className="thumbnail-training__title">energy</h2>
-                      <div className="thumbnail-training__info">
-                        <ul className="thumbnail-training__hashtags-list">
-                          <li className="thumbnail-training__hashtags-item">
-                            <div className="hashtag thumbnail-training__hashtag">
-                              <span>#пилатес</span>
-                            </div>
-                          </li>
-                          <li className="thumbnail-training__hashtags-item">
-                            <div className="hashtag thumbnail-training__hashtag">
-                              <span>#320ккал</span>
-                            </div>
-                          </li>
-                        </ul>
-                        <div className="thumbnail-training__rate">
-                          <svg width={16} height={16} aria-hidden="true">
-                            <use xlinkHref="#icon-star" />
-                          </svg>
-                          <span className="thumbnail-training__rate-value">
-                            4
-                          </span>
-                        </div>
-                      </div>
-                      <div className="thumbnail-training__text-wrapper">
-                        <p className="thumbnail-training__text">
-                          Упражнения укрепляют мышечный корсет, делают суставы
-                          более гибкими, улучшают осанку и&nbsp;координацию.
-                        </p>
-                      </div>
-                      <div className="thumbnail-training__button-wrapper">
-                        <a
-                          className="btn btn--small thumbnail-training__button-catalog"
-                          href="#"
-                        >
-                          Подробнее
-                        </a>
-                        <a
-                          className="btn btn--small btn--outlined thumbnail-training__button-catalog"
-                          href="#"
-                        >
-                          Отзывы
-                        </a>
-                      </div>
-                    </div>
-                  </div>
-                </li>
-                <li className="my-purchases__item">
-                  <div className="thumbnail-training">
-                    <div className="thumbnail-training__inner">
-                      <div className="thumbnail-training__image">
-                        <picture>
-                          <source
-                            type="image/webp"
-                            srcSet="img/content/thumbnails/training-03.webp, img/content/thumbnails/training-03@2x.webp 2x"
-                          />
-                          <img
-                            src="img/content/thumbnails/training-03.jpg"
-                            srcSet="img/content/thumbnails/training-03@2x.jpg 2x"
-                            width={330}
-                            height={190}
-                            alt=""
-                          />
-                        </picture>
-                      </div>
-                      <p className="thumbnail-training__price">
-                        <span className="thumbnail-training__price-value">
-                          1000
-                        </span>
-                        <span>₽</span>
-                      </p>
-                      <h2 className="thumbnail-training__title">boxing</h2>
-                      <div className="thumbnail-training__info">
-                        <ul className="thumbnail-training__hashtags-list">
-                          <li className="thumbnail-training__hashtags-item">
-                            <div className="hashtag thumbnail-training__hashtag">
-                              <span>#бокс</span>
-                            </div>
-                          </li>
-                          <li className="thumbnail-training__hashtags-item">
-                            <div className="hashtag thumbnail-training__hashtag">
-                              <span>#800ккал</span>
-                            </div>
-                          </li>
-                        </ul>
-                        <div className="thumbnail-training__rate">
-                          <svg width={16} height={16} aria-hidden="true">
-                            <use xlinkHref="#icon-star" />
-                          </svg>
-                          <span className="thumbnail-training__rate-value">
-                            5
-                          </span>
-                        </div>
-                      </div>
-                      <div className="thumbnail-training__text-wrapper">
-                        <p className="thumbnail-training__text">
-                          Тренировка на&nbsp;отработку правильных ударов,
-                          координации и&nbsp;оптимальной механики защитных
-                          движений.
-                        </p>
-                      </div>
-                      <div className="thumbnail-training__button-wrapper">
-                        <a
-                          className="btn btn--small thumbnail-training__button-catalog"
-                          href="#"
-                        >
-                          Подробнее
-                        </a>
-                        <a
-                          className="btn btn--small btn--outlined thumbnail-training__button-catalog"
-                          href="#"
-                        >
-                          Отзывы
-                        </a>
-                      </div>
-                    </div>
-                  </div>
-                </li>
-                <li className="my-purchases__item">
-                  <div className="thumbnail-training">
-                    <div className="thumbnail-training__inner">
-                      <div className="thumbnail-training__image">
-                        <picture>
-                          <source
-                            type="image/webp"
-                            srcSet="img/content/thumbnails/training-06.webp, img/content/thumbnails/training-06@2x.webp 2x"
-                          />
-                          <img
-                            src="img/content/thumbnails/training-06.jpg"
-                            srcSet="img/content/thumbnails/training-06@2x.jpg 2x"
-                            width={330}
-                            height={190}
-                            alt=""
-                          />
-                        </picture>
-                      </div>
-                      <p className="thumbnail-training__price">
-                        <span className="thumbnail-training__price-value">
-                          1600
-                        </span>
-                        <span>₽</span>
-                      </p>
-                      <h2 className="thumbnail-training__title">
-                        run, forrest, run
-                      </h2>
-                      <div className="thumbnail-training__info">
-                        <ul className="thumbnail-training__hashtags-list">
-                          <li className="thumbnail-training__hashtags-item">
-                            <div className="hashtag thumbnail-training__hashtag">
-                              <span>#бег</span>
-                            </div>
-                          </li>
-                          <li className="thumbnail-training__hashtags-item">
-                            <div className="hashtag thumbnail-training__hashtag">
-                              <span>#500ккал</span>
-                            </div>
-                          </li>
-                        </ul>
-                        <div className="thumbnail-training__rate">
-                          <svg width={16} height={16} aria-hidden="true">
-                            <use xlinkHref="#icon-star" />
-                          </svg>
-                          <span className="thumbnail-training__rate-value">
-                            5
-                          </span>
-                        </div>
-                      </div>
-                      <div className="thumbnail-training__text-wrapper">
-                        <p className="thumbnail-training__text">
-                          Узнайте правильную технику бега, развивайте
-                          выносливость и&nbsp;откройте для себя все секреты
-                          длительных пробежек.
-                        </p>
-                      </div>
-                      <div className="thumbnail-training__button-wrapper">
-                        <a
-                          className="btn btn--small thumbnail-training__button-catalog"
-                          href="#"
-                        >
-                          Подробнее
-                        </a>
-                        <a
-                          className="btn btn--small btn--outlined thumbnail-training__button-catalog"
-                          href="#"
-                        >
-                          Отзывы
-                        </a>
-                      </div>
-                    </div>
-                  </div>
-                </li>
+                {myPuchases?.map((myPuchase) => (
+                  <li
+                    className="my-purchases__item"
+                    key={myPuchase.training.trainingId}
+                  >
+                    {onlyActive ? (
+                      +myPuchase.amount > 0 && (
+                        <TrainingCard training={myPuchase.training} />
+                      )
+                    ) : (
+                      <TrainingCard training={myPuchase.training} />
+                    )}
+                  </li>
+                ))}
               </ul>
               <div className="show-more my-purchases__show-more">
                 <button

@@ -33,7 +33,6 @@ export default function FriendsListUserPage(): JSX.Element {
                               alt=""
                             />
                           </picture>
-                          {/*<div class="thumbnail-friend__online-status thumbnail-friend__online-status--is-online"></div>*/}
                         </div>
                       </div>
                       <div className="thumbnail-friend__header">

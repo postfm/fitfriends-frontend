@@ -24,7 +24,7 @@ export default function MainPage(): JSX.Element {
         currentUser.gender === UserGender.all ||
         training.gender === TrainingGender.all ||
         getEnumKeyByEnumValue(UserGender, currentUser.gender) ===
-        getEnumKeyByEnumValue(TrainingGender, training.gender);
+          getEnumKeyByEnumValue(TrainingGender, training.gender);
       const typeOfTrainingMatch = currentUser.typeOfTraining.includes(
         training.type
       );
