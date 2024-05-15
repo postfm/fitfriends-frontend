@@ -62,11 +62,11 @@ export default function TrainingCatalogPage(): JSX.Element {
                     <div className="gym-catalog-form__block gym-catalog-form__block--calories">
                       <RangeFilter
                         title="Калории"
-                        min={0}
-                        max={3000}
-                        step={50}
-                        defaultMin={0}
-                        defaultMax={2000}
+                        min={1000}
+                        max={5000}
+                        step={10}
+                        defaultMin={1000}
+                        defaultMax={5000}
                       />
                     </div>
                     <div className="gym-catalog-form__block gym-catalog-form__block--rating">

@@ -1,12 +1,14 @@
 import { useQuery } from '@tanstack/react-query';
-import { useParams } from 'react-router-dom';
+import { useNavigate, useParams } from 'react-router-dom';
 import { loadTrainings } from '../../api/loadTrainings';
 import { loadReviews } from '../../api/loadReviews';
 import ReviewCard from '../../components/review/review-card';
 import { loadUsers } from '../../api/loadUsers';
+import { AuthAppRoutes } from '../../constants/constants';
 
 export default function TrainingCardUserPage(): JSX.Element {
   const { id } = useParams();
+  const navigate = useNavigate();
   const trainings = useQuery({
     queryKey: ['trainings'],
     queryFn: loadTrainings,
@@ -39,6 +41,7 @@ export default function TrainingCardUserPage(): JSX.Element {
                 <button
                   className="btn-flat btn-flat--underlined reviews-side-bar__back"
                   type="button"
+                  onClick={() => navigate(AuthAppRoutes.Main)}
                 >
                   <svg width={14} height={10} aria-hidden="true">
                     <use xlinkHref="#arrow-left" />

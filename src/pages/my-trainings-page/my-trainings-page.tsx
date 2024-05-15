@@ -1,9 +1,10 @@
-import { useQuery } from "@tanstack/react-query";
-import { loadTrainings } from "../../api/loadTrainings";
-import MyTrainingCard from "../../components/my-training-card";
-import { Training } from "../../types";
-import { AuthAppRoutes } from "../../constants/constants";
-import { Link } from "react-router-dom";
+import { useQuery } from '@tanstack/react-query';
+import { loadTrainings } from '../../api/loadTrainings';
+import MyTrainingCard from '../../components/my-training-card';
+import { Training } from '../../types';
+import { AuthAppRoutes } from '../../constants/constants';
+import { Link } from 'react-router-dom';
+import { RangeFilter } from '../../components/filters';
 
 export default function MyTrainingsPage(): JSX.Element {
   const trainings = useQuery({
@@ -34,115 +35,35 @@ export default function MyTrainingsPage(): JSX.Element {
                   <form className="my-training-form__form">
                     <div className="my-training-form__block my-training-form__block--price">
                       <h4 className="my-training-form__block-title">Цена, ₽</h4>
-                      <div className="filter-price">
-                        <div className="filter-price__input-text filter-price__input-text--min">
-                          <input
-                            type="number"
-                            id="text-min"
-                            name="text-min"
-                            defaultValue={0}
-                          />
-                          <label htmlFor="text-min">от</label>
-                        </div>
-                        <div className="filter-price__input-text filter-price__input-text--max">
-                          <input
-                            type="number"
-                            id="text-max"
-                            name="text-max"
-                            defaultValue={3200}
-                          />
-                          <label htmlFor="text-max">до</label>
-                        </div>
-                      </div>
-                      <div className="filter-range">
-                        <div className="filter-range__scale">
-                          <div className="filter-range__bar">
-                            <span className="visually-hidden">
-                              Полоса прокрутки
-                            </span>
-                          </div>
-                        </div>
-                        <div className="filter-range__control">
-                          <button className="filter-range__min-toggle">
-                            <span className="visually-hidden">
-                              Минимальное значение
-                            </span>
-                          </button>
-                          <button className="filter-range__max-toggle">
-                            <span className="visually-hidden">
-                              Максимальное значение
-                            </span>
-                          </button>
-                        </div>
-                      </div>
+                      <RangeFilter
+                        title="Цена, ₽"
+                        min={0}
+                        max={5000}
+                        step={50}
+                        defaultMin={0}
+                        defaultMax={3000}
+                      />{' '}
                     </div>
                     <div className="my-training-form__block my-training-form__block--calories">
-                      <h4 className="my-training-form__block-title">Калории</h4>
-                      <div className="filter-calories">
-                        <div className="filter-calories__input-text filter-calories__input-text--min">
-                          <input
-                            type="number"
-                            id="text-min-cal"
-                            name="text-min-cal"
-                          />
-                          <label htmlFor="text-min-cal">от</label>
-                        </div>
-                        <div className="filter-calories__input-text filter-calories__input-text--max">
-                          <input
-                            type="number"
-                            id="text-max-cal"
-                            name="text-max-cal"
-                          />
-                          <label htmlFor="text-max-cal">до</label>
-                        </div>
-                      </div>
-                      <div className="filter-range">
-                        <div className="filter-range__scale">
-                          <div className="filter-range__bar">
-                            <span className="visually-hidden">
-                              Полоса прокрутки
-                            </span>
-                          </div>
-                        </div>
-                        <div className="filter-range__control">
-                          <button className="filter-range__min-toggle">
-                            <span className="visually-hidden">
-                              Минимальное значение
-                            </span>
-                          </button>
-                          <button className="filter-range__max-toggle">
-                            <span className="visually-hidden">
-                              Максимальное значение
-                            </span>
-                          </button>
-                        </div>
-                      </div>
+                      <RangeFilter
+                        title="Калории"
+                        min={1000}
+                        max={5000}
+                        step={10}
+                        defaultMin={1000}
+                        defaultMax={5000}
+                      />
                     </div>
                     <div className="my-training-form__block my-training-form__block--raiting">
-                      <h4 className="my-training-form__block-title">Рейтинг</h4>
-                      <div className="filter-raiting">
-                        <div className="filter-raiting__scale">
-                          <div className="filter-raiting__bar">
-                            <span className="visually-hidden">
-                              Полоса прокрутки
-                            </span>
-                          </div>
-                        </div>
-                        <div className="filter-raiting__control">
-                          <button className="filter-raiting__min-toggle">
-                            <span className="visually-hidden">
-                              Минимальное значение
-                            </span>
-                          </button>
-                          <span>0</span>
-                          <button className="filter-raiting__max-toggle">
-                            <span className="visually-hidden">
-                              Максимальное значение
-                            </span>
-                          </button>
-                          <span>5</span>
-                        </div>
-                      </div>
+                      <RangeFilter
+                        title="Рейтинг"
+                        min={1}
+                        max={5}
+                        step={1}
+                        defaultMin={1}
+                        defaultMax={5}
+                        hideValueInputs
+                      />
                     </div>
                     <div className="my-training-form__block my-training-form__block--duration">
                       <h4 className="my-training-form__block-title">
@@ -234,9 +155,14 @@ export default function MyTrainingsPage(): JSX.Element {
               <div className="inner-page__content">
                 <div className="my-trainings">
                   <ul className="my-trainings__list">
-                    {trainings.data?.map((training: Training): JSX.Element => (
-                      <MyTrainingCard key={training.trainingId} training={training} />
-                    ))}
+                    {trainings.data?.map(
+                      (training: Training): JSX.Element => (
+                        <MyTrainingCard
+                          key={training.trainingId}
+                          training={training}
+                        />
+                      )
+                    )}
                   </ul>
                   <div className="show-more my-trainings__show-more">
                     <button

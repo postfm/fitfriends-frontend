@@ -1,12 +1,83 @@
 import { Link } from 'react-router-dom';
-import { AppRoutes, TypesOfTrainings } from '../../constants/constants';
+import {
+  AppRoutes,
+  Genders,
+  LevelOfTraining,
+  Locations,
+  TypesOfTrainings,
+} from '../../constants/constants';
 import { useUser } from '../../hooks';
 import { renderLocation } from '../../utils';
+import { FormEvent, useState } from 'react';
+import registerStyles from './personal-accaunt-user.module.css';
+import classNames from 'classnames';
 
 const DAYS_IN_WEEK = 7;
 
 export default function PersonalAccountUserPage(): JSX.Element {
   const currentUser = useUser();
+  const [isEdit, setIsEdit] = useState(false);
+  const [level, setLevel] = useState(currentUser.levelOfTrain);
+  const [gender, setGender] = useState(currentUser.gender);
+  const [location, setLocation] = useState(currentUser.location);
+  const [isChangeLevel, setIsChangeLevel] = useState(false);
+  const [isChangeGender, setIsChangeGender] = useState(false);
+  const [isChangeLocation, setIsChangeLocation] = useState(false);
+
+  const handleListLevelClick: React.MouseEventHandler<HTMLElement> = (evt) => {
+    setLevel((evt.target as HTMLElement).innerText);
+    setIsChangeLevel(!isChangeLevel);
+  };
+
+  const handleButtonLevelClick = () => {
+    setIsChangeLevel(!isChangeLevel);
+  };
+
+  const handleListGenderClick: React.MouseEventHandler<HTMLElement> = (evt) => {
+    setGender((evt.target as HTMLElement).innerText);
+    setIsChangeGender(!isChangeGender);
+  };
+
+  const handleButtonGenderClick = () => {
+    setIsChangeGender(!isChangeGender);
+  };
+
+  const handleListLocationClick: React.MouseEventHandler<HTMLElement> = (
+    evt
+  ) => {
+    setLocation((evt.target as HTMLElement).innerText);
+    setIsChangeLocation(!isChangeLocation);
+  };
+
+  const handleButtonLocationClick = () => {
+    setIsChangeLocation(!isChangeLocation);
+  };
+
+  const handleFormSubmit = (evt: FormEvent<HTMLFormElement>) => {
+    evt.preventDefault();
+
+    if (!isEdit) {
+      setIsEdit(!isEdit);
+      return;
+    }
+
+    const form = evt.target as HTMLFormElement;
+    const formData = new FormData(form);
+
+    const userChanged = {
+      name: formData.get('name'),
+      description: formData.get('description'),
+      readyToTrain: !!formData.get('ready-for-training'),
+      typeOfTraining: formData.getAll('specialization'),
+      location: location,
+      gender: gender,
+      levelOfTrain: level,
+    };
+
+    if (userChanged) {
+      setIsEdit(!isEdit);
+    }
+  };
 
   return (
     <div className="wrapper">
@@ -20,10 +91,11 @@ export default function PersonalAccountUserPage(): JSX.Element {
                   <div className="input-load-avatar">
                     <label>
                       <input
-                        className="visually-hidden"
+                        className={'visually-hidden'}
                         type="file"
                         name="user-photo-1"
                         accept="image/png, image/jpeg"
+                        disabled={!isEdit}
                       />
                       <span className="input-load-avatar__avatar">
                         <img
@@ -36,16 +108,21 @@ export default function PersonalAccountUserPage(): JSX.Element {
                     </label>
                   </div>
                 </div>
-                <form className="user-info__form" action="#" method="post">
+                <form
+                  className="user-info__form"
+                  action="#"
+                  method="post"
+                  onSubmit={handleFormSubmit}
+                >
                   <button
                     className="btn-flat btn-flat--underlined user-info__edit-button"
-                    type="button"
-                    aria-label="Редактировать"
+                    type="submit"
+                    aria-label={!isEdit ? 'Редактировать' : 'Сохранить'}
                   >
                     <svg width="12" height="12" aria-hidden="true">
                       <use xlinkHref="#icon-edit"></use>
                     </svg>
-                    <span>Редактировать</span>
+                    <span>{isEdit ? 'Сохранить' : 'Редактировать'}</span>
                   </button>
                   <div className="user-info__section">
                     <h2 className="user-info__title">Обо мне</h2>
@@ -56,8 +133,8 @@ export default function PersonalAccountUserPage(): JSX.Element {
                           <input
                             type="text"
                             name="name"
-                            value={currentUser.name}
-                            disabled
+                            defaultValue={currentUser.name}
+                            disabled={!isEdit}
                           />
                         </span>
                       </label>
@@ -65,7 +142,11 @@ export default function PersonalAccountUserPage(): JSX.Element {
                     <div className="custom-textarea custom-textarea--readonly user-info__textarea">
                       <label>
                         <span className="custom-textarea__label">Описание</span>
-                        <textarea name="description" placeholder=" " disabled>
+                        <textarea
+                          name="description"
+                          placeholder=" "
+                          disabled={!isEdit}
+                        >
                           {currentUser.description}
                         </textarea>
                       </label>
@@ -80,7 +161,8 @@ export default function PersonalAccountUserPage(): JSX.Element {
                         <input
                           type="checkbox"
                           name="ready-for-training"
-                          checked={currentUser.readyToTrain as boolean}
+                          defaultChecked={currentUser.readyToTrain as boolean}
+                          disabled={!isEdit}
                         />
                         <span className="custom-toggle__icon">
                           <svg width="9" height="6" aria-hidden="true">
@@ -105,10 +187,11 @@ export default function PersonalAccountUserPage(): JSX.Element {
                               className="visually-hidden"
                               type="checkbox"
                               name="specialization"
-                              value={type.toLowerCase()}
-                              checked={currentUser.typeOfTraining.includes(
+                              defaultValue={type.toLowerCase()}
+                              defaultChecked={currentUser.typeOfTraining.includes(
                                 type.toLowerCase()
                               )}
+                              disabled={!isEdit}
                             />
                             <span className="btn-checkbox__btn">{type}</span>
                           </label>
@@ -118,63 +201,132 @@ export default function PersonalAccountUserPage(): JSX.Element {
                   </div>
                   <div className="custom-select--readonly custom-select user-info__select">
                     <span className="custom-select__label">Локация</span>
-                    <div className="custom-select__placeholder">
-                      {renderLocation(currentUser.location)}
-                    </div>
+                    <div className="custom-select__placeholder"></div>
                     <button
                       className="custom-select__button"
                       type="button"
                       aria-label="Выберите одну из опций"
-                      disabled
+                      disabled={!isEdit}
+                      onClick={handleButtonLocationClick}
                     >
-                      <span className="custom-select__text"></span>
-                      <span className="custom-select__icon">
+                      <span
+                        className="custom-select__text"
+                        style={{ opacity: 1 }}
+                      >
+                        {renderLocation(location)}
+                      </span>
+                      <span
+                        className="custom-select__icon"
+                        style={isEdit ? { display: 'block' } : {}}
+                      >
                         <svg width="15" height="6" aria-hidden="true">
                           <use xlinkHref="#arrow-down"></use>
                         </svg>
                       </span>
                     </button>
-                    <ul className="custom-select__list" role="listbox"></ul>
+                    <ul
+                      className={classNames(
+                        'custom-select__list',
+                        isChangeLocation ? registerStyles.display_list : ''
+                      )}
+                      role="listbox"
+                      style={
+                        isChangeLocation
+                          ? { visibility: 'visible', opacity: 1 }
+                          : { visibility: 'hidden', opacity: 0 }
+                      }
+                      onClick={handleListLocationClick}
+                    >
+                      {Locations.map((location) => (
+                        <li key={location}>{location}</li>
+                      ))}
+                    </ul>
                   </div>
                   <div className="custom-select--readonly custom-select user-info__select">
                     <span className="custom-select__label">Пол</span>
-                    <div className="custom-select__placeholder">
-                      {currentUser.gender}
-                    </div>
+                    <div className="custom-select__placeholder"></div>
                     <button
                       className="custom-select__button"
                       type="button"
                       aria-label="Выберите одну из опций"
-                      disabled
+                      disabled={!isEdit}
+                      onClick={handleButtonGenderClick}
                     >
-                      <span className="custom-select__text"></span>
-                      <span className="custom-select__icon">
+                      <span
+                        className="custom-select__text"
+                        style={{ opacity: 1 }}
+                      >
+                        {gender}
+                      </span>
+                      <span
+                        className="custom-select__icon"
+                        style={isEdit ? { display: 'block' } : {}}
+                      >
                         <svg width="15" height="6" aria-hidden="true">
                           <use xlinkHref="#arrow-down"></use>
                         </svg>
                       </span>
                     </button>
-                    <ul className="custom-select__list" role="listbox"></ul>
+                    <ul
+                      className={classNames(
+                        'custom-select__list',
+                        isChangeGender ? registerStyles.display_list : ''
+                      )}
+                      role="listbox"
+                      style={
+                        isChangeGender
+                          ? { visibility: 'visible', opacity: 1 }
+                          : { visibility: 'hidden', opacity: 0 }
+                      }
+                      onClick={handleListGenderClick}
+                    >
+                      {Genders.map((gender) => (
+                        <li key={gender}>{gender}</li>
+                      ))}
+                    </ul>
                   </div>
                   <div className="custom-select--readonly custom-select user-info__select">
                     <span className="custom-select__label">Уровень</span>
-                    <div className="custom-select__placeholder">
-                      {currentUser.levelOfTrain}
-                    </div>
+                    <div className="custom-select__placeholder"></div>
                     <button
                       className="custom-select__button"
                       type="button"
                       aria-label="Выберите одну из опций"
-                      disabled
+                      disabled={!isEdit}
+                      onClick={handleButtonLevelClick}
                     >
-                      <span className="custom-select__text"></span>
-                      <span className="custom-select__icon">
+                      <span
+                        className="custom-select__text"
+                        style={{ opacity: 1 }}
+                      >
+                        {level}
+                      </span>
+                      <span
+                        className="custom-select__icon"
+                        style={isEdit ? { display: 'block' } : {}}
+                      >
                         <svg width="15" height="6" aria-hidden="true">
                           <use xlinkHref="#arrow-down"></use>
                         </svg>
                       </span>
                     </button>
-                    <ul className="custom-select__list" role="listbox"></ul>
+                    <ul
+                      className={classNames(
+                        'custom-select__list',
+                        isChangeLevel ? registerStyles.display_list : ''
+                      )}
+                      role="listbox"
+                      style={
+                        isChangeLevel
+                          ? { visibility: 'visible', opacity: 1 }
+                          : { visibility: 'hidden', opacity: 0 }
+                      }
+                      onClick={handleListLevelClick}
+                    >
+                      {LevelOfTraining.map((level) => (
+                        <li key={level}>{level}</li>
+                      ))}
+                    </ul>
                   </div>
                 </form>
               </section>

@@ -58,6 +58,7 @@ export interface User {
   merits: string | null;
   personalTrainings: boolean | null;
   refreshToken: string;
+  trainings: Training[];
 }
 
 export interface PersonalTraining {
