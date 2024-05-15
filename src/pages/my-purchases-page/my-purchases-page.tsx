@@ -6,6 +6,8 @@ export default function MyPurchasesPage(): JSX.Element {
   const navigate = useNavigate();
   const currentUser = useUser();
 
+  console.log(currentUser);
+
   return (
     <div className="wrapper">
       <main>
