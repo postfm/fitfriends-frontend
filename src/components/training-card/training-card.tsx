@@ -50,7 +50,7 @@ const TrainingCard: React.FC<TrainingCardProps> = ({ training }) => {
             <svg width={16} height={16} aria-hidden="true">
               <use xlinkHref="#icon-star" />
             </svg>
-            <span className="thumbnail-training__rate-value">5</span>
+            <span className="thumbnail-training__rate-value">{training.rating}</span>
           </div>
         </div>
         <div className="thumbnail-training__text-wrapper">

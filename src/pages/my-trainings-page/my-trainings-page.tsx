@@ -1,15 +1,34 @@
-import { useQuery } from '@tanstack/react-query';
-import { loadTrainings } from '../../api/loadTrainings';
 import MyTrainingCard from '../../components/my-training-card';
 import { Training } from '../../types';
-import { AuthAppRoutes } from '../../constants/constants';
+import { AuthAppRoutes, TimeOfTraining } from '../../constants/constants';
 import { Link } from 'react-router-dom';
-import { RangeFilter } from '../../components/filters';
+import { CheckboxFilter, RangeFilter } from '../../components/filters';
+import { useUser } from '../../hooks';
+import { useState } from 'react';
 
 export default function MyTrainingsPage(): JSX.Element {
-  const trainings = useQuery({
-    queryKey: ['trainings'],
-    queryFn: loadTrainings,
+  const user = useUser();
+
+  const [priceFilter, setPriceFilter] = useState<[number, number]>([0, 3000]);
+  const [calorieFilter, setCalorieFilter] = useState<[number, number]>([
+    1000, 5000,
+  ]);
+  const [ratingFilter, setRaitingFilter] = useState<[number, number]>([1, 5]);
+  const [durations, setDurations] = useState<string[]>(TimeOfTraining);
+
+  const trainingsToShow = user.trainings.filter((training) => {
+    const pricePredicate =
+      priceFilter[0] <= training.price && training.price <= priceFilter[1];
+    const caloriePredicate =
+      calorieFilter[0] <= training.calories &&
+      training.calories <= calorieFilter[1];
+    const ratingPredicate =
+      ratingFilter[0] <= training.rating && training.rating <= ratingFilter[1];
+    const durationPredicate = durations.includes(training.duration);
+
+    return (
+      pricePredicate && caloriePredicate && ratingPredicate && durationPredicate
+    );
   });
 
   return (
@@ -41,7 +60,8 @@ export default function MyTrainingsPage(): JSX.Element {
                         step={50}
                         defaultMin={0}
                         defaultMax={3000}
-                      />{' '}
+                        onChange={setPriceFilter}
+                      />
                     </div>
                     <div className="my-training-form__block my-training-form__block--calories">
                       <RangeFilter
@@ -51,6 +71,7 @@ export default function MyTrainingsPage(): JSX.Element {
                         step={10}
                         defaultMin={1000}
                         defaultMax={5000}
+                        onChange={setCalorieFilter}
                       />
                     </div>
                     <div className="my-training-form__block my-training-form__block--raiting">
@@ -63,91 +84,19 @@ export default function MyTrainingsPage(): JSX.Element {
                         defaultMax={5}
                         hideValueInputs
                         showOutputs
+                        onChange={setRaitingFilter}
                       />
                     </div>
                     <div className="my-training-form__block my-training-form__block--duration">
-                      <h4 className="my-training-form__block-title">
-                        Длительность
-                      </h4>
-                      <ul className="my-training-form__check-list">
-                        <li className="my-training-form__check-list-item">
-                          <div className="custom-toggle custom-toggle--checkbox">
-                            <label>
-                              <input
-                                type="checkbox"
-                                defaultValue="duration-1"
-                                name="duration"
-                              />
-                              <span className="custom-toggle__icon">
-                                <svg width={9} height={6} aria-hidden="true">
-                                  <use xlinkHref="#arrow-check" />
-                                </svg>
-                              </span>
-                              <span className="custom-toggle__label">
-                                10 мин - 30 мин
-                              </span>
-                            </label>
-                          </div>
-                        </li>
-                        <li className="my-training-form__check-list-item">
-                          <div className="custom-toggle custom-toggle--checkbox">
-                            <label>
-                              <input
-                                type="checkbox"
-                                defaultValue="duration-1"
-                                name="duration"
-                                defaultChecked
-                              />
-                              <span className="custom-toggle__icon">
-                                <svg width={9} height={6} aria-hidden="true">
-                                  <use xlinkHref="#arrow-check" />
-                                </svg>
-                              </span>
-                              <span className="custom-toggle__label">
-                                30 мин - 50 мин
-                              </span>
-                            </label>
-                          </div>
-                        </li>
-                        <li className="my-training-form__check-list-item">
-                          <div className="custom-toggle custom-toggle--checkbox">
-                            <label>
-                              <input
-                                type="checkbox"
-                                defaultValue="duration-1"
-                                name="duration"
-                              />
-                              <span className="custom-toggle__icon">
-                                <svg width={9} height={6} aria-hidden="true">
-                                  <use xlinkHref="#arrow-check" />
-                                </svg>
-                              </span>
-                              <span className="custom-toggle__label">
-                                50 мин - 80 мин
-                              </span>
-                            </label>
-                          </div>
-                        </li>
-                        <li className="my-training-form__check-list-item">
-                          <div className="custom-toggle custom-toggle--checkbox">
-                            <label>
-                              <input
-                                type="checkbox"
-                                defaultValue="duration-1"
-                                name="duration"
-                              />
-                              <span className="custom-toggle__icon">
-                                <svg width={9} height={6} aria-hidden="true">
-                                  <use xlinkHref="#arrow-check" />
-                                </svg>
-                              </span>
-                              <span className="custom-toggle__label">
-                                80 мин - 100 мин
-                              </span>
-                            </label>
-                          </div>
-                        </li>
-                      </ul>
+                      <CheckboxFilter
+                        title="Длительность"
+                        options={TimeOfTraining.map((key) => ({
+                          key,
+                          displayValue: key,
+                        }))}
+                        defaultSelected={TimeOfTraining}
+                        onChange={setDurations}
+                      />
                     </div>
                   </form>
                 </div>
@@ -155,7 +104,7 @@ export default function MyTrainingsPage(): JSX.Element {
               <div className="inner-page__content">
                 <div className="my-trainings">
                   <ul className="my-trainings__list">
-                    {trainings.data?.map(
+                    {trainingsToShow.map(
                       (training: Training): JSX.Element => (
                         <MyTrainingCard
                           key={training.trainingId}
@@ -164,6 +113,8 @@ export default function MyTrainingsPage(): JSX.Element {
                       )
                     )}
                   </ul>
+
+                  {/* // TODO: скорее всего не нужны, потому что trainings приходят как часть юзера
                   <div className="show-more my-trainings__show-more">
                     <button
                       className="btn show-more__button show-more__button--more"
@@ -177,7 +128,7 @@ export default function MyTrainingsPage(): JSX.Element {
                     >
                       Вернуться в начало
                     </button>
-                  </div>
+                  </div> */}
                 </div>
               </div>
             </div>

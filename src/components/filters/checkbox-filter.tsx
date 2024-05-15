@@ -21,7 +21,11 @@ export const CheckboxFilter: React.FC<CheckboxFilterProps> = (props) => {
       <h4 className="gym-catalog-form__block-title">{title}</h4>
       <ul className="gym-catalog-form__check-list">
         {options.map((option) => (
-          <li key={option.key} className="gym-catalog-form__check-list-item">
+          <li
+            key={option.key}
+            className="gym-catalog-form__check-list-item"
+            style={{ marginBottom: 5 }}
+          >
             <div className="custom-toggle custom-toggle--checkbox">
               <label>
                 <input
