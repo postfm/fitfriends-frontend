@@ -73,6 +73,7 @@ export interface PersonalTraining {
 }
 
 export interface MyOrder {
+  id: string;
   type: string;
   price: number;
   amount: number;
@@ -80,6 +81,9 @@ export interface MyOrder {
   pay: string;
   training: Training;
   user: User;
+  // TODO: Date
+  cratedAt: string;
+  updatedAt: string;
 }
 
 export interface Review {
