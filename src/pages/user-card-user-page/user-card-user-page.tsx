@@ -1,14 +1,19 @@
-import { useNavigate } from 'react-router-dom';
-import { useUser } from '../../hooks';
+import { useNavigate, useParams } from 'react-router-dom';
 import { AuthAppRoutes } from '../../constants/constants';
 import { useState } from 'react';
 import { renderHashtag } from '../../utils';
 import PopupModal from '../../components/modal/popup-modal';
 import LocationMap from '../../components/location-map';
+import { useQuery } from '@tanstack/react-query';
+import { loadUser } from '../../api/loadUser';
 
 export default function UserCardUserPage(): JSX.Element {
+  const { id } = useParams();
+  const user = useQuery({
+    queryKey: ['user'],
+    queryFn: () => loadUser(+(id as string)),
+  }).data;
   const [locationMapOpen, setLocationMapOpen] = useState(false);
-  const user = useUser();
   const navigate = useNavigate();
   const [isAddFriend, setIsaddFriend] = useState(false);
 
@@ -38,7 +43,7 @@ export default function UserCardUserPage(): JSX.Element {
                   <div className="user-card__wrapper">
                     <div className="user-card__content">
                       <div className="user-card__head">
-                        <h2 className="user-card__title">{user.name}</h2>
+                        <h2 className="user-card__title">{user?.name}</h2>
                       </div>
                       <div className="user-card__label">
                         <a onClick={() => setLocationMapOpen(true)}>
@@ -50,21 +55,21 @@ export default function UserCardUserPage(): JSX.Element {
                           >
                             <use xlinkHref="#icon-location" />
                           </svg>
-                          <span>{user.location}</span>
+                          <span>{user?.location}</span>
                         </a>
                       </div>
                       <div className="user-card__status">
                         <span>
-                          {user.readyToTrain
+                          {user?.readyToTrain
                             ? 'Готов к тренировке'
                             : 'Не готов к тренировке'}
                         </span>
                       </div>
                       <div className="user-card__text">
-                        <p>{user.description}</p>
+                        <p>{user?.description}</p>
                       </div>
                       <ul className="user-card__hashtag-list">
-                        {user.typeOfTraining.map((type) => (
+                        {user?.typeOfTraining.map((type) => (
                           <li className="user-card__hashtag-item" key={type}>
                             <div className="hashtag">
                               <span>{renderHashtag(type)}</span>
@@ -113,11 +118,11 @@ export default function UserCardUserPage(): JSX.Element {
       </main>
       <PopupModal
         isOpen={locationMapOpen}
-        title={user.name}
-        subtitle={user.location}
+        title={user?.name}
+        subtitle={user?.location}
         onClose={() => setLocationMapOpen(false)}
       >
-        <LocationMap />
+        <LocationMap location={user?.location} />
       </PopupModal>
     </div>
   );

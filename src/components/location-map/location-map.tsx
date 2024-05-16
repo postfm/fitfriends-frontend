@@ -1,31 +1,32 @@
-const LocationMap = () => (
-  <div className="popup__content-map">
-    <div className="popup__map">
-      <picture>
-        <source
-          type="image/webp"
-          srcSet="/img/content/popup/map.webp, /img/content/popup/map@2x.webp 2x"
-        />
-        <img
-          src="/img/content/popup/map.jpg"
-          srcSet="/img/content/popup/map@2x.jpg 2x"
-          width={1160}
-          height={623}
-          alt=""
-        />
-      </picture>
-      <div className="popup__pin popup__pin--user">
-        <svg
-          className="popup__pin-icon"
-          width={40}
-          height={49}
-          aria-hidden="true"
+import { MapContainer, Marker, Popup, TileLayer } from 'react-leaflet';
+import { Positions } from '../../types';
+
+interface LocationMapProps {
+  location: string | undefined;
+}
+
+const LocationMap: React.FC<LocationMapProps> = ({ location }) => {
+  const position = Positions[location];
+  return (
+    <div className="popup__content-map">
+      <div className="popup__map">
+        <MapContainer
+          center={position}
+          zoom={15}
+          scrollWheelZoom
+          style={{ height: '550px', width: '100%' }}
         >
-          <use xlinkHref="#icon-pin-user" />
-        </svg>
+          <TileLayer
+            attribution='&copy; <a href="https://www.openstreetmap.org/copyright">OpenStreetMap</a> contributors'
+            url="https://{s}.basemaps.cartocdn.com/rastertiles/voyager/{z}/{x}/{y}{r}.png"
+          />
+          <Marker position={position}>
+            <Popup>Ст.м. Звёздная</Popup>
+          </Marker>
+        </MapContainer>
       </div>
     </div>
-  </div>
-);
+  );
+};
 
 export default LocationMap;

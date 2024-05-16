@@ -1,8 +1,25 @@
-import { useNavigate } from 'react-router-dom';
+import { useNavigate, useParams } from 'react-router-dom';
 import { AuthAppRoutes } from '../../constants/constants';
+import { useQuery } from '@tanstack/react-query';
+import { loadUser } from '../../api/loadUser';
+import { useState } from 'react';
+import { renderHashtag } from '../../utils';
+import PopupModal from '../../components/modal/popup-modal';
+import LocationMap from '../../components/location-map';
 
 export default function UserCardCoachPage(): JSX.Element {
+  const { id } = useParams();
+  const user = useQuery({
+    queryKey: ['user'],
+    queryFn: () => loadUser(+(id as string)),
+  }).data;
+  const [locationMapOpen, setLocationMapOpen] = useState(false);
   const navigate = useNavigate();
+  const [isAddFriend, setIsaddFriend] = useState(false);
+
+  const handleButtonAddFriendClick = () => {
+    setIsaddFriend(!isAddFriend);
+  };
 
   return (
     <div className="wrapper">
@@ -29,10 +46,12 @@ export default function UserCardCoachPage(): JSX.Element {
                     <div className="user-card-coach__card">
                       <div className="user-card-coach__content">
                         <div className="user-card-coach__head">
-                          <h2 className="user-card-coach__title">Валерия</h2>
+                          <h2 className="user-card-coach__title">
+                            {user?.name}
+                          </h2>
                         </div>
                         <div className="user-card-coach__label">
-                          <a href="popup-user-map.html">
+                          <a onClick={() => setLocationMapOpen(true)}>
                             <svg
                               className="user-card-coach__icon-location"
                               width={12}
@@ -41,7 +60,7 @@ export default function UserCardCoachPage(): JSX.Element {
                             >
                               <use xlinkHref="#icon-location" />
                             </svg>
-                            <span>Адмиралтейская</span>
+                            <span>{user?.location}</span>
                           </a>
                         </div>
                         <div className="user-card-coach__status-container">
@@ -57,21 +76,15 @@ export default function UserCardCoachPage(): JSX.Element {
                             <span>Тренер</span>
                           </div>
                           <div className="user-card-coach__status user-card-coach__status--check">
-                            <span>Готов тренировать</span>
+                            <span>
+                              {user?.readyToTrain
+                                ? 'Готов тренировать'
+                                : 'Не готов тренировать'}
+                            </span>
                           </div>
                         </div>
                         <div className="user-card-coach__text">
-                          <p>
-                            Привет! Меня зовут Иванова Валерия, мне 34 года.
-                            Я&nbsp;профессиональный тренер по&nbsp;боксу.
-                            Не&nbsp;боюсь пробовать новое, также увлекаюсь
-                            кроссфитом, йогой и&nbsp;силовыми тренировками.
-                          </p>
-                          <p>
-                            Провожу как индивидуальные тренировки, так
-                            и&nbsp;групповые занятия. Помогу вам достигнуть
-                            своей цели и&nbsp;сделать это с&nbsp;удовольствием!
-                          </p>
+                          <p>{user?.description}</p>
                         </div>
                         <button
                           className="btn-flat user-card-coach__sertificate"
@@ -83,32 +96,22 @@ export default function UserCardCoachPage(): JSX.Element {
                           <span>Посмотреть сертификаты</span>
                         </button>
                         <ul className="user-card-coach__hashtag-list">
-                          <li className="user-card-coach__hashtag-item">
-                            <div className="hashtag">
-                              <span>#бокс</span>
-                            </div>
-                          </li>
-                          <li className="user-card-coach__hashtag-item">
-                            <div className="hashtag">
-                              <span>#кроссфит</span>
-                            </div>
-                          </li>
-                          <li className="user-card-coach__hashtag-item">
-                            <div className="hashtag">
-                              <span>#силовые</span>
-                            </div>
-                          </li>
-                          <li className="user-card-coach__hashtag-item">
-                            <div className="hashtag">
-                              <span>#йога</span>
-                            </div>
-                          </li>
+                          {user?.typeOfTraining.map((type) => (
+                            <li className="user-card__hashtag-item" key={type}>
+                              <div className="hashtag">
+                                <span>{renderHashtag(type)}</span>
+                              </div>
+                            </li>
+                          ))}
                         </ul>
                         <button
                           className="btn user-card-coach__btn"
                           type="button"
+                          onClick={handleButtonAddFriendClick}
                         >
-                          Добавить в друзья
+                          {!isAddFriend
+                            ? 'Добавить в друзья'
+                            : 'Удалить из друзей'}
                         </button>
                       </div>
                       <div className="user-card-coach__gallary">
@@ -503,6 +506,14 @@ export default function UserCardCoachPage(): JSX.Element {
           </div>
         </div>
       </main>
+      <PopupModal
+        isOpen={locationMapOpen}
+        title={user?.name}
+        subtitle={user?.location}
+        onClose={() => setLocationMapOpen(false)}
+      >
+        <LocationMap location={user?.location} />
+      </PopupModal>
     </div>
   );
 }

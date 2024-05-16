@@ -5,7 +5,7 @@ import ReactModal from 'react-modal';
 interface ModalProps {
   isOpen: boolean;
   onClose: () => void;
-  title: string;
+  title: string | undefined;
   subtitle?: string;
   children: React.ReactNode;
 }
