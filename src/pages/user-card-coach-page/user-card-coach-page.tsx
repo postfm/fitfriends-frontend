@@ -8,6 +8,7 @@ import PopupModal from '../../components/modal/popup-modal';
 import LocationMap from '../../components/location-map';
 import TrainingsSlider from '../user-card-coach-page/components/sliders/training-slider';
 import CertificatePopupSlider from './components/sliders/certificate-popup.slider';
+import { useFriendQuery } from '../../hooks';
 
 export default function UserCardCoachPage(): React.ReactNode {
   const { id } = useParams();
@@ -22,14 +23,11 @@ export default function UserCardCoachPage(): React.ReactNode {
     },
   }).data;
 
+  const { isFriend, addRemoveFriend } = useFriendQuery(Number(id));
+
   const [locationMapOpen, setLocationMapOpen] = useState(false);
   const [certificatesSliderOpen, setCertificatesSliderOpen] = useState(false);
   const navigate = useNavigate();
-  const [isAddFriend, setIsaddFriend] = useState(false);
-
-  const handleButtonAddFriendClick = () => {
-    setIsaddFriend(!isAddFriend);
-  };
 
   if (!user) {
     return null;
@@ -124,9 +122,9 @@ export default function UserCardCoachPage(): React.ReactNode {
                         <button
                           className="btn user-card-coach__btn"
                           type="button"
-                          onClick={handleButtonAddFriendClick}
+                          onClick={addRemoveFriend}
                         >
-                          {!isAddFriend
+                          {!isFriend
                             ? 'Добавить в друзья'
                             : 'Удалить из друзей'}
                         </button>
@@ -156,7 +154,13 @@ export default function UserCardCoachPage(): React.ReactNode {
                     </div>
                   </div>
 
-                  <TrainingsSlider trainings={user?.trainings} />
+                  {user?.trainings.length > 0 ? (
+                    <TrainingsSlider
+                      trainings={user?.trainings}
+                      isFriend={isFriend}
+                      coach={user}
+                    />
+                  ) : null}
                 </section>
               </div>
             </div>

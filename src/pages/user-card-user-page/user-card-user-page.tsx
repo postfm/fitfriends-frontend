@@ -6,6 +6,7 @@ import PopupModal from '../../components/modal/popup-modal';
 import LocationMap from '../../components/location-map';
 import { useQuery } from '@tanstack/react-query';
 import { loadUser } from '../../api/loadUser';
+import { useFriendQuery } from '../../hooks';
 
 export default function UserCardUserPage(): JSX.Element {
   const { id } = useParams();
@@ -15,11 +16,8 @@ export default function UserCardUserPage(): JSX.Element {
   }).data;
   const [locationMapOpen, setLocationMapOpen] = useState(false);
   const navigate = useNavigate();
-  const [isAddFriend, setIsaddFriend] = useState(false);
 
-  const handleButtonAddFriendClick = () => {
-    setIsaddFriend(!isAddFriend);
-  };
+  const { isFriend, addRemoveFriend } = useFriendQuery(Number(id));
 
   return (
     <div className="wrapper">
@@ -80,11 +78,9 @@ export default function UserCardUserPage(): JSX.Element {
                       <button
                         className="btn user-card__btn"
                         type="button"
-                        onClick={handleButtonAddFriendClick}
+                        onClick={addRemoveFriend}
                       >
-                        {!isAddFriend
-                          ? 'Добавить в друзья'
-                          : 'Удалить из друзей'}
+                        {!isFriend ? 'Добавить в друзья' : 'Удалить из друзей'}
                       </button>
                     </div>
                     <div className="user-card__gallary">

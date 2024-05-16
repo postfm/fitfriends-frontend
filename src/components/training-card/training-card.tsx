@@ -34,7 +34,6 @@ const TrainingCard: React.FC<TrainingCardProps> = ({
           <span className="thumbnail-training__price-value">
             {renderPrice(training.price, training.specialOffer)}
           </span>
-          <span>₽</span>
         </p>
         <h3 className="thumbnail-training__title">{training.name}</h3>
         <div className="thumbnail-training__info">
