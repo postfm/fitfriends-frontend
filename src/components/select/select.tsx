@@ -5,6 +5,7 @@ interface SelectProps {
   options: { value: string; label: string }[];
   value: string;
   isDisabled?: boolean;
+  required?: boolean;
   onChange?: (value: string) => void;
 }
 
@@ -14,6 +15,7 @@ const Select: React.FC<SelectProps> = ({
   isDisabled,
   value,
   onChange,
+  required,
 }) => (
   <div className="custom-select user-info-edit__select">
     <span className="custom-select__label">{title}</span>
@@ -21,6 +23,7 @@ const Select: React.FC<SelectProps> = ({
       className="custom-select__button"
       value={options.find((o) => o.value === value)}
       isSearchable={false}
+      required={required}
       isDisabled={isDisabled}
       isClearable={false}
       isRtl={false}

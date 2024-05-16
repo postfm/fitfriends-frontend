@@ -1,80 +1,72 @@
-import { FormEvent, useState } from 'react';
+import { useRef, useState } from 'react';
 import {
   AuthAppRoutes,
+  Genders,
   LevelOfTraining,
   TimeOfTraining,
   TypesOfTrainings,
 } from '../../constants/constants';
 import { LengthParameters } from '../../constants/validate.constants';
 import createTrainingStyles from './create-training-page.module.css';
-import classNames from 'classnames';
-import { useNavigate } from 'react-router-dom';
+import { generatePath, useNavigate } from 'react-router-dom';
+import { NewTraining } from '../../types';
+import { createTraining } from '../../api/createTraining';
+import { useMutation } from '@tanstack/react-query';
+import Select from '../../components/select';
+import { RadioToggleInput } from '../../components/filters';
 
 export default function CreateTrainingPage(): JSX.Element {
-  const [typeTraining, setTypeTraining] = useState('');
-  const [timeTraining, setTimeTraining] = useState('');
-  const [levelTraining, setLevelTraining] = useState('');
-  const [isTypeChange, setTypeChange] = useState(false);
-  const [isTimeChange, setTimeChange] = useState(false);
-  const [isLevelChange, setLevelChange] = useState(false);
-  const [inputDataError, setInputDataError] = useState(true);
   const navigate = useNavigate();
+  const form = useRef<HTMLFormElement | null>();
 
-  const handleTypeButtonClick = () => {
-    setTypeChange(!isTypeChange);
-  };
+  const [values, setValues] = useState({
+    name: '',
+    image: '',
+    level: '',
+    type: '',
+    duration: '',
+    price: 0,
+    calories: 0,
+    description: '',
+    gender: '',
+    video: '',
+    rating: 0,
+    specialOffer: false,
+  });
 
-  const handleTimeButtonClick = () => {
-    setTimeChange(!isTimeChange);
-  };
+  const [validationErrors, setValidationErrors] = useState(false);
 
-  const handleLevelButtonClick = () => {
-    setLevelChange(!isLevelChange);
-  };
-
-  const handleTypeListClick: React.MouseEventHandler<HTMLElement> = (evt) => {
-    setTypeTraining((evt.target as HTMLElement).innerText);
-    setTypeChange(!isTypeChange);
-  };
-
-  const handleTimeListClick: React.MouseEventHandler<HTMLElement> = (evt) => {
-    setTimeTraining((evt.target as HTMLElement).innerText);
-    setTimeChange(!isTimeChange);
-  };
-
-  const handleLevelListClick: React.MouseEventHandler<HTMLElement> = (evt) => {
-    setLevelTraining((evt.target as HTMLElement).innerText);
-    setLevelChange(!isLevelChange);
-  };
-
-  const handleFormSubmit = (evt: FormEvent<HTMLFormElement>) => {
-    evt.preventDefault();
-    setInputDataError(true);
-
-    const form = evt.target as HTMLFormElement;
-    const formData = new FormData(form);
-
-    if (!typeTraining || !timeTraining || !levelTraining) {
-      setInputDataError(false);
-      return;
-    }
-
-    const newTraining = {
-      name: formData.get('training-name'),
-      type: typeTraining,
-      time: timeTraining,
-      level: levelTraining,
-      price: formData.get('price'),
-      calories: formData.get('calories'),
-      description: formData.get('description'),
-      gender: formData.get('gender'),
-      video: formData.get('import'),
+  const getHandler =
+    (name: string) =>
+    (event: React.ChangeEvent<HTMLInputElement | HTMLTextAreaElement>) => {
+      setValues({ ...values, [name]: event.target.value });
     };
 
-    if (newTraining) {
-      navigate(AuthAppRoutes.MyTrainings);
+  const newTraining = useMutation({
+    mutationKey: ['createTraining'],
+    mutationFn: (params: { training: NewTraining }) =>
+      createTraining(params.training),
+    onSuccess: (data) => {
+      // eslint-disable-next-line no-console
+      console.log('user updated successfuly', data);
+      navigate(
+        generatePath(AuthAppRoutes.TrainingCard, {
+          id: String(data.trainingId),
+        })
+      );
+    },
+  });
+
+  const handleSubmit = () => {
+    const training = { ...values };
+
+    if (form.current?.checkValidity()) {
+      newTraining.mutate({ training });
+    } else {
+      setValidationErrors(true);
     }
   };
+
   return (
     <div className="wrapper">
       <main>
@@ -85,7 +77,11 @@ export default function CreateTrainingPage(): JSX.Element {
                 <h1 className="popup-form__title">Создание тренировки</h1>
               </div>
               <div className="popup-form__form">
-                <form method="get" onSubmit={handleFormSubmit}>
+                <form
+                  method="get"
+                  onSubmit={(e) => e.preventDefault()}
+                  ref={(ref) => (form.current = ref)}
+                >
                   <div className="create-training">
                     <div className="create-training__wrapper">
                       <div className="create-training__block">
@@ -99,6 +95,8 @@ export default function CreateTrainingPage(): JSX.Element {
                                 type="text"
                                 name="training-name"
                                 required
+                                value={values.name}
+                                onChange={getHandler('name')}
                                 minLength={LengthParameters.MinLengthName}
                                 maxLength={LengthParameters.MaxLengthName}
                               />
@@ -112,41 +110,18 @@ export default function CreateTrainingPage(): JSX.Element {
                         </h2>
                         <div className="create-training__info">
                           <div className="custom-select custom-select--not-selected">
-                            <span className="custom-select__label">
-                              Выберите тип тренировки
-                            </span>
-                            <button
-                              className="custom-select__button"
-                              type="button"
-                              aria-label="Выберите одну из опций"
-                              onClick={handleTypeButtonClick}
-                            >
-                              <span
-                                className="custom-select__text"
-                                style={{ opacity: 1 }}
-                              >
-                                {typeTraining}
-                              </span>
-                              <span className="custom-select__icon">
-                                <svg width={15} height={6} aria-hidden="true">
-                                  <use xlinkHref="#arrow-down" />
-                                </svg>
-                              </span>
-                            </button>
-                            <ul
-                              className={classNames(
-                                'custom-select__list',
-                                isTypeChange
-                                  ? createTrainingStyles.display_list
-                                  : ''
-                              )}
-                              role="listbox"
-                              onClick={handleTypeListClick}
-                            >
-                              {TypesOfTrainings.map((typeOfTraining) => (
-                                <li key={typeOfTraining}>{typeOfTraining}</li>
-                              ))}
-                            </ul>
+                            <Select
+                              title="Выберите тип тренировки"
+                              options={TypesOfTrainings.map((value) => ({
+                                value,
+                                label: value,
+                              }))}
+                              value={values.type}
+                              required
+                              onChange={(value) =>
+                                setValues({ ...values, type: value })
+                              }
+                            />
                           </div>
                           <div className="custom-input custom-input--with-text-right">
                             <label>
@@ -158,6 +133,8 @@ export default function CreateTrainingPage(): JSX.Element {
                                   type="number"
                                   name="calories"
                                   required
+                                  value={values.calories}
+                                  onChange={getHandler('calories')}
                                   min={LengthParameters.MinCalories}
                                   max={LengthParameters.MaxCalories}
                                 />
@@ -166,41 +143,18 @@ export default function CreateTrainingPage(): JSX.Element {
                             </label>
                           </div>
                           <div className="custom-select custom-select--not-selected">
-                            <span className="custom-select__label">
-                              Сколько времени потратим
-                            </span>
-                            <button
-                              className="custom-select__button"
-                              type="button"
-                              aria-label="Выберите одну из опций"
-                              onClick={handleTimeButtonClick}
-                            >
-                              <span
-                                className="custom-select__text"
-                                style={{ opacity: 1 }}
-                              >
-                                {timeTraining}
-                              </span>
-                              <span className="custom-select__icon">
-                                <svg width={15} height={6} aria-hidden="true">
-                                  <use xlinkHref="#arrow-down" />
-                                </svg>
-                              </span>
-                            </button>
-                            <ul
-                              className={classNames(
-                                'custom-select__list',
-                                isTimeChange
-                                  ? createTrainingStyles.display_list
-                                  : ''
-                              )}
-                              role="listbox"
-                              onClick={handleTimeListClick}
-                            >
-                              {TimeOfTraining.map((time) => (
-                                <li key={time}>{time}</li>
-                              ))}
-                            </ul>
+                            <Select
+                              title="Сколько времени потратим"
+                              options={TimeOfTraining.map((value) => ({
+                                value,
+                                label: value,
+                              }))}
+                              value={values.duration}
+                              required
+                              onChange={(value) =>
+                                setValues({ ...values, duration: value })
+                              }
+                            />
                           </div>
                           <div className="custom-input custom-input--with-text-right">
                             <label>
@@ -208,95 +162,42 @@ export default function CreateTrainingPage(): JSX.Element {
                                 Стоимость тренировки
                               </span>
                               <span className="custom-input__wrapper">
-                                <input type="number" name="price" required />
+                                <input
+                                  type="number"
+                                  name="price"
+                                  required
+                                  value={values.price}
+                                  onChange={getHandler('price')}
+                                />
                                 <span className="custom-input__text">₽</span>
                               </span>
                             </label>
                           </div>
                           <div className="custom-select custom-select--not-selected">
-                            <span className="custom-select__label">
-                              Выберите уровень тренировки
-                            </span>
-                            <button
-                              className="custom-select__button"
-                              type="button"
-                              aria-label="Выберите одну из опций"
-                              onClick={handleLevelButtonClick}
-                            >
-                              <span
-                                className="custom-select__text"
-                                style={{ opacity: 1 }}
-                              >
-                                {levelTraining}
-                              </span>
-                              <span className="custom-select__icon">
-                                <svg width={15} height={6} aria-hidden="true">
-                                  <use xlinkHref="#arrow-down" />
-                                </svg>
-                              </span>
-                            </button>
-                            <ul
-                              className={classNames(
-                                'custom-select__list',
-                                isLevelChange
-                                  ? createTrainingStyles.display_list
-                                  : ''
-                              )}
-                              role="listbox"
-                              onClick={handleLevelListClick}
-                            >
-                              {LevelOfTraining.map((level) => (
-                                <li key={level}>{level}</li>
-                              ))}
-                            </ul>
+                            <Select
+                              title="Выберите уровень тренировки"
+                              options={LevelOfTraining.map((value) => ({
+                                value,
+                                label: value,
+                              }))}
+                              value={values.level}
+                              required
+                              onChange={(value) =>
+                                setValues({ ...values, level: value })
+                              }
+                            />
                           </div>
                           <div className="create-training__radio-wrapper">
-                            <span className="create-training__label">
-                              Кому подойдет тренировка
-                            </span>
-                            <br />
-                            <div className="custom-toggle-radio create-training__radio">
-                              <div className="custom-toggle-radio__block">
-                                <label>
-                                  <input
-                                    type="radio"
-                                    name="gender"
-                                    value={'для мужчин'}
-                                  />
-                                  <span className="custom-toggle-radio__icon" />
-                                  <span className="custom-toggle-radio__label">
-                                    Мужчинам
-                                  </span>
-                                </label>
-                              </div>
-                              <div className="custom-toggle-radio__block">
-                                <label>
-                                  <input
-                                    type="radio"
-                                    name="gender"
-                                    defaultChecked
-                                    value={'для женщин'}
-                                  />
-                                  <span className="custom-toggle-radio__icon" />
-                                  <span className="custom-toggle-radio__label">
-                                    Женщинам
-                                  </span>
-                                </label>
-                              </div>
-                              <div className="custom-toggle-radio__block">
-                                <label>
-                                  <input
-                                    type="radio"
-                                    name="gender"
-                                    value={'для всех'}
-                                  />
-                                  <span className="custom-toggle-radio__icon" />
-                                  <span className="custom-toggle-radio__label">
-                                    Всем
-                                  </span>
-                                </label>
-                              </div>
-                            </div>
+                            <RadioToggleInput
+                              title="Кому подойдет тренировка"
+                              options={Genders.map((key) => ({
+                                key,
+                                displayValue: key,
+                              }))}
+                              onChange={(value) =>
+                                setValues({ ...values, gender: value })
+                              }
+                            />
                           </div>
                         </div>
                       </div>
@@ -309,7 +210,8 @@ export default function CreateTrainingPage(): JSX.Element {
                             <textarea
                               name="description"
                               placeholder=" "
-                              defaultValue={''}
+                              value={values.description}
+                              onChange={getHandler('description')}
                               required
                               minLength={LengthParameters.MinText}
                               maxLength={LengthParameters.MaxText}
@@ -334,7 +236,6 @@ export default function CreateTrainingPage(): JSX.Element {
                               name="import"
                               tabIndex={-1}
                               accept=".mov, .avi, .mp4"
-                              required
                             />
                           </label>
                         </div>
@@ -343,11 +244,12 @@ export default function CreateTrainingPage(): JSX.Element {
                     <button
                       className="btn create-training__button"
                       type="submit"
+                      onClick={handleSubmit}
                     >
                       Опубликовать
                     </button>
                   </div>
-                  {!inputDataError && (
+                  {validationErrors && (
                     <p className={createTrainingStyles.input__error}>
                       Все поля формы обязательны для заполнения!
                     </p>
