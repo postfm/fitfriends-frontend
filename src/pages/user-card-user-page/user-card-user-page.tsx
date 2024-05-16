@@ -1,5 +1,4 @@
 import { useNavigate, useParams } from 'react-router-dom';
-import { AuthAppRoutes } from '../../constants/constants';
 import { useState } from 'react';
 import { renderHashtag } from '../../utils';
 import PopupModal from '../../components/modal/popup-modal';
@@ -28,7 +27,7 @@ export default function UserCardUserPage(): JSX.Element {
               <button
                 className="btn-flat inner-page__back"
                 type="button"
-                onClick={() => navigate(AuthAppRoutes.UserCatalogue)}
+                onClick={() => navigate(-1)}
               >
                 <svg width={14} height={10} aria-hidden="true">
                   <use xlinkHref="#arrow-left" />

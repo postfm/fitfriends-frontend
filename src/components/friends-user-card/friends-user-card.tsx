@@ -17,7 +17,8 @@ const FriendsUserCard: React.FC<FriendsUserCardProps> = ({
   const [isInvite, setIsInvite] = useState(false);
   const currentUser = useUser();
 
-  const handleButtonInvateClick = () => {
+  const handleButtonInviteClick = (e: React.MouseEvent) => {
+    e.stopPropagation();
     setIsInvite(!isInvite);
   };
 
@@ -77,7 +78,7 @@ const FriendsUserCard: React.FC<FriendsUserCardProps> = ({
                 'is-disabled': isInvite,
               })}
               type="button"
-              onClick={handleButtonInvateClick}
+              onClick={handleButtonInviteClick}
             >
               <svg width={43} height={46} aria-hidden="true" focusable="false">
                 <use xlinkHref="#icon-invite" />

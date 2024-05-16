@@ -1,5 +1,4 @@
 import { useNavigate, useParams } from 'react-router-dom';
-import { AuthAppRoutes } from '../../constants/constants';
 import { useQuery } from '@tanstack/react-query';
 import { loadUser } from '../../api/loadUser';
 import React, { useState } from 'react';
@@ -44,7 +43,7 @@ export default function UserCardCoachPage(): React.ReactNode {
               <button
                 className="btn-flat inner-page__back"
                 type="button"
-                onClick={() => navigate(AuthAppRoutes.UserCatalogue)}
+                onClick={() => navigate(-1)}
               >
                 <svg width={14} height={10} aria-hidden="true">
                   <use xlinkHref="#arrow-left" />
