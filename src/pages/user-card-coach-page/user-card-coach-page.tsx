@@ -2,18 +2,24 @@ import { useNavigate, useParams } from 'react-router-dom';
 import { AuthAppRoutes } from '../../constants/constants';
 import { useQuery } from '@tanstack/react-query';
 import { loadUser } from '../../api/loadUser';
-import { useState } from 'react';
+import React, { useState } from 'react';
 import { renderHashtag } from '../../utils';
 import PopupModal from '../../components/modal/popup-modal';
 import LocationMap from '../../components/location-map';
 import TrainingsSlider from '../user-card-coach-page/components/sliders/training-slider';
 import CertificatePopupSlider from './components/sliders/certificate-popup.slider';
 
-export default function UserCardCoachPage(): JSX.Element {
+export default function UserCardCoachPage(): React.ReactNode {
   const { id } = useParams();
   const user = useQuery({
-    queryKey: ['user'],
-    queryFn: () => loadUser(+(id as string)),
+    queryKey: ['user', id],
+    queryFn: () => {
+      if (!id) {
+        return null;
+      }
+
+      return loadUser(Number(id));
+    },
   }).data;
 
   const [locationMapOpen, setLocationMapOpen] = useState(false);
@@ -25,11 +31,11 @@ export default function UserCardCoachPage(): JSX.Element {
     setIsaddFriend(!isAddFriend);
   };
 
-  let certificates = user?.certificates?.split(',') || [];
-  certificates =
-    certificates.length < 3
-      ? [...certificates, ...certificates, ...certificates]
-      : certificates;
+  if (!user) {
+    return null;
+  }
+
+  const certificates = user?.certificates?.split(',') || [];
 
   return (
     <div className="wrapper">
@@ -167,8 +173,7 @@ export default function UserCardCoachPage(): JSX.Element {
       </PopupModal>
       <PopupModal
         isOpen={certificatesSliderOpen}
-        title={'Сертификаты'}
-        subtitle={''}
+        title="Сертификаты"
         onClose={() => setCertificatesSliderOpen(false)}
       >
         <CertificatePopupSlider certificates={certificates} />
