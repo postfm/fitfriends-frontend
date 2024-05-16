@@ -34,6 +34,11 @@ export interface Training {
   updatedAt: string;
 }
 
+export type NewTraining = Omit<
+  Training,
+  'trainingId' | 'createdAt' | 'updatedAt'
+>;
+
 export interface User {
   id: number;
   name: string;
