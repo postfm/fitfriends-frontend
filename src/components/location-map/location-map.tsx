@@ -6,6 +6,9 @@ interface LocationMapProps {
 }
 
 const LocationMap: React.FC<LocationMapProps> = ({ location }) => {
+  if (!location) {
+    return null;
+  }
   const position = Positions[location];
   return (
     <div className="popup__content-map">
