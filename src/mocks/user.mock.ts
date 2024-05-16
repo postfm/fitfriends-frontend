@@ -9,7 +9,7 @@ export const User = {
   description:
     'Привет! Я Катерина и мне 27 лет. Обожаю спорт и все, что с ним связанно. Регулярно хожу на тренировки по бегу.',
   location: 'Звёздная',
-  image: 'img/content/thumbnails/friend-06.jpg',
+  image: '/img/content/thumbnails/friend-06.jpg',
   createdAt: '2024-05-10T10:01:15.798Z',
   updatedAt: '2024-05-10T10:01:15.798Z',
   levelOfTrain: 'любитель',

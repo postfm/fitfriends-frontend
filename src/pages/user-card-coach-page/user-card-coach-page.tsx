@@ -7,6 +7,7 @@ import { renderHashtag } from '../../utils';
 import PopupModal from '../../components/modal/popup-modal';
 import LocationMap from '../../components/location-map';
 import TrainingsSlider from '../user-card-coach-page/components/sliders/training-slider';
+import CertificatePopupSlider from './components/sliders/certificate-popup.slider';
 
 export default function UserCardCoachPage(): JSX.Element {
   const { id } = useParams();
@@ -16,6 +17,7 @@ export default function UserCardCoachPage(): JSX.Element {
   }).data;
 
   const [locationMapOpen, setLocationMapOpen] = useState(false);
+  const [certificatesSliderOpen, setCertificatesSliderOpen] = useState(false);
   const navigate = useNavigate();
   const [isAddFriend, setIsaddFriend] = useState(false);
 
@@ -23,7 +25,11 @@ export default function UserCardCoachPage(): JSX.Element {
     setIsaddFriend(!isAddFriend);
   };
 
-  console.log(user?.trainings);
+  let certificates = user?.certificates?.split(',') || [];
+  certificates =
+    certificates.length < 3
+      ? [...certificates, ...certificates, ...certificates]
+      : certificates;
 
   return (
     <div className="wrapper">
@@ -93,6 +99,7 @@ export default function UserCardCoachPage(): JSX.Element {
                         <button
                           className="btn-flat user-card-coach__sertificate"
                           type="button"
+                          onClick={() => setCertificatesSliderOpen(true)}
                         >
                           <svg width={12} height={13} aria-hidden="true">
                             <use xlinkHref="#icon-teacher" />
@@ -157,6 +164,14 @@ export default function UserCardCoachPage(): JSX.Element {
         onClose={() => setLocationMapOpen(false)}
       >
         <LocationMap location={user?.location} />
+      </PopupModal>
+      <PopupModal
+        isOpen={certificatesSliderOpen}
+        title={'Сертификаты'}
+        subtitle={''}
+        onClose={() => setCertificatesSliderOpen(false)}
+      >
+        <CertificatePopupSlider certificates={certificates} />
       </PopupModal>
     </div>
   );

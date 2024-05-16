@@ -21,7 +21,7 @@ export const USERS_MOCK = {
       caloriesToLose: null,
       caloriesPerDay: null,
       readyToTrain: null,
-      certificates: 'img/content/certificates-and-diplomas/6.pdf',
+      certificates: '/img/content/certificates-and-diplomas/certificate-1.jpg',
       merits: 'Чемпионка города',
       personalTrainings: true,
       refreshToken:
@@ -52,7 +52,7 @@ export const USERS_MOCK = {
       caloriesToLose: null,
       caloriesPerDay: null,
       readyToTrain: null,
-      certificates: 'img/content/certificates-and-diplomas/4.pdf',
+      certificates: '/img/content/certificates-and-diplomas/certificate-1.jpg',
       merits: 'Мастер спорта',
       personalTrainings: false,
       refreshToken:
@@ -113,7 +113,7 @@ export const USERS_MOCK = {
       caloriesToLose: null,
       caloriesPerDay: null,
       readyToTrain: null,
-      certificates: 'img/content/certificates-and-diplomas/5.pdf',
+      certificates: '/img/content/certificates-and-diplomas/certificate-1.jpg',
       merits: 'Чемпионка республики',
       personalTrainings: true,
       refreshToken:
@@ -444,7 +444,7 @@ export const USERS_MOCK = {
       caloriesToLose: null,
       caloriesPerDay: null,
       readyToTrain: null,
-      certificates: '/store/certificates.pdf',
+      certificates: '/img/content/certificates-and-diplomas/certificate-1.jpg',
       merits: 'Кандидат в мастера спорта',
       personalTrainings: true,
       refreshToken:
@@ -504,7 +504,7 @@ export const USERS_MOCK = {
       caloriesToLose: null,
       caloriesPerDay: null,
       readyToTrain: null,
-      certificates: 'img/content/certificates-and-diplomas/3.pdf',
+      certificates: '/img/content/certificates-and-diplomas/certificate-1.jpg',
       merits: 'Чемпионка города',
       personalTrainings: true,
       refreshToken:
@@ -535,7 +535,7 @@ export const USERS_MOCK = {
       caloriesToLose: null,
       caloriesPerDay: null,
       readyToTrain: null,
-      certificates: 'img/content/certificates-and-diplomas/1.pdf',
+      certificates: '/img/content/certificates-and-diplomas/certificate-1.jpg',
       merits: 'Мастер спорта',
       personalTrainings: false,
       refreshToken:

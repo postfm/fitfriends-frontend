@@ -18,7 +18,7 @@ export const Coach = {
   caloriesToLose: null,
   caloriesPerDay: null,
   readyToTrain: null,
-  certificates: 'img/content/certificates-and-diplomas/certificate-1.jpg',
+  certificates: '/img/content/certificates-and-diplomas/certificate-1.jpg',
   merits: 'Чемпионка республики',
   personalTrainings: true,
   refreshToken: '$2b$10$.TZUw5PdBvQZ1VGCEkmjAeRnaL0gM2QE6D7Dx5ZA9YrBC7cvjRUiW',
