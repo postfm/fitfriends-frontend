@@ -47,7 +47,7 @@ export default function MyOrdersPage(): JSX.Element {
               </div>
               <ul className="my-orders__list">
                 {myOrders.data?.map((myOrder) => (
-                  <MyOrderCard key={myOrder.trainingId} myOrder={myOrder} />
+                  <MyOrderCard key={myOrder.id} myOrder={myOrder} />
                 ))}
               </ul>
               <div className="show-more my-orders__show-more">

@@ -1,3 +1,5 @@
+import { MyOrder } from '../types';
+
 export const MY_ORDERS = [
   {
     id: 1,
@@ -1139,4 +1141,4 @@ export const MY_ORDERS = [
         '$2b$10$a7S7ZGlef9hTsRpOc/n/HeQQkx/IbdKvhesrJEK2N.272yFUYjFgK',
     },
   },
-];
+] as unknown as MyOrder[];
