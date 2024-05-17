@@ -6,6 +6,7 @@ import { createOrder } from '../../api/createOrder';
 
 interface PurchaseFormProps {
   training: Training;
+  onSave: () => void;
 }
 
 const Value = {
@@ -15,7 +16,10 @@ const Value = {
 
 const TYPE_ORDER = 'абонемент';
 
-export function PurchaseForm({ training }: PurchaseFormProps): JSX.Element {
+export function PurchaseForm({
+  training,
+  onSave,
+}: PurchaseFormProps): JSX.Element {
   const [amountOfTrainings, setAmountOfTrainings] = useState(0);
   const [paymentMethod, setPaymentMethod] = useState('');
 
@@ -37,6 +41,8 @@ export function PurchaseForm({ training }: PurchaseFormProps): JSX.Element {
     onSuccess: (data) => {
       // eslint-disable-next-line no-console
       console.log('order create successfuly', data);
+
+      onSave();
     },
   });
 

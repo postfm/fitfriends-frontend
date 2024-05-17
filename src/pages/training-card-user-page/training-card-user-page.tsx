@@ -240,7 +240,10 @@ export default function TrainingCardUserPage(): React.ReactNode {
         onClose={() => setPurchasePopupOpen(false)}
         title="Купить тренировку"
       >
-        <PurchaseForm training={training.data} />
+        <PurchaseForm
+          training={training.data}
+          onSave={() => setPurchasePopupOpen(false)}
+        />
       </PopupModal>
       <PopupModal
         isOpen={feedbackPopupOpen}
