@@ -1,7 +1,7 @@
 export const Training = {
   trainingId: 1,
   name: 'CROSSFIT',
-  image: 'img/content/thumbnails/training-01.jpg',
+  image: '/img/content/thumbnails/training-01.jpg',
   level: 'новичок',
   type: 'кроссфит',
   duration: '10-30 мин',
@@ -10,7 +10,7 @@ export const Training = {
   description:
     'Сложный комплекс упражнений для профессиональных атлетов на отработку показателей в классическом стиле.',
   gender: 'для всех',
-  video: 'img/content/training-video/Video_html_Academy.mov',
+  video: '/img/content/training-video/Video_html_Academy.mov',
   rating: 2,
   specialOffer: false,
   createdAt: '2024-05-10T11:07:21.149Z',
@@ -19,7 +19,7 @@ export const Training = {
     id: 7,
     name: 'Rob',
     email: 'rob@trainer.com',
-    avatar: 'img/content/thumbnails/friend-16.jpg',
+    avatar: '/img/content/thumbnails/friend-16.jpg',
     password: '$2b$10$R00qBZqGyQbeiqVRKa5gPO4KgSOjA2/KltD6IT5nif9lVrySLwyMe',
     gender: 'неважно',
     birthday: '2004-10-12T20:00:00.000Z',
@@ -27,7 +27,7 @@ export const Training = {
     description:
       'Персональный тренер и инструктор групповых программ с опытом  более 4х лет. Специализация: пилатес.',
     location: 'Спортивная',
-    image: 'img/content/thumbnails/friend-16.jpg',
+    image: '/img/content/thumbnails/friend-16.jpg',
     createdAt: '2024-05-10T10:02:09.607Z',
     updatedAt: '2024-05-10T10:02:09.607Z',
     levelOfTrain: 'профессионал',
@@ -36,7 +36,7 @@ export const Training = {
     caloriesToLose: null,
     caloriesPerDay: null,
     readyToTrain: null,
-    certificates: 'img/content/certificates-and-diplomas/1.pdf',
+    certificates: '/img/content/certificates-and-diplomas/1.pdf',
     merits: 'Мастер спорта',
     personalTrainings: false,
     refreshToken:

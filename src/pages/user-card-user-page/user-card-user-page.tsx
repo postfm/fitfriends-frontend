@@ -96,7 +96,7 @@ export default function UserCardUserPage(): JSX.Element {
                         <li className="user-card__gallary-item">
                           <img
                             src="/img/content/user-card-photo2.jpg"
-                            srcSet="img/content/user-card-photo2@2x.jpg 2x"
+                            srcSet="/img/content/user-card-photo2@2x.jpg 2x"
                             width={334}
                             height={573}
                             alt="photo2"

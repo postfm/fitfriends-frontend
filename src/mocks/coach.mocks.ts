@@ -2,7 +2,7 @@ export const Coach = {
   id: 8,
   name: 'July',
   email: 'july@trainer.com',
-  avatar: 'img/content/avatars/coaches/photo-1.png',
+  avatar: '/img/content/avatars/coaches/photo-1.png',
   gender: 'женский',
   birthday: '2002-04-30T20:00:00.000Z',
   roles: 'тренер',
