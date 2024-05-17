@@ -250,7 +250,7 @@ export default function TrainingCardUserPage(): React.ReactNode {
         onClose={() => setFeedbackPopupOpen(false)}
         title="Оставить отзыв"
       >
-        <FeedbackForm />
+        <FeedbackForm onSave={() => setFeedbackPopupOpen(false)} />
       </PopupModal>
     </div>
   );

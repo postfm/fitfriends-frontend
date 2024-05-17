@@ -4,15 +4,14 @@ import { NewReview } from '../../types';
 import { createReview } from '../../api/createReview';
 
 const GRADES = [1, 2, 3, 4, 5];
-const DEFAULT_GRADE = 5;
 
-export default function FeedbackForm(): JSX.Element {
+interface FeedbackFormProps {
+  onSave: () => void;
+}
+
+export const FeedbackForm: React.FC<FeedbackFormProps> = ({ onSave }) => {
   const [grade, setGrade] = useState(5);
   const [text, setText] = useState('');
-  const [review, setReview] = useState({
-    grade: DEFAULT_GRADE,
-    text: '',
-  });
 
   const handleInputhChange = (evt: ChangeEvent<HTMLInputElement>) => {
     setGrade(+evt.target.value);
@@ -28,18 +27,18 @@ export default function FeedbackForm(): JSX.Element {
     onSuccess: (data) => {
       // eslint-disable-next-line no-console
       console.log('review create successfuly', data);
+
+      onSave();
     },
   });
 
   const handleButtonClick = () => {
-    setReview({
-      grade: grade,
-      text: text,
+    newReview.mutate({
+      value: {
+        grade,
+        text,
+      },
     });
-
-    const value = { ...review };
-
-    newReview.mutate({ value });
   };
 
   return (
@@ -74,7 +73,6 @@ export default function FeedbackForm(): JSX.Element {
               <textarea
                 name="description"
                 placeholder="Введите сюда текст отзыва "
-                defaultValue={''}
                 value={text}
                 onChange={handleTextAreaChange}
               />
@@ -89,4 +87,6 @@ export default function FeedbackForm(): JSX.Element {
       </div>
     </div>
   );
-}
+};
+
+export default FeedbackForm;
