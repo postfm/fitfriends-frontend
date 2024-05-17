@@ -15,7 +15,7 @@ export default function Header() {
   const { logoutCurrentUser } = useAuth();
   const myNotifications = useQuery({
     queryKey: ['myNotifications'],
-    queryFn: loadNotifications,
+    queryFn: () => loadNotifications(user.id),
   }).data;
 
   interface NotifyProps {
