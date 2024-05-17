@@ -1,11 +1,11 @@
 import { useNavigate, useParams } from 'react-router-dom';
-import { AuthAppRoutes } from '../../constants/constants';
 import { useState } from 'react';
 import { renderHashtag } from '../../utils';
 import PopupModal from '../../components/modal/popup-modal';
 import LocationMap from '../../components/location-map';
 import { useQuery } from '@tanstack/react-query';
 import { loadUser } from '../../api/loadUser';
+import { useFriendQuery } from '../../hooks';
 
 export default function UserCardUserPage(): JSX.Element {
   const { id } = useParams();
@@ -15,11 +15,8 @@ export default function UserCardUserPage(): JSX.Element {
   }).data;
   const [locationMapOpen, setLocationMapOpen] = useState(false);
   const navigate = useNavigate();
-  const [isAddFriend, setIsaddFriend] = useState(false);
 
-  const handleButtonAddFriendClick = () => {
-    setIsaddFriend(!isAddFriend);
-  };
+  const { isFriend, addRemoveFriend } = useFriendQuery(Number(id));
 
   return (
     <div className="wrapper">
@@ -30,7 +27,7 @@ export default function UserCardUserPage(): JSX.Element {
               <button
                 className="btn-flat inner-page__back"
                 type="button"
-                onClick={() => navigate(AuthAppRoutes.UserCatalogue)}
+                onClick={() => navigate(-1)}
               >
                 <svg width={14} height={10} aria-hidden="true">
                   <use xlinkHref="#arrow-left" />
@@ -80,11 +77,9 @@ export default function UserCardUserPage(): JSX.Element {
                       <button
                         className="btn user-card__btn"
                         type="button"
-                        onClick={handleButtonAddFriendClick}
+                        onClick={addRemoveFriend}
                       >
-                        {!isAddFriend
-                          ? 'Добавить в друзья'
-                          : 'Удалить из друзей'}
+                        {!isFriend ? 'Добавить в друзья' : 'Удалить из друзей'}
                       </button>
                     </div>
                     <div className="user-card__gallary">

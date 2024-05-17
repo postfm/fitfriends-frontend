@@ -66,6 +66,13 @@ export interface User {
   trainings: Training[];
 }
 
+export interface Subscription {
+  id: number;
+  subscriber_id: number;
+  trainer_id: number;
+  subscriber_email: string;
+}
+
 export interface PersonalTraining {
   initiator: number;
   user: number;
