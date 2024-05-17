@@ -14,7 +14,7 @@ export const TRAININGS_MOCK = {
       gender: 'для женщин',
       video: '/img/content/training-video/Video_HTML_Academy_1.mp4',
       rating: 5,
-      specialOffer: false,
+      specialOffer: true,
       createdAt: '2024-05-10T11:10:32.391Z',
       updatedAt: '2024-05-10T11:10:32.391Z',
       orders: [],
@@ -411,7 +411,7 @@ export const TRAININGS_MOCK = {
       gender: 'для женщин',
       video: '/img/content/training-video/Video_html_Academy.mov',
       rating: 0,
-      specialOffer: false,
+      specialOffer: true,
       createdAt: '2024-05-10T11:09:10.603Z',
       updatedAt: '2024-05-10T11:09:10.603Z',
       orders: [
@@ -561,7 +561,7 @@ export const TRAININGS_MOCK = {
       gender: 'для всех',
       video: '/img/content/training-video/Video_html_Academy.mov',
       rating: 3,
-      specialOffer: false,
+      specialOffer: true,
       createdAt: '2024-05-10T11:08:40.741Z',
       updatedAt: '2024-05-10T11:08:40.741Z',
       orders: [
@@ -740,7 +740,7 @@ export const TRAININGS_MOCK = {
       gender: 'для женщин',
       video: '/img/content/training-video/Video_html_Academy.mov',
       rating: 2.5,
-      specialOffer: false,
+      specialOffer: true,
       createdAt: '2024-05-10T11:07:59.736Z',
       updatedAt: '2024-05-10T11:07:59.736Z',
       orders: [],
@@ -919,7 +919,7 @@ export const TRAININGS_MOCK = {
       gender: 'для всех',
       video: '/img/content/training-video/Video_HTML_Academy_1.mp4',
       rating: 2,
-      specialOffer: false,
+      specialOffer: true,
       createdAt: '2024-05-10T11:07:53.795Z',
       updatedAt: '2024-05-10T11:07:53.795Z',
       orders: [
@@ -994,7 +994,7 @@ export const TRAININGS_MOCK = {
       gender: 'для женщин',
       video: '/img/content/training-video/Video_html_Academy.mov',
       rating: 5,
-      specialOffer: false,
+      specialOffer: true,
       createdAt: '2024-05-10T11:07:45.248Z',
       updatedAt: '2024-05-10T11:07:45.248Z',
       orders: [
