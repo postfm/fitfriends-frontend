@@ -48,7 +48,7 @@ export default function CreateTrainingPage(): JSX.Element {
       createTraining(params.training),
     onSuccess: (data) => {
       // eslint-disable-next-line no-console
-      console.log('user updated successfuly', data);
+      console.log('training updated successfuly', data);
       navigate(
         generatePath(AuthAppRoutes.TrainingCard, {
           id: String(data.trainingId),

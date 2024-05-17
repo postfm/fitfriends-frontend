@@ -242,7 +242,7 @@ export default function TrainingCardUserPage(): JSX.Element {
         onClose={() => setPurchasePopupOpen(false)}
         title="Купить тренировку"
       >
-        <PurchaseForm />
+        <PurchaseForm training={training} />
       </PopupModal>
       <PopupModal
         isOpen={feedbackPopupOpen}

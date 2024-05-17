@@ -114,3 +114,10 @@ export interface Notification {
   user: number;
   createdAt: string;
 }
+
+export interface Order {
+  type: string;
+  price: number;
+  amount: number;
+  pay: string;
+}
