@@ -20,7 +20,7 @@ export function PurchaseForm({
   training,
   onSave,
 }: PurchaseFormProps): JSX.Element {
-  const [amountOfTrainings, setAmountOfTrainings] = useState(0);
+  const [amountOfTrainings, setAmountOfTrainings] = useState(1);
   const [paymentMethod, setPaymentMethod] = useState('');
 
   const handleInputhChange = (evt: ChangeEvent<HTMLInputElement>) => {
@@ -77,7 +77,7 @@ export function PurchaseForm({
               type="button"
               aria-label="minus"
               onClick={handleButtonDecrementClick}
-              disabled={amountOfTrainings <= 0}
+              disabled={amountOfTrainings < 1}
             >
               <svg width={12} height={12} aria-hidden="true">
                 <use xlinkHref="#icon-minus" />
