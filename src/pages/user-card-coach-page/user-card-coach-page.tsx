@@ -34,9 +34,7 @@ export default function UserCardCoachPage(): React.ReactNode {
 
   let certificates = user?.certificates?.split(',') || [];
   certificates =
-    certificates.length < 3
-      ? [...certificates, ...certificates, ...certificates]
-      : certificates;
+    certificates.length < 3 ? [...certificates, ...certificates] : certificates;
 
   return (
     <div className="wrapper">
