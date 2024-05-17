@@ -1,4 +1,4 @@
-export const Alerts = [
+export const NOTIFICATIONS = [
   {
     id: 39,
     text: 'Rob changed the status of your application to принят',

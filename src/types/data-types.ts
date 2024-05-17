@@ -100,3 +100,10 @@ export const Positions = {
   ['Звёздная']: [59.8333958032954, 30.34858591086744],
   ['Спортивная']: [59.95158563911932, 30.29279231417399],
 } as Record<string, [number, number]>;
+
+export interface Notification {
+  id: number;
+  text: string;
+  user: number;
+  createdAt: string;
+}
