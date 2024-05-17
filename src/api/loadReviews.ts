@@ -1,6 +1,7 @@
 import { REVIEWS } from '../mocks/reviews.mocks';
 import { Review } from '../types';
 
-export function loadReviews(): Promise<Review[]> {
+// eslint-disable-next-line @typescript-eslint/no-unused-vars
+export function loadReviews(id: number): Promise<Review[]> {
   return Promise.resolve(REVIEWS);
 }

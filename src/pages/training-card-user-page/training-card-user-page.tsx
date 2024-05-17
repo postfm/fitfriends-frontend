@@ -1,40 +1,32 @@
 import { useQuery } from '@tanstack/react-query';
 import { useNavigate, useParams } from 'react-router-dom';
-import { loadTrainings } from '../../api/loadTrainings';
 import { loadReviews } from '../../api/loadReviews';
 import ReviewCard from '../../components/review/review-card';
-import { loadUsers } from '../../api/loadUsers';
 import { AuthAppRoutes } from '../../constants/constants';
 import { useState } from 'react';
 import PopupModal from '../../components/modal/popup-modal';
 import { PurchaseForm } from '../../components/popup-forms';
 import FeedbackForm from '../../components/popup-forms/feedback-form';
+import { loadTraining } from '../../api/loadTraining';
+import { renderHashtag, renderPrice } from '../../utils';
 
-export default function TrainingCardUserPage(): JSX.Element {
+export default function TrainingCardUserPage(): React.ReactNode {
   const [purchasePopupOpen, setPurchasePopupOpen] = useState(false);
   const [feedbackPopupOpen, setFeedbackPopupOpen] = useState(false);
   const { id } = useParams();
   const navigate = useNavigate();
-  const trainings = useQuery({
-    queryKey: ['trainings'],
-    queryFn: loadTrainings,
+  const training = useQuery({
+    queryKey: ['training', id],
+    queryFn: () => loadTraining(Number(id)),
   });
   const reviews = useQuery({
     queryKey: ['reviews'],
-    queryFn: loadReviews,
-  });
-  const users = useQuery({
-    queryKey: ['users'],
-    queryFn: loadUsers,
+    queryFn: () => loadReviews(Number(id)),
   });
 
-  const training = trainings.data?.filter(
-    (item) => item.trainingId === +(id as string)
-  )[0];
-
-  const coach = users.data?.filter(
-    (item) => item.id === +(training?.trainingId as number)
-  )[0];
+  if (!training.data) {
+    return 'Loading';
+  }
 
   return (
     <div className="wrapper">
@@ -86,7 +78,7 @@ export default function TrainingCardUserPage(): JSX.Element {
                       <div className="training-info__coach-info">
                         <span className="training-info__label">Тренер</span>
                         <span className="training-info__name">
-                          {coach?.name}
+                          {training.data.user.name}
                         </span>
                       </div>
                     </div>
@@ -103,7 +95,7 @@ export default function TrainingCardUserPage(): JSX.Element {
                               <input
                                 type="text"
                                 name="training"
-                                defaultValue={training?.name}
+                                defaultValue={training.data.name}
                                 disabled
                               />
                             </label>
@@ -119,7 +111,7 @@ export default function TrainingCardUserPage(): JSX.Element {
                               <textarea
                                 name="description"
                                 disabled
-                                defaultValue={training?.description}
+                                defaultValue={training.data.description}
                               />
                             </label>
                           </div>
@@ -138,7 +130,7 @@ export default function TrainingCardUserPage(): JSX.Element {
                               <input
                                 type="number"
                                 name="rating"
-                                defaultValue={training?.rating}
+                                defaultValue={training.data.description}
                                 disabled
                               />
                             </label>
@@ -146,23 +138,29 @@ export default function TrainingCardUserPage(): JSX.Element {
                           <ul className="training-info__list">
                             <li className="training-info__item">
                               <div className="hashtag hashtag--white">
-                                <span>{`#${training?.type as string}`}</span>
-                              </div>
-                            </li>
-                            <li className="training-info__item">
-                              <div className="hashtag hashtag--white">
-                                <span>{`#${training?.gender as string}`}</span>
-                              </div>
-                            </li>
-                            <li className="training-info__item">
-                              <div className="hashtag hashtag--white">
-                                <span>#320ккал</span>
+                                <span>{renderHashtag(training.data.type)}</span>
                               </div>
                             </li>
                             <li className="training-info__item">
                               <div className="hashtag hashtag--white">
                                 <span>
-                                  {`#${training?.duration as string}`}
+                                  {renderHashtag(training.data.gender)}
+                                </span>
+                              </div>
+                            </li>
+                            <li className="training-info__item">
+                              <div className="hashtag hashtag--white">
+                                <span>
+                                  {renderHashtag(
+                                    String(training.data.calories)
+                                  )}
+                                </span>
+                              </div>
+                            </li>
+                            <li className="training-info__item">
+                              <div className="hashtag hashtag--white">
+                                <span>
+                                  {renderHashtag(training.data.duration)}
                                 </span>
                               </div>
                             </li>
@@ -177,7 +175,7 @@ export default function TrainingCardUserPage(): JSX.Element {
                               <input
                                 type="text"
                                 name="price"
-                                defaultValue={`${training?.price as number} ₽`}
+                                defaultValue={renderPrice(training.data.price)}
                                 disabled
                               />
                             </label>
@@ -242,7 +240,7 @@ export default function TrainingCardUserPage(): JSX.Element {
         onClose={() => setPurchasePopupOpen(false)}
         title="Купить тренировку"
       >
-        <PurchaseForm training={training} />
+        <PurchaseForm training={training.data} />
       </PopupModal>
       <PopupModal
         isOpen={feedbackPopupOpen}

@@ -42,6 +42,7 @@ export const AuthProvider: React.FC<{ children: React.ReactNode }> = ({
       saveCurrentUser: setUser,
       logoutCurrentUser,
     }),
+    // eslint-disable-next-line react-hooks/exhaustive-deps
     [user]
   );
   return <AuthContext.Provider value={value}>{children}</AuthContext.Provider>;

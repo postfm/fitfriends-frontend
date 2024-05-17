@@ -32,6 +32,7 @@ export interface Training {
   // TODO: Date
   createdAt: string;
   updatedAt: string;
+  user: Omit<User, 'trainings'>;
 }
 
 export type NewTraining = Omit<

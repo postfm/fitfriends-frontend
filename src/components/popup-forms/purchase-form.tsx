@@ -1,11 +1,11 @@
 import { ChangeEvent, useState } from 'react';
 import { Order, Training } from '../../types';
-import { renderCash, renderTotalCost } from '../../utils';
+import { renderPrice } from '../../utils';
 import { useMutation } from '@tanstack/react-query';
 import { createOrder } from '../../api/createOrder';
 
 interface PurchaseFormProps {
-  training: Training | undefined;
+  training: Training;
 }
 
 const Value = {
@@ -16,25 +16,19 @@ const Value = {
 const TYPE_ORDER = 'абонемент';
 
 export function PurchaseForm({ training }: PurchaseFormProps): JSX.Element {
-  const [amountTraining, setAmauntTraining] = useState(0);
+  const [amountOfTrainings, setAmountOfTrainings] = useState(0);
   const [paymentMethod, setPaymentMethod] = useState('');
-  const [order, setOrder] = useState({
-    type: TYPE_ORDER,
-    price: training?.price,
-    amount: 0,
-    pay: paymentMethod,
-  });
 
   const handleInputhChange = (evt: ChangeEvent<HTMLInputElement>) => {
     setPaymentMethod(evt.target.value);
   };
 
   const handleButtonIncrementClick = () => {
-    setAmauntTraining(amountTraining + Value.increment);
+    setAmountOfTrainings(amountOfTrainings + Value.increment);
   };
 
   const handleButtonDecrementClick = () => {
-    setAmauntTraining(amountTraining + Value.decrement);
+    setAmountOfTrainings(amountOfTrainings + Value.decrement);
   };
 
   const newOrder = useMutation({
@@ -47,14 +41,12 @@ export function PurchaseForm({ training }: PurchaseFormProps): JSX.Element {
   });
 
   const handleButtonClick = () => {
-    setOrder({
+    const value = {
       type: TYPE_ORDER,
-      price: Number(training?.price),
-      amount: amountTraining,
+      amount: amountOfTrainings,
       pay: paymentMethod,
-    });
-
-    const value = { ...order };
+      price: amountOfTrainings * training.price,
+    };
 
     newOrder.mutate({ value });
   };
@@ -69,9 +61,7 @@ export function PurchaseForm({ training }: PurchaseFormProps): JSX.Element {
         </div>
         <div className="popup__product-info">
           <h3 className="popup__product-title">{training?.name}</h3>
-          <p className="popup__product-price">
-            {renderCash(training?.price as number)}
-          </p>
+          <p className="popup__product-price">{renderPrice(training.price)}</p>
         </div>
         <div className="popup__product-quantity">
           <p className="popup__quantity">Количество</p>
@@ -81,7 +71,7 @@ export function PurchaseForm({ training }: PurchaseFormProps): JSX.Element {
               type="button"
               aria-label="minus"
               onClick={handleButtonDecrementClick}
-              disabled={amountTraining <= 0}
+              disabled={amountOfTrainings <= 0}
             >
               <svg width={12} height={12} aria-hidden="true">
                 <use xlinkHref="#icon-minus" />
@@ -89,7 +79,12 @@ export function PurchaseForm({ training }: PurchaseFormProps): JSX.Element {
             </button>
             <div className="input-quantity__input">
               <label>
-                <input type="text" value={amountTraining} size={2} readOnly />
+                <input
+                  type="text"
+                  value={amountOfTrainings}
+                  size={2}
+                  readOnly
+                />
               </label>
             </div>
             <button
@@ -97,7 +92,7 @@ export function PurchaseForm({ training }: PurchaseFormProps): JSX.Element {
               type="button"
               aria-label="plus"
               onClick={handleButtonIncrementClick}
-              disabled={amountTraining >= 50}
+              disabled={amountOfTrainings >= 50}
             >
               <svg width={12} height={12} aria-hidden="true">
                 <use xlinkHref="#icon-plus" />
@@ -177,7 +172,10 @@ export function PurchaseForm({ training }: PurchaseFormProps): JSX.Element {
           <use xlinkHref="#dash-line" />
         </svg>
         <p className="popup__total-price">
-          {renderTotalCost(amountTraining * Number(training?.price))}
+          {new Intl.NumberFormat('ru-RU', {
+            style: 'currency',
+            currency: 'RUB',
+          }).format(amountOfTrainings * training.price)}
         </p>
       </div>
       <div className="popup__button">
