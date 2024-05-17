@@ -50,19 +50,6 @@ const CertificatePopupSlider: React.FC<CertificateSliderProps> = ({
           ))}
         </Slider>
 
-        {/* <label className="btn-flat btn-flat--underlined personal-account-coach__button">
-          <label style={{ display: 'flex', alignItems: 'center' }}>
-            <input
-              className="visually-hidden"
-              type="file"
-              accept="image/png, image/jpeg"
-            />
-            <svg width={14} height={14} aria-hidden="true">
-              <use xlinkHref="#icon-import" />
-            </svg>
-            <span style={{ marginLeft: '5px' }}>Загрузить</span>
-          </label>
-        </label> */}
         <div
           className="personal-account-coach__controls"
           style={{ alignSelf: 'flex-start' }}

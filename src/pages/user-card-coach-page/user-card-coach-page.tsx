@@ -32,7 +32,11 @@ export default function UserCardCoachPage(): React.ReactNode {
     return null;
   }
 
-  const certificates = user?.certificates?.split(',') || [];
+  let certificates = user?.certificates?.split(',') || [];
+  certificates =
+    certificates.length < 3
+      ? [...certificates, ...certificates, ...certificates]
+      : certificates;
 
   return (
     <div className="wrapper">
