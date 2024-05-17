@@ -1,5 +1,7 @@
+import { PRICE_WITH_DISCOUNT } from '../constants/constants';
+
 export function renderPrice(price: number, discount?: boolean) {
-  return `${price * (discount ? 0.9 : 1)} ₽`;
+  return `${price * (discount ? PRICE_WITH_DISCOUNT : 1)} ₽`;
 }
 
 export function renderHashtag(name: string) {
