@@ -6,7 +6,7 @@ interface RadioToggleOption {
 }
 
 interface RadioToggleInputProps {
-  title: string;
+  title?: string;
   options: RadioToggleOption[];
   defaultSelected?: string;
   onChange?: (selectedKey: string) => void;
@@ -18,15 +18,19 @@ export const RadioToggleInput: React.FC<RadioToggleInputProps> = (props) => {
 
   return (
     <>
-      <span className="create-training__label">{title}</span>
-      <br />
+      {title && (
+        <>
+          <span className="create-training__label">{title}</span>
+          <br />
+        </>
+      )}
       <div className="custom-toggle-radio create-training__radio">
         {options.map((option) => (
           <div key={option.key} className="custom-toggle-radio__block">
             <label>
               <input
                 type="radio"
-                name="sort"
+                name="level"
                 checked={option.key === selected}
                 onChange={(evt) => {
                   if (evt.target.checked) {

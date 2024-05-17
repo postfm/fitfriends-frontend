@@ -1,7 +1,7 @@
 import { useState } from 'react';
 
 interface RadioFilterProps {
-  title: string;
+  title?: string;
   options: string[];
   defaultSelected?: string;
   onChange?: (selectedKey: string) => void;
@@ -13,9 +13,11 @@ export const RadioFilter: React.FC<RadioFilterProps> = (props) => {
 
   return (
     <>
-      <h4 className="gym-catalog-form__title gym-catalog-form__title--sort">
-        {title}
-      </h4>
+      {title && (
+        <h4 className="gym-catalog-form__title gym-catalog-form__title--sort">
+          {title}
+        </h4>
+      )}
       <div className="btn-radio-sort gym-catalog-form__radio">
         {options.map((option) => (
           <label key={option}>

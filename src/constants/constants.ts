@@ -43,6 +43,7 @@ export const Locations = [
   'Удельная',
   'Звёздная',
   'Спортивная',
+  'Тестовая',
 ];
 
 export const TypesOfTrainings = [
