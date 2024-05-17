@@ -18,7 +18,12 @@ const TYPE_ORDER = 'абонемент';
 export function PurchaseForm({ training }: PurchaseFormProps): JSX.Element {
   const [amountTraining, setAmauntTraining] = useState(0);
   const [paymentMethod, setPaymentMethod] = useState('');
-  const [order, setOrder] = useState({});
+  const [order, setOrder] = useState({
+    type: TYPE_ORDER,
+    price: training?.price,
+    amount: 0,
+    pay: paymentMethod,
+  });
 
   const handleInputhChange = (evt: ChangeEvent<HTMLInputElement>) => {
     setPaymentMethod(evt.target.value);
@@ -32,23 +37,27 @@ export function PurchaseForm({ training }: PurchaseFormProps): JSX.Element {
     setAmauntTraining(amountTraining + Value.decrement);
   };
 
-  const handleButtonByClick = () => {
+  const newOrder = useMutation({
+    mutationKey: ['createOrder'],
+    mutationFn: (params: { value: Order }) => createOrder(params.value),
+    onSuccess: (data) => {
+      // eslint-disable-next-line no-console
+      console.log('order create successfuly', data);
+    },
+  });
+
+  const handleButtonClick = () => {
     setOrder({
       type: TYPE_ORDER,
-      price: training?.price,
+      price: Number(training?.price),
       amount: amountTraining,
       pay: paymentMethod,
     });
-  };
 
-  const newOrder = useMutation({
-    mutationKey: ['createOrder'],
-    mutationFn: (params: { order: Order }) => createOrder(params.order),
-    onSuccess: () => {
-      // eslint-disable-next-line no-console
-      console.log('order create successfuly', newOrder);
-    },
-  });
+    const value = { ...order };
+
+    newOrder.mutate({ value });
+  };
 
   return (
     <div className="popup__content popup__content--purchases">
@@ -172,7 +181,7 @@ export function PurchaseForm({ training }: PurchaseFormProps): JSX.Element {
         </p>
       </div>
       <div className="popup__button">
-        <button className="btn" type="button" onClick={handleButtonByClick}>
+        <button className="btn" type="button" onClick={handleButtonClick}>
           Купить
         </button>
       </div>

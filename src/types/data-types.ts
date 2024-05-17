@@ -108,7 +108,7 @@ export const Positions = {
   ['Спортивная']: [59.95158563911932, 30.29279231417399],
 } as Record<string, [number, number]>;
 
-export interface Notification {
+export interface Notify {
   id: number;
   text: string;
   user: number;
@@ -117,7 +117,7 @@ export interface Notification {
 
 export interface Order {
   type: string;
-  price: number;
+  price: number | undefined;
   amount: number;
   pay: string;
 }

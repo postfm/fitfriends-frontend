@@ -3,10 +3,12 @@ import { AppRoutes } from '../../constants/constants';
 import classNames from 'classnames';
 import { useAuth, useUser } from '../../hooks';
 import { isUser } from '../../utils/entity-helpers';
-import { useQuery } from '@tanstack/react-query';
+import { useMutation, useQuery } from '@tanstack/react-query';
 import { loadNotifications } from '../../api/loadNotifications';
 import { getDateTime } from '../../utils/date-helpers';
 import { useState } from 'react';
+import { Notify } from '../../types';
+import { deleteNotify } from '../../api/deleteNotify';
 
 export default function Header() {
   const user = useUser();
@@ -15,11 +17,44 @@ export default function Header() {
     queryKey: ['myNotifications'],
     queryFn: loadNotifications,
   }).data;
-  const [isNotifyActive, setIsNotifyActive] = useState(true);
 
-  const handleListClick = () => {
-    setIsNotifyActive(false);
-  };
+  interface NotifyProps {
+    notify: Notify;
+  }
+
+  function Notify({ notify }: NotifyProps): JSX.Element {
+    const [isNotifyActive, setIsNotifyActive] = useState(true);
+
+    const notifyDelete = useMutation({
+      mutationKey: ['deleteNotify'],
+      mutationFn: (params: { notifyId: number }) =>
+        deleteNotify(params.notifyId),
+      onSuccess: () => {
+        // eslint-disable-next-line no-console
+        console.log('Notify deleted successfull');
+      },
+    });
+
+    const handleListClick = () => {
+      setIsNotifyActive(false);
+      notifyDelete.mutate({ notifyId: notify.id });
+    };
+
+    return (
+      <li className="main-nav__subitem" onClick={handleListClick}>
+        <a
+          className={classNames('notification', {
+            'is-active': isNotifyActive,
+          })}
+        >
+          <p className="notification__text">{notify.text}</p>
+          <time className="notification__time" dateTime="2023-12-23 12:35">
+            {getDateTime(notify.createdAt)}
+          </time>
+        </a>
+      </li>
+    );
+  }
 
   return (
     <header className="header">
@@ -86,27 +121,7 @@ export default function Header() {
                 <p className="main-nav__label">Оповещения</p>
                 <ul className="main-nav__sublist">
                   {myNotifications?.map((notification) => (
-                    <li
-                      className="main-nav__subitem"
-                      key={notification.id}
-                      onClick={handleListClick}
-                    >
-                      <a
-                        className={classNames('notification', {
-                          'is-active': isNotifyActive,
-                        })}
-                      >
-                        <p className="notification__text">
-                          {notification.text}
-                        </p>
-                        <time
-                          className="notification__time"
-                          dateTime="2023-12-23 12:35"
-                        >
-                          {getDateTime(notification.createdAt)}
-                        </time>
-                      </a>
-                    </li>
+                    <Notify notify={notification} key={notification?.id} />
                   ))}
                 </ul>
               </div>

@@ -1,6 +1,6 @@
 import { NOTIFICATIONS } from '../mocks/notifications.mocks';
-import { Notification } from '../types/data-types';
+import { Notify } from '../types/data-types';
 
-export function loadNotifications(): Promise<Notification[]> {
+export function loadNotifications(): Promise<Notify[]> {
   return Promise.resolve(NOTIFICATIONS);
 }
