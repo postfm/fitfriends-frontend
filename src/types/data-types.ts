@@ -100,6 +100,11 @@ export interface Review {
   createdAt: string;
 }
 
+export interface NewReview {
+  grade: number;
+  text: string;
+}
+
 export const Positions = {
   ['Пионерская']: [60.00325466185073, 30.296016162457548],
   ['Петроградская']: [59.96674350696821, 30.311429528073464],
