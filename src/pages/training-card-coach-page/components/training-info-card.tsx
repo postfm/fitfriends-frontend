@@ -3,6 +3,7 @@ import { Training } from '../../../types';
 import { LengthParameters } from '../../../constants/validate.constants';
 import { PRICE_WITH_DISCOUNT } from '../../../constants/constants';
 import { renderPrice } from '../../../utils';
+import classNames from 'classnames';
 
 interface TrainingInfoCardProps {
   training: Training;
@@ -212,8 +213,9 @@ const TrainingInfoCard: React.FC<TrainingInfoCardProps> = ({
       <div className="training-video">
         <h2 className="training-video__title">Видео</h2>
         <div
-          className="training-video__video"
-          style={isDeleteVideo ? { display: 'none' } : { display: 'contents' }}
+          className={classNames('training-video__video', {
+            'visually-hidden': isDeleteVideo,
+          })}
         >
           <div className="training-video__thumbnail">
             <picture>
@@ -233,7 +235,7 @@ const TrainingInfoCard: React.FC<TrainingInfoCardProps> = ({
         </div>
         <div
           className="training-video__drop-files"
-          style={!isDeleteVideo ? { display: 'none' } : { display: 'contents' }}
+          style={isDeleteVideo ? { display: 'contents' } : { display: 'none' }}
         >
           <form action="#" method="post">
             <div className="training-video__form-wrapper">
