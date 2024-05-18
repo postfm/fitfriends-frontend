@@ -5,9 +5,12 @@ import PopupModal from '../../components/modal/popup-modal';
 import LocationMap from '../../components/location-map';
 import { useQuery } from '@tanstack/react-query';
 import { loadUser } from '../../api/loadUser';
-import { useFriendQuery } from '../../hooks';
+import { useFriendQuery, useUser } from '../../hooks';
+import classNames from 'classnames';
+import { UserRole } from '../../constants/constants';
 
 export default function UserCardUserPage(): JSX.Element {
+  const coach = useUser();
   const { id } = useParams();
   const user = useQuery({
     queryKey: ['user'],
@@ -75,7 +78,10 @@ export default function UserCardUserPage(): JSX.Element {
                         ))}
                       </ul>
                       <button
-                        className="btn user-card__btn"
+                        className={classNames('btn user-card__btn', {
+                          'visually-hidden':
+                            !isFriend && coach.roles === UserRole.coach,
+                        })}
                         type="button"
                         onClick={addRemoveFriend}
                       >

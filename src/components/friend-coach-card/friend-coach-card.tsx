@@ -40,7 +40,7 @@ const FriendCoachCard: FC<FriendCoachCardProps> = ({ friend }) => {
             </div>
           </div>
           <div className="thumbnail-friend__header">
-            <h2 className="thumbnail-friend__name">Виктория</h2>
+            <h2 className="thumbnail-friend__name">{friend.name}</h2>
             <div className="thumbnail-friend__location">
               <svg width={14} height={16} aria-hidden="true">
                 <use xlinkHref="#icon-location" />

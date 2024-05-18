@@ -133,7 +133,7 @@ export default function Header() {
                 aria-label="Выход"
                 onClick={logoutCurrentUser}
               >
-                <img src="img/logout-icon.png" alt="" width={22} />
+                <img src="/img/logout-icon.png" alt="" width={22} />
               </a>
             </li>
           </ul>
