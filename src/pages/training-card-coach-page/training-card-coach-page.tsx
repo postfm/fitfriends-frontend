@@ -7,7 +7,7 @@ import TrainingInfoCard from './components/training-info-card';
 import { Training } from '../../types';
 import { updateTraining } from '../../api/updateTraining';
 
-export default function TrainingCardCoachPage(): React.ReactNode {
+const TrainingCardCoachPage: React.FC = () => {
   const { id } = useParams();
   const training = useQuery({
     queryKey: ['training', id],
@@ -24,7 +24,7 @@ export default function TrainingCardCoachPage(): React.ReactNode {
   });
 
   if (!training.data || training.isLoading) {
-    return 'Loading';
+    return <div>Loading</div>;
   }
 
   const handleSaveTraining = (training: Training) => {
@@ -50,7 +50,7 @@ export default function TrainingCardCoachPage(): React.ReactNode {
                 </Link>
                 <h2 className="reviews-side-bar__title">Отзывы</h2>
                 <ul className="reviews-side-bar__list">
-                  {training.data.reviews.map((review) => (
+                  {(training.data.reviews || []).map((review) => (
                     <ReviewCard key={review.id} review={review} />
                   ))}
                 </ul>
@@ -74,4 +74,6 @@ export default function TrainingCardCoachPage(): React.ReactNode {
       </main>
     </div>
   );
-}
+};
+
+export default TrainingCardCoachPage;

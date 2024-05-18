@@ -1,9 +1,9 @@
 import React from 'react';
-import { MyOrder } from '../../types';
+import { Order } from '../../types';
 import TrainingCard from '../training-card';
 
 interface MyOrderCardProps {
-  myOrder: MyOrder;
+  myOrder: Order;
 }
 
 const MyOrderCard: React.FC<MyOrderCardProps> = ({ myOrder }) => (

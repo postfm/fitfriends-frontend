@@ -1,5 +1,5 @@
 import { ChangeEvent, useState } from 'react';
-import { Order, Training } from '../../types';
+import { NewOrder, Training } from '../../types';
 import { renderPrice } from '../../utils';
 import { useMutation } from '@tanstack/react-query';
 import { createOrder } from '../../api/createOrder';
@@ -37,7 +37,7 @@ export function PurchaseForm({
 
   const newOrder = useMutation({
     mutationKey: ['createOrder'],
-    mutationFn: (params: { value: Order }) => createOrder(params.value),
+    mutationFn: (params: { value: NewOrder }) => createOrder(params.value),
     onSuccess: (data) => {
       // eslint-disable-next-line no-console
       console.log('order create successfuly', data);

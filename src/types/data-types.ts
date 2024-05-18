@@ -30,15 +30,15 @@ export interface Training {
   rating: number;
   specialOffer: boolean;
   // TODO: Date
-  createdAt: string;
-  updatedAt: string;
-  reviews: Review[];
-  user: Omit<User, 'trainings'>;
+  createdAt?: string;
+  updatedAt?: string;
+  reviews?: Review[];
+  user?: Omit<User, 'trainings' | 'reviews' | 'orders' | 'balance'>;
 }
 
 export type NewTraining = Omit<
   Training,
-  'trainingId' | 'createdAt' | 'updatedAt'
+  'trainingId' | 'createdAt' | 'updatedAt' | 'user' | 'reviews'
 >;
 
 export interface User {
@@ -53,8 +53,8 @@ export interface User {
   description: string;
   location: string;
   image: string;
-  createdAt: string;
-  updatedAt: string;
+  createdAt?: string;
+  updatedAt?: string;
   levelOfTrain: string;
   typeOfTraining: string[];
   timeOfTraining: string | null;
@@ -65,7 +65,10 @@ export interface User {
   merits: string | null;
   personalTrainings: boolean | null;
   refreshToken: string;
-  trainings: Training[];
+  balance?: number | null;
+  reviews?: Review[];
+  orders?: Omit<Order, 'user' | 'trainings'>[];
+  trainings?: Omit<Training, 'reviews' | 'user'>[];
 }
 
 export interface Subscription {
@@ -81,7 +84,7 @@ export interface PersonalTraining {
   status: string;
 }
 
-export interface MyOrder {
+export interface Order {
   id: string;
   type: string;
   price: number;
@@ -122,7 +125,7 @@ export interface Notify {
   createdAt: string;
 }
 
-export interface Order {
+export interface NewOrder {
   type: string;
   price: number | undefined;
   amount: number;

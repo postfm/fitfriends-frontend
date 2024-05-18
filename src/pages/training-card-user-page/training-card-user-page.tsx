@@ -2,14 +2,14 @@ import { useQuery } from '@tanstack/react-query';
 import { useNavigate, useParams } from 'react-router-dom';
 import ReviewCard from '../../components/review/review-card';
 import { AuthAppRoutes } from '../../constants/constants';
-import { useState } from 'react';
+import React, { useState } from 'react';
 import PopupModal from '../../components/modal/popup-modal';
 import { PurchaseForm } from '../../components/popup-forms';
 import FeedbackForm from '../../components/popup-forms/feedback-form';
 import { loadTraining } from '../../api/loadTraining';
 import { renderHashtag, renderPrice } from '../../utils';
 
-export default function TrainingCardUserPage(): React.ReactNode {
+const TrainingCardUserPage: React.FC = () => {
   const [purchasePopupOpen, setPurchasePopupOpen] = useState(false);
   const [feedbackPopupOpen, setFeedbackPopupOpen] = useState(false);
   const { id } = useParams();
@@ -20,7 +20,7 @@ export default function TrainingCardUserPage(): React.ReactNode {
   });
 
   if (!training.data || training.isLoading) {
-    return 'Loading';
+    return <div>Loading</div>;
   }
 
   return (
@@ -43,7 +43,7 @@ export default function TrainingCardUserPage(): React.ReactNode {
                 </button>
                 <h2 className="reviews-side-bar__title">Отзывы</h2>
                 <ul className="reviews-side-bar__list">
-                  {training.data.reviews.map((review) => (
+                  {(training.data.reviews || []).map((review) => (
                     <ReviewCard key={review.id} review={review} />
                   ))}
                 </ul>
@@ -73,7 +73,7 @@ export default function TrainingCardUserPage(): React.ReactNode {
                       <div className="training-info__coach-info">
                         <span className="training-info__label">Тренер</span>
                         <span className="training-info__name">
-                          {training.data.user.name}
+                          {training.data.user?.name}
                         </span>
                       </div>
                     </div>
@@ -249,4 +249,6 @@ export default function TrainingCardUserPage(): React.ReactNode {
       </PopupModal>
     </div>
   );
-}
+};
+
+export default TrainingCardUserPage;

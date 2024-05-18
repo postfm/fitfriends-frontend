@@ -1,5 +1,5 @@
-import { Order } from '../types';
+import { NewOrder, Order } from '../types';
 
-export function createOrder(order: Order): Promise<Order> {
-  return Promise.resolve(order);
+export function createOrder(order: NewOrder): Promise<Order> {
+  return Promise.resolve(order as Order);
 }

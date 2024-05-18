@@ -1,4 +1,4 @@
 /* eslint-disable @typescript-eslint/no-unused-vars */
-export function subscribeToCoach(userId: number): Promise<boolean> {
+export function subscribeToCoach(_userId: number): Promise<boolean> {
   return Promise.resolve(true);
 }
