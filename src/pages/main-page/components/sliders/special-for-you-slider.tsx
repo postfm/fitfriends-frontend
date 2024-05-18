@@ -27,6 +27,11 @@ export const SpecialForYouSlider: React.FC<SpecialForYouSliderProps> = ({
     slidesToScroll: 1,
   };
 
+  trainings =
+    trainings.length <= 3
+      ? [...trainings, ...trainings, ...trainings]
+      : trainings;
+
   const renderTraining = (training: Training) => (
     <li key={training.trainingId} className="special-for-you__item">
       <div className="thumbnail-preview">
@@ -59,7 +64,10 @@ export const SpecialForYouSlider: React.FC<SpecialForYouSliderProps> = ({
   );
 
   return (
-    <section className="special-for-you">
+    <section
+      className="special-for-you"
+      style={trainings.length < 1 ? { display: 'none' } : { display: 'block' }}
+    >
       <div className="container">
         <div className="special-for-you__wrapper">
           <div className="special-for-you__title-wrapper">
