@@ -3,7 +3,7 @@ export const TRAININGS_MOCK = {
     {
       trainingId: 11,
       name: "DEVIL'S CINDY",
-      image: 'img/content/thumbnails/training-11.jpg',
+      image: '/img/content/thumbnails/training-11.jpg',
       level: 'любитель',
       type: 'кроссфит',
       duration: '50-80 мин',
@@ -12,7 +12,7 @@ export const TRAININGS_MOCK = {
       description:
         'Знаменитый кроссфит комплекс. Синди — универсальная тренировка для развития функциональной силы.',
       gender: 'для женщин',
-      video: 'img/content/training-video/Video_HTML_Academy_1.mp4',
+      video: '/img/content/training-video/Video_HTML_Academy_1.mp4',
       rating: 4,
       specialOffer: false,
       createdAt: '2024-05-10T11:09:32.385Z',
@@ -24,7 +24,7 @@ export const TRAININGS_MOCK = {
     {
       trainingId: 8,
       name: 'HATHA',
-      image: 'img/content/thumbnails/training-08.jpg',
+      image: '/img/content/thumbnails/training-08.jpg',
       level: 'любитель',
       type: 'йога',
       duration: '50-80 мин',
@@ -33,7 +33,7 @@ export const TRAININGS_MOCK = {
       description:
         'Упражнения по хатха йоге, направленные на понижение нервной возбудимости и активацию процессов анаболизма.',
       gender: 'для женщин',
-      video: 'img/content/training-video/Video_HTML_Academy_1.mp4',
+      video: '/img/content/training-video/Video_HTML_Academy_1.mp4',
       rating: 3.5,
       specialOffer: false,
       createdAt: '2024-05-10T11:08:47.326Z',
@@ -53,7 +53,7 @@ export const TRAININGS_MOCK = {
         id: 8,
         name: 'July',
         email: 'july@trainer.com',
-        avatar: 'img/content/avatars/coaches/photo-1.png',
+        avatar: '/img/content/avatars/coaches/photo-1.png',
         password:
           '$2b$10$9YhoGk170nZmBczxX8fhpORjQ4sb3vSNVHC1tlxJ7AHG3fDcZGPWa',
         gender: 'женский',
@@ -62,7 +62,7 @@ export const TRAININGS_MOCK = {
         description:
           'Персональный тренер и инструктор групповых программ с опытом  более 4х лет. Специализация: аэробика.',
         location: 'Пионерская',
-        image: 'img/content/avatars/coaches/photo-1.png',
+        image: '/img/content/avatars/coaches/photo-1.png',
         createdAt: '2024-05-10T10:02:30.927Z',
         updatedAt: '2024-05-10T10:02:30.927Z',
         levelOfTrain: 'профессионал',
@@ -71,7 +71,7 @@ export const TRAININGS_MOCK = {
         caloriesToLose: null,
         caloriesPerDay: null,
         readyToTrain: null,
-        certificates: 'img/content/certificates-and-diplomas/2.pdf',
+        certificates: '/img/content/certificates-and-diplomas/2.pdf',
         merits: 'Чемпионка республики',
         personalTrainings: true,
         refreshToken:
@@ -101,7 +101,7 @@ export const TRAININGS_MOCK = {
     {
       trainingId: 14,
       name: 'ENERGY',
-      image: 'img/content/thumbnails/training-02.jpg',
+      image: '/img/content/thumbnails/training-02.jpg',
       level: 'любитель',
       type: 'пилатес',
       duration: '50-80 мин',
@@ -110,7 +110,7 @@ export const TRAININGS_MOCK = {
       description:
         'Упражнения укрепляют мышечный корсет, делают суставы более гибкими, улучшают осанку и координацию.',
       gender: 'для женщин',
-      video: 'img/content/training-video/Video_html_Academy.mov',
+      video: '/img/content/training-video/Video_html_Academy.mov',
       rating: 5,
       specialOffer: false,
       createdAt: '2024-05-10T11:10:04.413Z',
@@ -139,7 +139,7 @@ export const TRAININGS_MOCK = {
         id: 8,
         name: 'July',
         email: 'july@trainer.com',
-        avatar: 'img/content/avatars/coaches/photo-1.png',
+        avatar: '/img/content/avatars/coaches/photo-1.png',
         password:
           '$2b$10$9YhoGk170nZmBczxX8fhpORjQ4sb3vSNVHC1tlxJ7AHG3fDcZGPWa',
         gender: 'женский',
@@ -148,7 +148,7 @@ export const TRAININGS_MOCK = {
         description:
           'Персональный тренер и инструктор групповых программ с опытом  более 4х лет. Специализация: аэробика.',
         location: 'Пионерская',
-        image: 'img/content/avatars/coaches/photo-1.png',
+        image: '/img/content/avatars/coaches/photo-1.png',
         createdAt: '2024-05-10T10:02:30.927Z',
         updatedAt: '2024-05-10T10:02:30.927Z',
         levelOfTrain: 'профессионал',
@@ -157,7 +157,7 @@ export const TRAININGS_MOCK = {
         caloriesToLose: null,
         caloriesPerDay: null,
         readyToTrain: null,
-        certificates: 'img/content/certificates-and-diplomas/2.pdf',
+        certificates: '/img/content/certificates-and-diplomas/2.pdf',
         merits: 'Чемпионка республики',
         personalTrainings: true,
         refreshToken:
@@ -181,7 +181,7 @@ export const TRAININGS_MOCK = {
     {
       trainingId: 17,
       name: 'ANTISTRESS',
-      image: 'img/content/thumbnails/training-05.jpg',
+      image: '/img/content/thumbnails/training-05.jpg',
       level: 'любитель',
       type: 'йога',
       duration: '50-80 мин',
@@ -190,7 +190,7 @@ export const TRAININGS_MOCK = {
       description:
         'В основе программы лежит работа с телом и с психо-эмоциональным состоянием. Уберем зажимы тела, избавимся от стресса.',
       gender: 'для женщин',
-      video: 'img/content/training-video/Video_HTML_Academy_1.mp4',
+      video: '/img/content/training-video/Video_HTML_Academy_1.mp4',
       rating: 5,
       specialOffer: false,
       createdAt: '2024-05-10T11:10:32.391Z',
@@ -219,7 +219,7 @@ export const TRAININGS_MOCK = {
         id: 8,
         name: 'July',
         email: 'july@trainer.com',
-        avatar: 'img/content/avatars/coaches/photo-1.png',
+        avatar: '/img/content/avatars/coaches/photo-1.png',
         password:
           '$2b$10$9YhoGk170nZmBczxX8fhpORjQ4sb3vSNVHC1tlxJ7AHG3fDcZGPWa',
         gender: 'женский',
@@ -228,7 +228,7 @@ export const TRAININGS_MOCK = {
         description:
           'Персональный тренер и инструктор групповых программ с опытом  более 4х лет. Специализация: аэробика.',
         location: 'Пионерская',
-        image: 'img/content/avatars/coaches/photo-1.png',
+        image: '/img/content/avatars/coaches/photo-1.png',
         createdAt: '2024-05-10T10:02:30.927Z',
         updatedAt: '2024-05-10T10:02:30.927Z',
         levelOfTrain: 'профессионал',
@@ -237,7 +237,7 @@ export const TRAININGS_MOCK = {
         caloriesToLose: null,
         caloriesPerDay: null,
         readyToTrain: null,
-        certificates: 'img/content/certificates-and-diplomas/2.pdf',
+        certificates: '/img/content/certificates-and-diplomas/2.pdf',
         merits: 'Чемпионка республики',
         personalTrainings: true,
         refreshToken:
@@ -261,7 +261,7 @@ export const TRAININGS_MOCK = {
     {
       trainingId: 18,
       name: 'FORREST, RUN',
-      image: 'img/content/thumbnails/training-06.jpg',
+      image: '/img/content/thumbnails/training-06.jpg',
       level: 'любитель',
       type: 'бег',
       duration: '30-50 мин',
@@ -270,7 +270,7 @@ export const TRAININGS_MOCK = {
       description:
         'Узнайте правильную технику бега, развивайте выносливость и откройте для себя все секреты длительных пробежек.',
       gender: 'для женщин',
-      video: 'img/content/training-video/Video_html_Academy.mov',
+      video: '/img/content/training-video/Video_html_Academy.mov',
       rating: 0,
       specialOffer: false,
       createdAt: '2024-05-10T11:11:07.447Z',
@@ -299,7 +299,7 @@ export const TRAININGS_MOCK = {
         id: 8,
         name: 'July',
         email: 'july@trainer.com',
-        avatar: 'img/content/avatars/coaches/photo-1.png',
+        avatar: '/img/content/avatars/coaches/photo-1.png',
         password:
           '$2b$10$9YhoGk170nZmBczxX8fhpORjQ4sb3vSNVHC1tlxJ7AHG3fDcZGPWa',
         gender: 'женский',
@@ -308,7 +308,7 @@ export const TRAININGS_MOCK = {
         description:
           'Персональный тренер и инструктор групповых программ с опытом  более 4х лет. Специализация: аэробика.',
         location: 'Пионерская',
-        image: 'img/content/avatars/coaches/photo-1.png',
+        image: '/img/content/avatars/coaches/photo-1.png',
         createdAt: '2024-05-10T10:02:30.927Z',
         updatedAt: '2024-05-10T10:02:30.927Z',
         levelOfTrain: 'профессионал',
@@ -317,7 +317,7 @@ export const TRAININGS_MOCK = {
         caloriesToLose: null,
         caloriesPerDay: null,
         readyToTrain: null,
-        certificates: 'img/content/certificates-and-diplomas/2.pdf',
+        certificates: '/img/content/certificates-and-diplomas/2.pdf',
         merits: 'Чемпионка республики',
         personalTrainings: true,
         refreshToken:
@@ -335,7 +335,7 @@ export const TRAININGS_MOCK = {
     {
       trainingId: 9,
       name: 'BODY STRETCH',
-      image: 'img/content/thumbnails/training-09.jpg',
+      image: '/img/content/thumbnails/training-09.jpg',
       level: 'любитель',
       type: 'стретчинг',
       duration: '30-50 мин',
@@ -344,7 +344,7 @@ export const TRAININGS_MOCK = {
       description:
         'Комплекс упражнений на растяжку всего тела для новичков. Плавное погружение в стретчинг и умеренная нагрузка.',
       gender: 'для женщин',
-      video: 'img/content/training-video/Video_html_Academy.mov',
+      video: '/img/content/training-video/Video_html_Academy.mov',
       rating: 0,
       specialOffer: false,
       createdAt: '2024-05-10T11:09:10.603Z',
@@ -364,7 +364,7 @@ export const TRAININGS_MOCK = {
         id: 8,
         name: 'July',
         email: 'july@trainer.com',
-        avatar: 'img/content/avatars/coaches/photo-1.png',
+        avatar: '/img/content/avatars/coaches/photo-1.png',
         password:
           '$2b$10$9YhoGk170nZmBczxX8fhpORjQ4sb3vSNVHC1tlxJ7AHG3fDcZGPWa',
         gender: 'женский',
@@ -373,7 +373,7 @@ export const TRAININGS_MOCK = {
         description:
           'Персональный тренер и инструктор групповых программ с опытом  более 4х лет. Специализация: аэробика.',
         location: 'Пионерская',
-        image: 'img/content/avatars/coaches/photo-1.png',
+        image: '/img/content/avatars/coaches/photo-1.png',
         createdAt: '2024-05-10T10:02:30.927Z',
         updatedAt: '2024-05-10T10:02:30.927Z',
         levelOfTrain: 'профессионал',
@@ -382,7 +382,7 @@ export const TRAININGS_MOCK = {
         caloriesToLose: null,
         caloriesPerDay: null,
         readyToTrain: null,
-        certificates: 'img/content/certificates-and-diplomas/2.pdf',
+        certificates: '/img/content/certificates-and-diplomas/2.pdf',
         merits: 'Чемпионка республики',
         personalTrainings: true,
         refreshToken:
@@ -400,7 +400,7 @@ export const TRAININGS_MOCK = {
     {
       trainingId: 15,
       name: 'BOXING',
-      image: 'img/content/thumbnails/training-03.jpg',
+      image: '/img/content/thumbnails/training-03.jpg',
       level: 'любитель',
       type: 'бокс',
       duration: '30-50 мин',
@@ -409,7 +409,7 @@ export const TRAININGS_MOCK = {
       description:
         'Тренировка на отработку правильных ударов, координации и оптимальной механики защитных движений.',
       gender: 'для женщин',
-      video: 'img/content/training-video/Video_HTML_Academy_1.mp4',
+      video: '/img/content/training-video/Video_HTML_Academy_1.mp4',
       rating: 4,
       specialOffer: false,
       createdAt: '2024-05-10T11:10:13.587Z',
@@ -429,7 +429,7 @@ export const TRAININGS_MOCK = {
         id: 8,
         name: 'July',
         email: 'july@trainer.com',
-        avatar: 'img/content/avatars/coaches/photo-1.png',
+        avatar: '/img/content/avatars/coaches/photo-1.png',
         password:
           '$2b$10$9YhoGk170nZmBczxX8fhpORjQ4sb3vSNVHC1tlxJ7AHG3fDcZGPWa',
         gender: 'женский',
@@ -438,7 +438,7 @@ export const TRAININGS_MOCK = {
         description:
           'Персональный тренер и инструктор групповых программ с опытом  более 4х лет. Специализация: аэробика.',
         location: 'Пионерская',
-        image: 'img/content/avatars/coaches/photo-1.png',
+        image: '/img/content/avatars/coaches/photo-1.png',
         createdAt: '2024-05-10T10:02:30.927Z',
         updatedAt: '2024-05-10T10:02:30.927Z',
         levelOfTrain: 'профессионал',
@@ -447,7 +447,7 @@ export const TRAININGS_MOCK = {
         caloriesToLose: null,
         caloriesPerDay: null,
         readyToTrain: null,
-        certificates: 'img/content/certificates-and-diplomas/2.pdf',
+        certificates: '/img/content/certificates-and-diplomas/2.pdf',
         merits: 'Чемпионка республики',
         personalTrainings: true,
         refreshToken:
@@ -471,7 +471,7 @@ export const TRAININGS_MOCK = {
     {
       trainingId: 6,
       name: 'RUN, FORREST',
-      image: 'img/content/thumbnails/training-06.jpg',
+      image: '/img/content/thumbnails/training-06.jpg',
       level: 'любитель',
       type: 'бег',
       duration: '30-50 мин',
@@ -479,9 +479,9 @@ export const TRAININGS_MOCK = {
       calories: 1500,
       description: 'Описание тренировки',
       gender: 'для женщин',
-      video: 'img/content/training-video/Video_HTML_Academy_1.mp4',
+      video: '/img/content/training-video/Video_HTML_Academy_1.mp4',
       rating: 4,
-      specialOffer: false,
+      specialOffer: true,
       createdAt: '2024-05-10T11:08:29.595Z',
       updatedAt: '2024-05-10T11:08:29.595Z',
       orders: [],
@@ -489,7 +489,7 @@ export const TRAININGS_MOCK = {
         id: 8,
         name: 'July',
         email: 'july@trainer.com',
-        avatar: 'img/content/avatars/coaches/photo-1.png',
+        avatar: '/img/content/avatars/coaches/photo-1.png',
         password:
           '$2b$10$9YhoGk170nZmBczxX8fhpORjQ4sb3vSNVHC1tlxJ7AHG3fDcZGPWa',
         gender: 'женский',
@@ -498,7 +498,7 @@ export const TRAININGS_MOCK = {
         description:
           'Персональный тренер и инструктор групповых программ с опытом  более 4х лет. Специализация: аэробика.',
         location: 'Пионерская',
-        image: 'img/content/avatars/coaches/photo-1.png',
+        image: '/img/content/avatars/coaches/photo-1.png',
         createdAt: '2024-05-10T10:02:30.927Z',
         updatedAt: '2024-05-10T10:02:30.927Z',
         levelOfTrain: 'профессионал',
@@ -507,7 +507,7 @@ export const TRAININGS_MOCK = {
         caloriesToLose: null,
         caloriesPerDay: null,
         readyToTrain: null,
-        certificates: 'img/content/certificates-and-diplomas/2.pdf',
+        certificates: '/img/content/certificates-and-diplomas/2.pdf',
         merits: 'Чемпионка республики',
         personalTrainings: true,
         refreshToken:
@@ -531,7 +531,7 @@ export const TRAININGS_MOCK = {
     {
       trainingId: 12,
       name: 'FLEKSBEND',
-      image: 'img/content/thumbnails/training-12.jpg',
+      image: '/img/content/thumbnails/training-12.jpg',
       level: 'любитель',
       type: 'аэробика',
       duration: '30-50 мин',
@@ -540,7 +540,7 @@ export const TRAININGS_MOCK = {
       description:
         'Тренируясь с резинкой для фитнеса, вы можете проработать почти все мышечные группы и разнообразить тренировки.',
       gender: 'для женщин',
-      video: 'img/content/training-video/Video_html_Academy.mov',
+      video: '/img/content/training-video/Video_html_Academy.mov',
       rating: 0,
       specialOffer: false,
       createdAt: '2024-05-10T11:09:37.797Z',
@@ -550,7 +550,7 @@ export const TRAININGS_MOCK = {
         id: 8,
         name: 'July',
         email: 'july@trainer.com',
-        avatar: 'img/content/avatars/coaches/photo-1.png',
+        avatar: '/img/content/avatars/coaches/photo-1.png',
         password:
           '$2b$10$9YhoGk170nZmBczxX8fhpORjQ4sb3vSNVHC1tlxJ7AHG3fDcZGPWa',
         gender: 'женский',
@@ -559,7 +559,7 @@ export const TRAININGS_MOCK = {
         description:
           'Персональный тренер и инструктор групповых программ с опытом  более 4х лет. Специализация: аэробика.',
         location: 'Пионерская',
-        image: 'img/content/avatars/coaches/photo-1.png',
+        image: '/img/content/avatars/coaches/photo-1.png',
         createdAt: '2024-05-10T10:02:30.927Z',
         updatedAt: '2024-05-10T10:02:30.927Z',
         levelOfTrain: 'профессионал',
@@ -568,7 +568,7 @@ export const TRAININGS_MOCK = {
         caloriesToLose: null,
         caloriesPerDay: null,
         readyToTrain: null,
-        certificates: 'img/content/certificates-and-diplomas/2.pdf',
+        certificates: '/img/content/certificates-and-diplomas/2.pdf',
         merits: 'Чемпионка республики',
         personalTrainings: true,
         refreshToken:
@@ -586,7 +586,7 @@ export const TRAININGS_MOCK = {
     {
       trainingId: 16,
       name: 'POWER',
-      image: 'img/content/thumbnails/training-04.jpg',
+      image: '/img/content/thumbnails/training-04.jpg',
       level: 'любитель',
       type: 'бокс',
       duration: '30-50 мин',
@@ -595,7 +595,7 @@ export const TRAININGS_MOCK = {
       description:
         'Тренировка на отработку правильной техники работы с тяжелыми весами, укрепления мышц кора и спины.',
       gender: 'для всех',
-      video: 'img/content/training-video/Video_html_Academy.mov',
+      video: '/img/content/training-video/Video_html_Academy.mov',
       rating: 4,
       specialOffer: false,
       createdAt: '2024-05-10T11:10:25.911Z',
@@ -605,7 +605,7 @@ export const TRAININGS_MOCK = {
         id: 8,
         name: 'July',
         email: 'july@trainer.com',
-        avatar: 'img/content/avatars/coaches/photo-1.png',
+        avatar: '/img/content/avatars/coaches/photo-1.png',
         password:
           '$2b$10$9YhoGk170nZmBczxX8fhpORjQ4sb3vSNVHC1tlxJ7AHG3fDcZGPWa',
         gender: 'женский',
@@ -614,7 +614,7 @@ export const TRAININGS_MOCK = {
         description:
           'Персональный тренер и инструктор групповых программ с опытом  более 4х лет. Специализация: аэробика.',
         location: 'Пионерская',
-        image: 'img/content/avatars/coaches/photo-1.png',
+        image: '/img/content/avatars/coaches/photo-1.png',
         createdAt: '2024-05-10T10:02:30.927Z',
         updatedAt: '2024-05-10T10:02:30.927Z',
         levelOfTrain: 'профессионал',
@@ -623,7 +623,7 @@ export const TRAININGS_MOCK = {
         caloriesToLose: null,
         caloriesPerDay: null,
         readyToTrain: null,
-        certificates: 'img/content/certificates-and-diplomas/2.pdf',
+        certificates: '/img/content/certificates-and-diplomas/2.pdf',
         merits: 'Чемпионка республики',
         personalTrainings: true,
         refreshToken:
@@ -653,7 +653,7 @@ export const TRAININGS_MOCK = {
     {
       trainingId: 7,
       name: 'FITBALL',
-      image: 'img/content/thumbnails/training-07.jpg',
+      image: '/img/content/thumbnails/training-07.jpg',
       level: 'любитель',
       type: 'пилатес',
       duration: '30-50 мин',
@@ -662,9 +662,9 @@ export const TRAININGS_MOCK = {
       description:
         'Тренировка на фитболе — отличном тренажере для развития чувства баланса и равновесия, улучшения координации.',
       gender: 'для всех',
-      video: 'img/content/training-video/Video_html_Academy.mov',
+      video: '/img/content/training-video/Video_html_Academy.mov',
       rating: 3,
-      specialOffer: false,
+      specialOffer: true,
       createdAt: '2024-05-10T11:08:40.741Z',
       updatedAt: '2024-05-10T11:08:40.741Z',
       orders: [
@@ -691,7 +691,7 @@ export const TRAININGS_MOCK = {
         id: 8,
         name: 'July',
         email: 'july@trainer.com',
-        avatar: 'img/content/avatars/coaches/photo-1.png',
+        avatar: '/img/content/avatars/coaches/photo-1.png',
         password:
           '$2b$10$9YhoGk170nZmBczxX8fhpORjQ4sb3vSNVHC1tlxJ7AHG3fDcZGPWa',
         gender: 'женский',
@@ -700,7 +700,7 @@ export const TRAININGS_MOCK = {
         description:
           'Персональный тренер и инструктор групповых программ с опытом  более 4х лет. Специализация: аэробика.',
         location: 'Пионерская',
-        image: 'img/content/avatars/coaches/photo-1.png',
+        image: '/img/content/avatars/coaches/photo-1.png',
         createdAt: '2024-05-10T10:02:30.927Z',
         updatedAt: '2024-05-10T10:02:30.927Z',
         levelOfTrain: 'профессионал',
@@ -709,7 +709,7 @@ export const TRAININGS_MOCK = {
         caloriesToLose: null,
         caloriesPerDay: null,
         readyToTrain: null,
-        certificates: 'img/content/certificates-and-diplomas/2.pdf',
+        certificates: '/img/content/certificates-and-diplomas/2.pdf',
         merits: 'Чемпионка республики',
         personalTrainings: true,
         refreshToken:
@@ -733,7 +733,7 @@ export const TRAININGS_MOCK = {
     {
       trainingId: 13,
       name: 'CROSSFIT',
-      image: 'img/content/thumbnails/training-01.jpg',
+      image: '/img/content/thumbnails/training-01.jpg',
       level: 'любитель',
       type: 'кроссфит',
       duration: '30-50 мин',
@@ -742,7 +742,7 @@ export const TRAININGS_MOCK = {
       description:
         'Сложный комплекс упражнений для профессиональных атлетов на отработку показателей в классическом стиле.',
       gender: 'для всех',
-      video: 'img/content/training-video/Video_HTML_Academy_1.mp4',
+      video: '/img/content/training-video/Video_HTML_Academy_1.mp4',
       rating: 5,
       specialOffer: false,
       createdAt: '2024-05-10T11:09:57.742Z',
@@ -771,7 +771,7 @@ export const TRAININGS_MOCK = {
         id: 8,
         name: 'July',
         email: 'july@trainer.com',
-        avatar: 'img/content/avatars/coaches/photo-1.png',
+        avatar: '/img/content/avatars/coaches/photo-1.png',
         password:
           '$2b$10$9YhoGk170nZmBczxX8fhpORjQ4sb3vSNVHC1tlxJ7AHG3fDcZGPWa',
         gender: 'женский',
@@ -780,7 +780,7 @@ export const TRAININGS_MOCK = {
         description:
           'Персональный тренер и инструктор групповых программ с опытом  более 4х лет. Специализация: аэробика.',
         location: 'Пионерская',
-        image: 'img/content/avatars/coaches/photo-1.png',
+        image: '/img/content/avatars/coaches/photo-1.png',
         createdAt: '2024-05-10T10:02:30.927Z',
         updatedAt: '2024-05-10T10:02:30.927Z',
         levelOfTrain: 'профессионал',
@@ -789,7 +789,7 @@ export const TRAININGS_MOCK = {
         caloriesToLose: null,
         caloriesPerDay: null,
         readyToTrain: null,
-        certificates: 'img/content/certificates-and-diplomas/2.pdf',
+        certificates: '/img/content/certificates-and-diplomas/2.pdf',
         merits: 'Чемпионка республики',
         personalTrainings: true,
         refreshToken:
@@ -813,7 +813,7 @@ export const TRAININGS_MOCK = {
     {
       trainingId: 10,
       name: 'UPPER BODY',
-      image: 'img/content/thumbnails/training-10.jpg',
+      image: '/img/content/thumbnails/training-10.jpg',
       level: 'любитель',
       type: 'бокс',
       duration: '30-50 мин',
@@ -822,7 +822,7 @@ export const TRAININGS_MOCK = {
       description:
         'Проработка мышц груди для профи, экспериментируем с уровнем наклона скамьи и различной шириной хвата.',
       gender: 'для всех',
-      video: 'img/content/training-video/Video_html_Academy.mov',
+      video: '/img/content/training-video/Video_html_Academy.mov',
       rating: 4,
       specialOffer: false,
       createdAt: '2024-05-10T11:09:25.872Z',
@@ -832,7 +832,7 @@ export const TRAININGS_MOCK = {
         id: 8,
         name: 'July',
         email: 'july@trainer.com',
-        avatar: 'img/content/avatars/coaches/photo-1.png',
+        avatar: '/img/content/avatars/coaches/photo-1.png',
         password:
           '$2b$10$9YhoGk170nZmBczxX8fhpORjQ4sb3vSNVHC1tlxJ7AHG3fDcZGPWa',
         gender: 'женский',
@@ -841,7 +841,7 @@ export const TRAININGS_MOCK = {
         description:
           'Персональный тренер и инструктор групповых программ с опытом  более 4х лет. Специализация: аэробика.',
         location: 'Пионерская',
-        image: 'img/content/avatars/coaches/photo-1.png',
+        image: '/img/content/avatars/coaches/photo-1.png',
         createdAt: '2024-05-10T10:02:30.927Z',
         updatedAt: '2024-05-10T10:02:30.927Z',
         levelOfTrain: 'профессионал',
@@ -850,7 +850,7 @@ export const TRAININGS_MOCK = {
         caloriesToLose: null,
         caloriesPerDay: null,
         readyToTrain: null,
-        certificates: 'img/content/certificates-and-diplomas/2.pdf',
+        certificates: '/img/content/certificates-and-diplomas/2.pdf',
         merits: 'Чемпионка республики',
         personalTrainings: true,
         refreshToken:
@@ -874,7 +874,7 @@ export const TRAININGS_MOCK = {
     {
       trainingId: 5,
       name: 'ANTISTRESS',
-      image: 'img/content/thumbnails/training-05.jpg',
+      image: '/img/content/thumbnails/training-05.jpg',
       level: 'любитель',
       type: 'пилатес',
       duration: '30-50 мин',
@@ -883,9 +883,9 @@ export const TRAININGS_MOCK = {
       description:
         'В основе программы лежит работа с телом и с психо-эмоциональным состоянием. Уберем зажимы тела, избавимся от стресса.',
       gender: 'для женщин',
-      video: 'img/content/training-video/Video_html_Academy.mov',
+      video: '/img/content/training-video/Video_html_Academy.mov',
       rating: 2.5,
-      specialOffer: false,
+      specialOffer: true,
       createdAt: '2024-05-10T11:07:59.736Z',
       updatedAt: '2024-05-10T11:07:59.736Z',
       orders: [],
@@ -893,7 +893,7 @@ export const TRAININGS_MOCK = {
         id: 8,
         name: 'July',
         email: 'july@trainer.com',
-        avatar: 'img/content/avatars/coaches/photo-1.png',
+        avatar: '/img/content/avatars/coaches/photo-1.png',
         password:
           '$2b$10$9YhoGk170nZmBczxX8fhpORjQ4sb3vSNVHC1tlxJ7AHG3fDcZGPWa',
         gender: 'женский',
@@ -902,7 +902,7 @@ export const TRAININGS_MOCK = {
         description:
           'Персональный тренер и инструктор групповых программ с опытом  более 4х лет. Специализация: аэробика.',
         location: 'Пионерская',
-        image: 'img/content/avatars/coaches/photo-1.png',
+        image: '/img/content/avatars/coaches/photo-1.png',
         createdAt: '2024-05-10T10:02:30.927Z',
         updatedAt: '2024-05-10T10:02:30.927Z',
         levelOfTrain: 'профессионал',
@@ -911,7 +911,7 @@ export const TRAININGS_MOCK = {
         caloriesToLose: null,
         caloriesPerDay: null,
         readyToTrain: null,
-        certificates: 'img/content/certificates-and-diplomas/2.pdf',
+        certificates: '/img/content/certificates-and-diplomas/2.pdf',
         merits: 'Чемпионка республики',
         personalTrainings: true,
         refreshToken:
@@ -941,7 +941,7 @@ export const TRAININGS_MOCK = {
     {
       trainingId: 2,
       name: 'ENERGY',
-      image: 'img/content/thumbnails/training-02.jpg',
+      image: '/img/content/thumbnails/training-02.jpg',
       level: 'любитель',
       type: 'пилатес',
       duration: '10-30 мин',
@@ -950,7 +950,7 @@ export const TRAININGS_MOCK = {
       description:
         'Упражнения укрепляют мышечный корсет, делают суставы более гибкими, улучшают осанку и координацию.',
       gender: 'для всех',
-      video: 'img/content/training-video/Video_HTML_Academy_1.mp4',
+      video: '/img/content/training-video/Video_HTML_Academy_1.mp4',
       rating: 2,
       specialOffer: false,
       createdAt: '2024-05-10T11:07:37.700Z',
@@ -979,7 +979,7 @@ export const TRAININGS_MOCK = {
         id: 7,
         name: 'Rob',
         email: 'rob@trainer.com',
-        avatar: 'img/content/thumbnails/friend-16.jpg',
+        avatar: '/img/content/thumbnails/friend-16.jpg',
         password:
           '$2b$10$R00qBZqGyQbeiqVRKa5gPO4KgSOjA2/KltD6IT5nif9lVrySLwyMe',
         gender: 'неважно',
@@ -988,7 +988,7 @@ export const TRAININGS_MOCK = {
         description:
           'Персональный тренер и инструктор групповых программ с опытом  более 4х лет. Специализация: пилатес.',
         location: 'Спортивная',
-        image: 'img/content/thumbnails/friend-16.jpg',
+        image: '/img/content/thumbnails/friend-16.jpg',
         createdAt: '2024-05-10T10:02:09.607Z',
         updatedAt: '2024-05-10T10:02:09.607Z',
         levelOfTrain: 'профессионал',
@@ -997,7 +997,7 @@ export const TRAININGS_MOCK = {
         caloriesToLose: null,
         caloriesPerDay: null,
         readyToTrain: null,
-        certificates: 'img/content/certificates-and-diplomas/1.pdf',
+        certificates: '/img/content/certificates-and-diplomas/1.pdf',
         merits: 'Мастер спорта',
         personalTrainings: false,
         refreshToken:
@@ -1021,7 +1021,7 @@ export const TRAININGS_MOCK = {
     {
       trainingId: 4,
       name: 'POWER',
-      image: 'img/content/thumbnails/training-04.jpg',
+      image: '/img/content/thumbnails/training-04.jpg',
       level: 'любитель',
       type: 'аэробика',
       duration: '30-50 мин',
@@ -1030,7 +1030,7 @@ export const TRAININGS_MOCK = {
       description:
         'Тренировка на отработку правильной техники работы с тяжелыми весами, укрепления мышц кора и спины.',
       gender: 'для всех',
-      video: 'img/content/training-video/Video_HTML_Academy_1.mp4',
+      video: '/img/content/training-video/Video_HTML_Academy_1.mp4',
       rating: 2,
       specialOffer: false,
       createdAt: '2024-05-10T11:07:53.795Z',
@@ -1068,7 +1068,7 @@ export const TRAININGS_MOCK = {
         id: 8,
         name: 'July',
         email: 'july@trainer.com',
-        avatar: 'img/content/avatars/coaches/photo-1.png',
+        avatar: '/img/content/avatars/coaches/photo-1.png',
         password:
           '$2b$10$9YhoGk170nZmBczxX8fhpORjQ4sb3vSNVHC1tlxJ7AHG3fDcZGPWa',
         gender: 'женский',
@@ -1077,7 +1077,7 @@ export const TRAININGS_MOCK = {
         description:
           'Персональный тренер и инструктор групповых программ с опытом  более 4х лет. Специализация: аэробика.',
         location: 'Пионерская',
-        image: 'img/content/avatars/coaches/photo-1.png',
+        image: '/img/content/avatars/coaches/photo-1.png',
         createdAt: '2024-05-10T10:02:30.927Z',
         updatedAt: '2024-05-10T10:02:30.927Z',
         levelOfTrain: 'профессионал',
@@ -1086,7 +1086,7 @@ export const TRAININGS_MOCK = {
         caloriesToLose: null,
         caloriesPerDay: null,
         readyToTrain: null,
-        certificates: 'img/content/certificates-and-diplomas/2.pdf',
+        certificates: '/img/content/certificates-and-diplomas/2.pdf',
         merits: 'Чемпионка республики',
         personalTrainings: true,
         refreshToken:
@@ -1110,7 +1110,7 @@ export const TRAININGS_MOCK = {
     {
       trainingId: 1,
       name: 'CROSSFIT',
-      image: 'img/content/thumbnails/training-01.jpg',
+      image: '/img/content/thumbnails/training-01.jpg',
       level: 'новичок',
       type: 'кроссфит',
       duration: '10-30 мин',
@@ -1119,9 +1119,9 @@ export const TRAININGS_MOCK = {
       description:
         'Сложный комплекс упражнений для профессиональных атлетов на отработку показателей в классическом стиле.',
       gender: 'для всех',
-      video: 'img/content/training-video/Video_html_Academy.mov',
+      video: '/img/content/training-video/Video_html_Academy.mov',
       rating: 2,
-      specialOffer: false,
+      specialOffer: true,
       createdAt: '2024-05-10T11:07:21.149Z',
       updatedAt: '2024-05-10T11:07:21.149Z',
       orders: [
@@ -1148,7 +1148,7 @@ export const TRAININGS_MOCK = {
         id: 7,
         name: 'Rob',
         email: 'rob@trainer.com',
-        avatar: 'img/content/thumbnails/friend-16.jpg',
+        avatar: '/img/content/thumbnails/friend-16.jpg',
         password:
           '$2b$10$R00qBZqGyQbeiqVRKa5gPO4KgSOjA2/KltD6IT5nif9lVrySLwyMe',
         gender: 'неважно',
@@ -1157,7 +1157,7 @@ export const TRAININGS_MOCK = {
         description:
           'Персональный тренер и инструктор групповых программ с опытом  более 4х лет. Специализация: пилатес.',
         location: 'Спортивная',
-        image: 'img/content/thumbnails/friend-16.jpg',
+        image: '/img/content/thumbnails/friend-16.jpg',
         createdAt: '2024-05-10T10:02:09.607Z',
         updatedAt: '2024-05-10T10:02:09.607Z',
         levelOfTrain: 'профессионал',
@@ -1166,7 +1166,7 @@ export const TRAININGS_MOCK = {
         caloriesToLose: null,
         caloriesPerDay: null,
         readyToTrain: null,
-        certificates: 'img/content/certificates-and-diplomas/1.pdf',
+        certificates: '/img/content/certificates-and-diplomas/1.pdf',
         merits: 'Мастер спорта',
         personalTrainings: false,
         refreshToken:
@@ -1190,7 +1190,7 @@ export const TRAININGS_MOCK = {
     {
       trainingId: 3,
       name: 'BOXING',
-      image: 'img/content/thumbnails/training-03.jpg',
+      image: '/img/content/thumbnails/training-03.jpg',
       level: 'профессионал',
       type: 'бокс',
       duration: '30-50 мин',
@@ -1199,7 +1199,7 @@ export const TRAININGS_MOCK = {
       description:
         'Тренировка на отработку правильных ударов, координации и оптимальной механики защитных движений.',
       gender: 'для женщин',
-      video: 'img/content/training-video/Video_html_Academy.mov',
+      video: '/img/content/training-video/Video_html_Academy.mov',
       rating: 5,
       specialOffer: false,
       createdAt: '2024-05-10T11:07:45.248Z',
@@ -1219,7 +1219,7 @@ export const TRAININGS_MOCK = {
         id: 7,
         name: 'Rob',
         email: 'rob@trainer.com',
-        avatar: 'img/content/thumbnails/friend-16.jpg',
+        avatar: '/img/content/thumbnails/friend-16.jpg',
         password:
           '$2b$10$R00qBZqGyQbeiqVRKa5gPO4KgSOjA2/KltD6IT5nif9lVrySLwyMe',
         gender: 'неважно',
@@ -1228,7 +1228,7 @@ export const TRAININGS_MOCK = {
         description:
           'Персональный тренер и инструктор групповых программ с опытом  более 4х лет. Специализация: пилатес.',
         location: 'Спортивная',
-        image: 'img/content/thumbnails/friend-16.jpg',
+        image: '/img/content/thumbnails/friend-16.jpg',
         createdAt: '2024-05-10T10:02:09.607Z',
         updatedAt: '2024-05-10T10:02:09.607Z',
         levelOfTrain: 'профессионал',
@@ -1237,7 +1237,7 @@ export const TRAININGS_MOCK = {
         caloriesToLose: null,
         caloriesPerDay: null,
         readyToTrain: null,
-        certificates: 'img/content/certificates-and-diplomas/1.pdf',
+        certificates: '/img/content/certificates-and-diplomas/1.pdf',
         merits: 'Мастер спорта',
         personalTrainings: false,
         refreshToken:

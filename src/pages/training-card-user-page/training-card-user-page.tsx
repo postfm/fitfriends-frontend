@@ -1,6 +1,5 @@
 import { useQuery } from '@tanstack/react-query';
 import { useNavigate, useParams } from 'react-router-dom';
-import { loadReviews } from '../../api/loadReviews';
 import ReviewCard from '../../components/review/review-card';
 import { AuthAppRoutes } from '../../constants/constants';
 import { useState } from 'react';
@@ -18,10 +17,6 @@ export default function TrainingCardUserPage(): React.ReactNode {
   const training = useQuery({
     queryKey: ['training', id],
     queryFn: () => loadTraining(Number(id)),
-  });
-  const reviews = useQuery({
-    queryKey: ['reviews'],
-    queryFn: () => loadReviews(Number(id)),
   });
 
   if (!training.data || training.isLoading) {
@@ -48,7 +43,7 @@ export default function TrainingCardUserPage(): React.ReactNode {
                 </button>
                 <h2 className="reviews-side-bar__title">Отзывы</h2>
                 <ul className="reviews-side-bar__list">
-                  {reviews.data?.map((review) => (
+                  {training.data.reviews.map((review) => (
                     <ReviewCard key={review.id} review={review} />
                   ))}
                 </ul>

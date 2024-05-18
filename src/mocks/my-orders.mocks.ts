@@ -1,17 +1,6 @@
 import { MyOrder } from '../types';
 
 export const MY_ORDERS = [
-  // {
-  //   id: 1,
-  //   type: 'абонемент',
-  //   price: 150,
-  //   amount: 5,
-  //   sum: 750,
-  //   pay: 'mir',
-  //   cratedAt: '2024-05-10T12:17:44.912Z',
-  //   training: {},
-  //   user: {},
-  // },
   {
     id: 2,
     type: 'абонемент',

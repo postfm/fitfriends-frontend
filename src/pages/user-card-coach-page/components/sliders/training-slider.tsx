@@ -71,76 +71,80 @@ const TrainingSlider: React.FC<TrainingsSliderProps> = ({
 
   return (
     <div className="user-card-coach__training">
-      <div className="user-card-coach__training-head">
-        <h2 className="user-card-coach__training-title">Тренировки</h2>
-        <div className="user-card-coach__training-bts">
-          <button
-            className="btn-icon user-card-coach__training-btn"
-            type="button"
-            aria-label="back"
-            onClick={handlePrevious}
+      {coach.trainings.length > 0 ? (
+        <>
+          <div className="user-card-coach__training-head">
+            <h2 className="user-card-coach__training-title">Тренировки</h2>
+            <div className="user-card-coach__training-bts">
+              <button
+                className="btn-icon user-card-coach__training-btn"
+                type="button"
+                aria-label="back"
+                onClick={handlePrevious}
+              >
+                <svg width={14} height={10} aria-hidden="true">
+                  <use xlinkHref="#arrow-left" />
+                </svg>
+              </button>
+              <button
+                className="btn-icon user-card-coach__training-btn"
+                type="button"
+                aria-label="next"
+                onClick={handleNext}
+              >
+                <svg width={14} height={10} aria-hidden="true">
+                  <use xlinkHref="#arrow-right" />
+                </svg>
+              </button>
+            </div>
+          </div>
+          <Slider
+            ref={(slider) => {
+              sliderRef.current = slider;
+            }}
+            className="user-card-coach__training-list"
+            {...settings}
           >
-            <svg width={14} height={10} aria-hidden="true">
-              <use xlinkHref="#arrow-left" />
-            </svg>
-          </button>
-          <button
-            className="btn-icon user-card-coach__training-btn"
-            type="button"
-            aria-label="next"
-            onClick={handleNext}
-          >
-            <svg width={14} height={10} aria-hidden="true">
-              <use xlinkHref="#arrow-right" />
-            </svg>
-          </button>
-        </div>
-      </div>
-      <Slider
-        ref={(slider) => {
-          sliderRef.current = slider;
-        }}
-        className="user-card-coach__training-list"
-        {...settings}
-      >
-        {trainings?.map((training) => (
-          <TrainingCard key={training.trainingId} training={training} />
-        ))}
-      </Slider>
-      {isFriend && coach.personalTrainings && (
-        <form className="user-card-coach__training-form">
+            {trainings?.map((training) => (
+              <TrainingCard key={training.trainingId} training={training} />
+            ))}
+          </Slider>
+        </>
+      ) : null}
+      <form className="user-card-coach__training-form">
+        {isFriend && coach.personalTrainings && (
           <button className="btn user-card-coach__btn-training" type="button">
             Хочу персональную тренировку
           </button>
-          <div className="user-card-coach__training-check">
-            <div className="custom-toggle custom-toggle--checkbox">
-              <label>
-                <input
-                  type="checkbox"
-                  name="user-agreement"
-                  checked={isSubscribed}
-                  onChange={(e) => {
-                    const checked = e.target.checked;
-                    if (checked) {
-                      subscribeMutation.mutate({ coachId: coach.id });
-                    } else {
-                      unsubscribeMutation.mutate({ coachId: coach.id });
-                    }
-                  }}
-                />
-                <span className="custom-toggle__icon">
-                  <svg width={9} height={6} aria-hidden="true">
-                    <use xlinkHref="#arrow-check" />
-                  </svg>
-                </span>
-                <span className="custom-toggle__label">
-                  Получать уведомление на почту о новой тренировке
-                </span>
-              </label>
-            </div>
+        )}
+        <div className="user-card-coach__training-check">
+          <div className="custom-toggle custom-toggle--checkbox">
+            <label>
+              <input
+                type="checkbox"
+                name="user-agreement"
+                checked={isSubscribed}
+                onChange={(e) => {
+                  const checked = e.target.checked;
+                  if (checked) {
+                    subscribeMutation.mutate({ coachId: coach.id });
+                  } else {
+                    unsubscribeMutation.mutate({ coachId: coach.id });
+                  }
+                }}
+              />
+              <span className="custom-toggle__icon">
+                <svg width={9} height={6} aria-hidden="true">
+                  <use xlinkHref="#arrow-check" />
+                </svg>
+              </span>
+              <span className="custom-toggle__label">
+                Получать уведомление на почту о новой тренировке
+              </span>
+            </label>
           </div>
-        </form>
-      )}
+        </div>
+      </form>
     </div>
   );
 };

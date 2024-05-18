@@ -8,6 +8,7 @@ import LocationMap from '../../components/location-map';
 import TrainingsSlider from '../user-card-coach-page/components/sliders/training-slider';
 import CertificatePopupSlider from './components/sliders/certificate-popup.slider';
 import { useFriendQuery } from '../../hooks';
+import classNames from 'classnames';
 
 export default function UserCardCoachPage(): React.ReactNode {
   const { id } = useParams();
@@ -62,7 +63,7 @@ export default function UserCardCoachPage(): React.ReactNode {
                       <div className="user-card-coach__content">
                         <div className="user-card-coach__head">
                           <h2 className="user-card-coach__title">
-                            {user?.name}
+                            {user.name}
                           </h2>
                         </div>
                         <div className="user-card-coach__label">
@@ -90,16 +91,24 @@ export default function UserCardCoachPage(): React.ReactNode {
                             </svg>
                             <span>Тренер</span>
                           </div>
-                          <div className="user-card-coach__status user-card-coach__status--check">
+                          <div
+                            className={classNames(
+                              'user-card-coach__status user-card-coach__status--check',
+                              {
+                                'user-card-coach-2__status user-card-coach-2__status--check':
+                                  !user.personalTrainings,
+                              }
+                            )}
+                          >
                             <span>
-                              {user?.personalTrainings
+                              {user.personalTrainings
                                 ? 'Готов тренировать'
                                 : 'Не готов тренировать'}
                             </span>
                           </div>
                         </div>
                         <div className="user-card-coach__text">
-                          <p>{user?.description}</p>
+                          <p>{user.description}</p>
                         </div>
                         <button
                           className="btn-flat user-card-coach__sertificate"
@@ -112,7 +121,7 @@ export default function UserCardCoachPage(): React.ReactNode {
                           <span>Посмотреть сертификаты</span>
                         </button>
                         <ul className="user-card-coach__hashtag-list">
-                          {user?.typeOfTraining.map((type) => (
+                          {user.typeOfTraining.map((type) => (
                             <li className="user-card__hashtag-item" key={type}>
                               <div className="hashtag">
                                 <span>{renderHashtag(type)}</span>
@@ -155,13 +164,11 @@ export default function UserCardCoachPage(): React.ReactNode {
                     </div>
                   </div>
 
-                  {user?.trainings.length > 0 ? (
-                    <TrainingsSlider
-                      trainings={user?.trainings}
-                      isFriend={isFriend}
-                      coach={user}
-                    />
-                  ) : null}
+                  <TrainingsSlider
+                    trainings={user?.trainings}
+                    isFriend={isFriend}
+                    coach={user}
+                  />
                 </section>
               </div>
             </div>

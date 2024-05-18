@@ -1,7 +1,6 @@
 import { Link, useParams } from 'react-router-dom';
 import { AuthAppRoutes } from '../../constants/constants';
 import { useMutation, useQuery } from '@tanstack/react-query';
-import { loadReviews } from '../../api/loadReviews';
 import ReviewCard from '../../components/review/review-card';
 import { loadTraining } from '../../api/loadTraining';
 import TrainingInfoCard from './components/training-info-card';
@@ -13,10 +12,6 @@ export default function TrainingCardCoachPage(): React.ReactNode {
   const training = useQuery({
     queryKey: ['training', id],
     queryFn: () => loadTraining(Number(id)),
-  });
-  const reviews = useQuery({
-    queryKey: ['reviews'],
-    queryFn: () => loadReviews(Number(id)),
   });
 
   const updateTrainingMutatation = useMutation({
@@ -55,7 +50,7 @@ export default function TrainingCardCoachPage(): React.ReactNode {
                 </Link>
                 <h2 className="reviews-side-bar__title">Отзывы</h2>
                 <ul className="reviews-side-bar__list">
-                  {reviews.data?.map((review) => (
+                  {training.data.reviews.map((review) => (
                     <ReviewCard key={review.id} review={review} />
                   ))}
                 </ul>
