@@ -1,5 +1,5 @@
 import React, { useEffect, useRef, useState } from 'react';
-import { Training, User } from '../../../../types';
+import { PersonalTraining, Training, User } from '../../../../types';
 import Slider from 'react-slick';
 import TrainingCard from '../../../../components/training-card';
 import { useMutation, useQuery } from '@tanstack/react-query';
@@ -8,6 +8,7 @@ import { subscribeToCoach } from '../../../../api/subscribeToCoach';
 import { loadSubscriptions } from '../../../../api/loadSubscriptions';
 import { useUser } from '../../../../hooks';
 import { unsubscribeFromCoach } from '../../../../api/unsubscribeFromCoach';
+import { addPersonalTraining } from '../../../../api/addPersonalTraining';
 
 interface TrainingsSliderProps {
   trainings: Training[] | undefined;
@@ -69,6 +70,25 @@ const TrainingSlider: React.FC<TrainingsSliderProps> = ({
     onSuccess: () => setIsSubscribed(false),
   });
 
+  const newPersonalTraining = useMutation({
+    mutationKey: ['addPersonalTraining', id],
+    mutationFn: (params: { personalTraining: PersonalTraining }) =>
+      addPersonalTraining(params.personalTraining),
+    onSuccess: (data) =>
+      // eslint-disable-next-line no-console
+      console.log('Request for personal training has been submitted', data),
+  });
+
+  const handleButtonPersonalTrainingClick = () => {
+    const value = {
+      initiator: user.id,
+      user: Number(id),
+      status: 'На рассмотрении',
+    };
+
+    newPersonalTraining.mutate({ personalTraining: value });
+  };
+
   return (
     <div className="user-card-coach__training">
       {coach.trainings.length > 0 ? (
@@ -113,7 +133,11 @@ const TrainingSlider: React.FC<TrainingsSliderProps> = ({
       ) : null}
       <form className="user-card-coach__training-form">
         {isFriend && coach.personalTrainings && (
-          <button className="btn user-card-coach__btn-training" type="button">
+          <button
+            className="btn user-card-coach__btn-training"
+            type="button"
+            onClick={handleButtonPersonalTrainingClick}
+          >
             Хочу персональную тренировку
           </button>
         )}
