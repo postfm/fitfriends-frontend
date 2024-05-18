@@ -3,11 +3,17 @@ import { loadFriendsCoach } from '../../api/loadFriendsCoach';
 import FriendCoachCard from '../../components/friend-coach-card';
 import { Link } from 'react-router-dom';
 import { AuthAppRoutes } from '../../constants/constants';
+import { loadPersonalTraining } from '../../api/loadPersonalTraining';
+import { PersonalTraining } from '../../types';
 
 export default function FriendsListCoachPage(): JSX.Element {
   const friendsCoach = useQuery({
     queryKey: ['friendsCoach'],
     queryFn: loadFriendsCoach,
+  });
+  const personalTrainings = useQuery({
+    queryKey: ['personalTrainings'],
+    queryFn: loadPersonalTraining,
   });
 
   return (
@@ -30,7 +36,14 @@ export default function FriendsListCoachPage(): JSX.Element {
               </div>
               <ul className="friends-list__list">
                 {friendsCoach.data?.map((friendCoach) => (
-                  <FriendCoachCard key={friendCoach.id} friend={friendCoach} />
+                  <li className="friends-list__item" key={friendCoach.id}>
+                    <FriendCoachCard
+                      initiator={friendCoach}
+                      personalTrainings={
+                        personalTrainings.data as PersonalTraining[]
+                      }
+                    />
+                  </li>
                 ))}
               </ul>
               <div className="show-more friends-list__show-more">
