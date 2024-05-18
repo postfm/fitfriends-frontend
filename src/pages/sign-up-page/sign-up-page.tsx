@@ -1,60 +1,59 @@
-import { FormEvent, useState } from 'react';
+import { useRef, useState } from 'react';
 import { LengthParameters } from '../../constants/validate.constants';
-import { AppRoutes, Locations, UserRole } from '../../constants/constants';
+import {
+  AppRoutes,
+  Genders,
+  Locations,
+  UserRole,
+} from '../../constants/constants';
 import { useNavigate } from 'react-router-dom';
-import registerStyles from './sign-up-page.module.css';
-import classNames from 'classnames';
+import Select from '../../components/select';
+import { RadioToggleInput } from '../../components/filters';
+import { Role } from '../../types';
+
+export interface RegistrationData {
+  name: string;
+  email: string;
+  dateOfBirth: string;
+  location: string;
+  password: string;
+  gender: string;
+  role: Role;
+  isAgreement: boolean;
+  image: string;
+}
 
 export default function SignUpPage(): JSX.Element {
-  const [isAgreement, setIsAgreement] = useState(true);
-  const [isChangeLocation, setIsChangeLocation] = useState(false);
-  const [location, setLocation] = useState('');
-  const [isLocationEmpty, setIsLocationEmpty] = useState(true);
-  const navigate = useNavigate();
+  const form = useRef<HTMLFormElement | null>();
+  const [values, setValues] = useState<RegistrationData>({
+    name: '',
+    email: '',
+    dateOfBirth: '',
+    location: '',
+    password: '',
+    gender: '',
+    role: Role.coach,
+    isAgreement: true,
+    image: '',
+  });
 
-  const handleUserAgreementOnClick = () => {
-    setIsAgreement(!isAgreement);
-  };
-
-  const locationItems = Locations.map((loc) => <li key={loc}>{loc}</li>);
-
-  const handleFormSubmit = (evt: FormEvent<HTMLFormElement>) => {
-    evt.preventDefault();
-
-    const form = evt.target as HTMLFormElement;
-    const formData = new FormData(form);
-
-    const userRegistration = {
-      name: formData.get('name'),
-      email: formData.get('email'),
-      avatar: formData.get('avatar'),
-      password: formData.get('password'),
-      gender: formData.get('sex'),
-      birthday: formData.get('birthday'),
-      roles: formData.get('role'),
-      location: location,
+  const getHandler =
+    (name: string) =>
+    (event: React.ChangeEvent<HTMLInputElement | HTMLTextAreaElement>) => {
+      setValues({ ...values, [name]: event.target.value });
     };
 
-    if (!userRegistration.location.length) {
-      setIsLocationEmpty(false);
-      return;
+  const navigate = useNavigate();
+
+  const handleSubmit = () => {
+    if (form.current?.checkValidity()) {
+      navigate(
+        values.role === UserRole.coach
+          ? AppRoutes.QuestionnaireAccountCoach
+          : AppRoutes.QuestionnaireAccountUser,
+        { state: { firstStepState: values } }
+      );
     }
-
-    if (userRegistration.roles === UserRole.coach) {
-      navigate(AppRoutes.QuestionnaireAccountCoach);
-    } else {
-      navigate(AppRoutes.QuestionnaireAccountUser);
-    }
-  };
-
-  const handleButtonClick = () => {
-    setIsChangeLocation(!isChangeLocation);
-  };
-
-  const handleListClick: React.MouseEventHandler<HTMLElement> = (evt) => {
-    setLocation((evt.target as HTMLElement).innerText);
-    setIsChangeLocation(!isChangeLocation);
-    setIsLocationEmpty(true);
   };
 
   return (
@@ -85,7 +84,11 @@ export default function SignUpPage(): JSX.Element {
                 <h1 className="popup-form__title">Регистрация</h1>
               </div>
               <div className="popup-form__form">
-                <form method="get" onSubmit={handleFormSubmit}>
+                <form
+                  method="get"
+                  onSubmit={(e) => e.preventDefault()}
+                  ref={(ref) => (form.current = ref)}
+                >
                   <div className="sign-up">
                     <div className="sign-up__load-photo">
                       <div className="input-load-avatar">
@@ -120,6 +123,8 @@ export default function SignUpPage(): JSX.Element {
                               type="text"
                               name="name"
                               required
+                              value={values.name}
+                              onChange={getHandler('name')}
                               minLength={LengthParameters.MinLengthName}
                               maxLength={LengthParameters.MaxLengthName}
                             />
@@ -143,6 +148,8 @@ export default function SignUpPage(): JSX.Element {
                             <input
                               type="date"
                               name="birthday"
+                              value={values.dateOfBirth}
+                              onChange={getHandler('dateOfBirth')}
                               max="2099-12-31"
                               required
                             />
@@ -150,43 +157,18 @@ export default function SignUpPage(): JSX.Element {
                         </label>
                       </div>
                       <div className="custom-select custom-select--not-selected">
-                        <span className="custom-select__label">
-                          Ваша локация
-                        </span>
-                        <button
-                          className="custom-select__button"
-                          type="button"
-                          aria-label="Выберите одну из опций"
-                          onClick={handleButtonClick}
-                        >
-                          <span
-                            className="custom-select__text"
-                            style={{ opacity: 1 }}
-                          >
-                            {location}
-                          </span>
-                          <span className="custom-select__icon">
-                            <svg width={15} height={6} aria-hidden="true">
-                              <use xlinkHref="#arrow-down" />
-                            </svg>
-                          </span>
-                        </button>
-                        {!isLocationEmpty && (
-                          <p className={registerStyles.location__error}>
-                            Выберите ближайшую станцию метро!
-                          </p>
-                        )}
-
-                        <ul
-                          role="listbox"
-                          onClick={handleListClick}
-                          className={classNames(
-                            'custom-select__list',
-                            isChangeLocation ? registerStyles.display_list : ''
-                          )}
-                        >
-                          {locationItems}
-                        </ul>
+                        <Select
+                          title="Ваша локация"
+                          options={Locations.map((value) => ({
+                            value,
+                            label: value,
+                          }))}
+                          value={values.location}
+                          required
+                          onChange={(value) =>
+                            setValues({ ...values, location: value })
+                          }
+                        />
                       </div>
                       <div className="custom-input">
                         <label>
@@ -197,6 +179,8 @@ export default function SignUpPage(): JSX.Element {
                               name="password"
                               autoComplete="off"
                               required
+                              value={values.password}
+                              onChange={getHandler('password')}
                               minLength={LengthParameters.MinLengthPassword}
                               maxLength={LengthParameters.MaxLengthPassword}
                             />
@@ -204,49 +188,16 @@ export default function SignUpPage(): JSX.Element {
                         </label>
                       </div>
                       <div className="sign-up__radio">
-                        <span className="sign-up__label">Пол</span>
-                        <div className="custom-toggle-radio custom-toggle-radio--big">
-                          <div className="custom-toggle-radio__block">
-                            <label>
-                              <input
-                                type="radio"
-                                name="sex"
-                                value={'мужской'}
-                              />
-                              <span className="custom-toggle-radio__icon" />
-                              <span className="custom-toggle-radio__label">
-                                Мужской
-                              </span>
-                            </label>
-                          </div>
-                          <div className="custom-toggle-radio__block">
-                            <label>
-                              <input
-                                type="radio"
-                                name="sex"
-                                defaultChecked
-                                value={'женский'}
-                              />
-                              <span className="custom-toggle-radio__icon" />
-                              <span className="custom-toggle-radio__label">
-                                Женский
-                              </span>
-                            </label>
-                          </div>
-                          <div className="custom-toggle-radio__block">
-                            <label>
-                              <input
-                                type="radio"
-                                name="sex"
-                                value={'неважно'}
-                              />
-                              <span className="custom-toggle-radio__icon" />
-                              <span className="custom-toggle-radio__label">
-                                Неважно
-                              </span>
-                            </label>
-                          </div>
-                        </div>
+                        <RadioToggleInput
+                          title="Пол"
+                          options={Genders.map((key) => ({
+                            key,
+                            displayValue: key,
+                          }))}
+                          onChange={(value) =>
+                            setValues({ ...values, gender: value })
+                          }
+                        />
                       </div>
                     </div>
                     <div className="sign-up__role">
@@ -258,8 +209,10 @@ export default function SignUpPage(): JSX.Element {
                               className="visually-hidden"
                               type="radio"
                               name="role"
-                              defaultValue="тренер"
-                              defaultChecked
+                              checked={values.role === Role.coach}
+                              onChange={() =>
+                                setValues({ ...values, role: Role.coach })
+                              }
                             />
                             <span className="role-btn__icon">
                               <svg width={12} height={13} aria-hidden="true">
@@ -277,7 +230,10 @@ export default function SignUpPage(): JSX.Element {
                               className="visually-hidden"
                               type="radio"
                               name="role"
-                              defaultValue="пользователь"
+                              checked={values.role === Role.user}
+                              onChange={() =>
+                                setValues({ ...values, role: Role.user })
+                              }
                             />
                             <span className="role-btn__icon">
                               <svg width={12} height={13} aria-hidden="true">
@@ -297,8 +253,13 @@ export default function SignUpPage(): JSX.Element {
                           type="checkbox"
                           defaultValue="user-agreement"
                           name="user-agreement"
-                          defaultChecked
-                          onClick={handleUserAgreementOnClick}
+                          checked={values.isAgreement}
+                          onChange={(e) =>
+                            setValues({
+                              ...values,
+                              isAgreement: e.target.checked,
+                            })
+                          }
                         />
                         <span className="sign-up__checkbox-icon">
                           <svg width={9} height={6} aria-hidden="true">
@@ -314,7 +275,8 @@ export default function SignUpPage(): JSX.Element {
                     <button
                       className="btn sign-up__button"
                       type="submit"
-                      disabled={!isAgreement}
+                      disabled={!values.isAgreement}
+                      onClick={handleSubmit}
                     >
                       Продолжить
                     </button>

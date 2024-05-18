@@ -64,12 +64,14 @@ export interface User {
   certificates: string | null;
   merits: string | null;
   personalTrainings: boolean | null;
-  refreshToken: string;
+  refreshToken?: string;
   balance?: number | null;
   reviews?: Review[];
   orders?: Omit<Order, 'user' | 'trainings'>[];
   trainings?: Omit<Training, 'reviews' | 'user'>[];
 }
+
+export type NewUser = Omit<User, 'id' | 'createdAt' | 'updatedAt'>;
 
 export interface Subscription {
   id: number;

@@ -30,7 +30,6 @@ export const RadioToggleInput: React.FC<RadioToggleInputProps> = (props) => {
             <label>
               <input
                 type="radio"
-                name="level"
                 checked={option.key === selected}
                 onChange={(evt) => {
                   if (evt.target.checked) {
