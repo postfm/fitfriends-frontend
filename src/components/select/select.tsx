@@ -1,4 +1,5 @@
 import SelectInput from 'react-select';
+import './select-input.css';
 
 interface SelectProps {
   title: string;
@@ -21,6 +22,7 @@ const Select: React.FC<SelectProps> = ({
     <span className="custom-select__label">{title}</span>
     <SelectInput
       className="custom-select__button"
+      classNamePrefix={'react-select'}
       value={options.find((o) => o.value === value)}
       isSearchable={false}
       required={required}
