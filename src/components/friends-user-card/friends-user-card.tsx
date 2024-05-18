@@ -69,7 +69,7 @@ const FriendsUserCard: React.FC<FriendsUserCardProps> = ({
                 (user.personalTrainings && user.roles === UserRole.coach),
               'thumbnail-friend__ready-status--is-not-ready':
                 (!user.readyToTrain && user.roles === UserRole.sportsman) ||
-                (user.personalTrainings && user.roles === UserRole.coach),
+                (!user.personalTrainings && user.roles === UserRole.coach),
             })}
           >
             {(user.readyToTrain && user.roles === UserRole.sportsman) ||
@@ -123,7 +123,7 @@ const FriendsUserCard: React.FC<FriendsUserCardProps> = ({
           {isInitiator(initiator.id, user.id, personalTrainings) && (
             <div className="thumbnail-friend__request-status thumbnail-friend__request-status--role-coach">
               <p className="thumbnail-friend__request-text">
-                {`Запрос на&nbsp;персональную тренировку ${getStatus(
+                {`Запрос на персональную тренировку ${getStatus(
                   initiator.id,
                   user.id,
                   personalTrainings

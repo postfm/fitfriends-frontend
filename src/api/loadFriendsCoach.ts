@@ -1,6 +1,6 @@
-import { FRIENDS_COACH } from '../mocks/friends-coach.mocks';
+import { FRIENDS } from '../mocks/friends.mocks';
 import { User } from '../types';
 
-export function loadFriendsCoach(): Promise<User[]> {
-  return Promise.resolve(FRIENDS_COACH);
+export function loadFriendsCoach(): Promise<Omit<User, 'trainings'>[]> {
+  return Promise.resolve(FRIENDS);
 }
