@@ -57,8 +57,8 @@ const FriendCoachCard: React.FC<FriendCoachCardProps> = ({
         className="thumbnail-friend__info thumbnail-friend__info--theme-light"
         onClick={() =>
           navigate(
-            generatePath(AppRoutes.TrainingCard, {
-              id: String(coach.id),
+            generatePath(AppRoutes.UserCard, {
+              id: String(initiator.id),
             })
           )
         }
