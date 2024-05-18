@@ -15,12 +15,15 @@ const FriendsUserCard: React.FC<FriendsUserCardProps> = ({
   personalTrainings,
 }) => {
   const [isInvite, setIsInvite] = useState(false);
-  const currentUser = useUser();
+  const initiator = useUser();
 
-  const handleButtonInviteClick = (e: React.MouseEvent) => {
-    e.stopPropagation();
+  const handleButtonInviteClick = (evt: React.MouseEvent) => {
+    evt.stopPropagation();
     setIsInvite(!isInvite);
   };
+  // Получаем список друзей которых пригласил
+  console.log(initiator.id, user.id);
+  console.log(personalTrainings);
 
   return (
     <div className="thumbnail-friend">
@@ -61,12 +64,16 @@ const FriendsUserCard: React.FC<FriendsUserCardProps> = ({
         <div className="thumbnail-friend__activity-bar">
           <div
             className={classNames('thumbnail-friend__ready-status', {
-              'thumbnail-friend__ready-status--is-ready': user.readyToTrain,
+              'thumbnail-friend__ready-status--is-ready':
+                (user.readyToTrain && user.roles === UserRole.sportsman) ||
+                (user.personalTrainings && user.roles === UserRole.coach),
               'thumbnail-friend__ready-status--is-not-ready':
-                !user.readyToTrain,
+                (!user.readyToTrain && user.roles === UserRole.sportsman) ||
+                (user.personalTrainings && user.roles === UserRole.coach),
             })}
           >
-            {user.readyToTrain ? (
+            {(user.readyToTrain && user.roles === UserRole.sportsman) ||
+            (user.personalTrainings && user.roles === UserRole.coach) ? (
               <span> Готов к&nbsp;тренировке</span>
             ) : (
               <span>Не готов к&nbsp;тренировке</span>
@@ -92,7 +99,7 @@ const FriendsUserCard: React.FC<FriendsUserCardProps> = ({
       </div>
       {user.readyToTrain && (
         <>
-          {isInvited(currentUser.id, user.id, personalTrainings) && (
+          {isInvited(initiator.id, user.id, personalTrainings) && (
             <div className="thumbnail-friend__request-status thumbnail-friend__request-status--role-user">
               <p className="thumbnail-friend__request-text">
                 Запрос на&nbsp;совместную тренировку
@@ -113,11 +120,11 @@ const FriendsUserCard: React.FC<FriendsUserCardProps> = ({
               </div>
             </div>
           )}
-          {isInitiator(currentUser.id, user.id, personalTrainings) && (
+          {isInitiator(initiator.id, user.id, personalTrainings) && (
             <div className="thumbnail-friend__request-status thumbnail-friend__request-status--role-coach">
               <p className="thumbnail-friend__request-text">
                 {`Запрос на&nbsp;персональную тренировку ${getStatus(
-                  currentUser.id,
+                  initiator.id,
                   user.id,
                   personalTrainings
                 )}`}
