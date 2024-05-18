@@ -24,7 +24,7 @@ export default function TrainingCardUserPage(): React.ReactNode {
     queryFn: () => loadReviews(Number(id)),
   });
 
-  if (!training.data) {
+  if (!training.data || training.isLoading) {
     return 'Loading';
   }
 

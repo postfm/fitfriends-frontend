@@ -43,6 +43,7 @@ export const Locations = [
   'Удельная',
   'Звёздная',
   'Спортивная',
+  'Тестовая',
 ];
 
 export const TypesOfTrainings = [
@@ -65,3 +66,5 @@ export const TimeOfTraining = [
 export const Genders = ['женский', 'мужской', 'неважно'];
 
 export const LevelOfTraining = ['новичок', 'любитель', 'профессионал'];
+
+export const PRICE_WITH_DISCOUNT = 0.9;

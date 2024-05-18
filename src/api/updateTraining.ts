@@ -1,5 +1,5 @@
-import { NewTraining } from '../types';
+import { Training } from '../types';
 
-export function updateTraining(training: NewTraining): Promise<NewTraining> {
+export function updateTraining(training: Training): Promise<Training> {
   return Promise.resolve(training);
 }
