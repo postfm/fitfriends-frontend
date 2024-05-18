@@ -10,7 +10,7 @@ import CertificatePopupSlider from './components/sliders/certificate-popup.slide
 import { useFriendQuery } from '../../hooks';
 import classNames from 'classnames';
 
-export default function UserCardCoachPage(): React.ReactNode {
+const UserCardCoachPage: React.FC = () => {
   const { id } = useParams();
   const user = useQuery({
     queryKey: ['user', id],
@@ -192,4 +192,6 @@ export default function UserCardCoachPage(): React.ReactNode {
       </PopupModal>
     </div>
   );
-}
+};
+
+export default UserCardCoachPage;

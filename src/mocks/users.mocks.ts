@@ -1,3 +1,5 @@
+import { User } from "../types";
+
 export const USERS_MOCK = {
   data: [
     {
@@ -1240,7 +1242,7 @@ export const USERS_MOCK = {
       reviews: [],
       balance: null,
     },
-  ],
+  ] as User[],
   meta: {
     itemsPerPage: 20,
     totalItems: 16,

@@ -91,7 +91,7 @@ const TrainingSlider: React.FC<TrainingsSliderProps> = ({
 
   return (
     <div className="user-card-coach__training">
-      {coach.trainings.length > 0 ? (
+      {coach.trainings && coach.trainings.length > 0 ? (
         <>
           <div className="user-card-coach__training-head">
             <h2 className="user-card-coach__training-title">Тренировки</h2>

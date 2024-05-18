@@ -16,7 +16,7 @@ export default function MyTrainingsPage(): JSX.Element {
   const [ratingFilter, setRaitingFilter] = useState<[number, number]>([1, 5]);
   const [durations, setDurations] = useState<string[]>(TimeOfTraining);
 
-  const trainingsToShow = user.trainings.filter((training) => {
+  const trainingsToShow = (user.trainings || []).filter((training) => {
     const pricePredicate =
       priceFilter[0] <= training.price && training.price <= priceFilter[1];
     const caloriePredicate =

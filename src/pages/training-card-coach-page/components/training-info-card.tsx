@@ -64,7 +64,7 @@ const TrainingInfoCard: React.FC<TrainingInfoCardProps> = ({
             <div className="training-info__photo">
               <picture>
                 <img
-                  src={training.user.avatar}
+                  src={training?.user?.avatar}
                   width={64}
                   height={64}
                   alt="Изображение тренера"
@@ -73,7 +73,7 @@ const TrainingInfoCard: React.FC<TrainingInfoCardProps> = ({
             </div>
             <div className="training-info__coach-info">
               <span className="training-info__label">Тренер</span>
-              <span className="training-info__name">{training.user.name}</span>
+              <span className="training-info__name">{training?.user?.name}</span>
             </div>
           </div>
           <button

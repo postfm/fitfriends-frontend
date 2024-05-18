@@ -1,6 +1,6 @@
 import { MY_ORDERS } from './../mocks/my-orders.mocks';
-import { MyOrder } from '../types';
+import { Order } from '../types';
 
-export function loadMyOrders(): Promise<MyOrder[]> {
+export function loadMyOrders(): Promise<Order[]> {
   return Promise.resolve(MY_ORDERS);
 }
