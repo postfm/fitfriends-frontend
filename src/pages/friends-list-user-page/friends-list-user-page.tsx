@@ -1,5 +1,5 @@
-import { generatePath, useNavigate } from 'react-router-dom';
-import { AppRoutes, AuthAppRoutes } from '../../constants/constants';
+import { useNavigate } from 'react-router-dom';
+import { AuthAppRoutes } from '../../constants/constants';
 import { useQuery } from '@tanstack/react-query';
 import { loadFriendsUser } from '../../api/loadFriendsUser';
 import FriendsUserCard from '../../components/friends-user-card/friends-user-card';
@@ -38,17 +38,7 @@ export default function FriendsListUserPage(): JSX.Element {
               </div>
               <ul className="friends-list__list">
                 {friendsUser.data?.map((friend) => (
-                  <li
-                    className="friends-list__item"
-                    key={friend.id}
-                    onClick={() =>
-                      navigate(
-                        generatePath(AppRoutes.UserCard, {
-                          id: String(friend.id),
-                        })
-                      )
-                    }
-                  >
+                  <li className="friends-list__item" key={friend.id}>
                     <FriendsUserCard
                       user={friend}
                       personalTrainings={

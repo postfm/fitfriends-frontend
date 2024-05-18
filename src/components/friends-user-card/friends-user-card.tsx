@@ -2,8 +2,11 @@ import React, { useState } from 'react';
 import { PersonalTraining, User } from '../../types';
 import { getStatus, isInitiator, isInvited, renderHashtag } from '../../utils';
 import classNames from 'classnames';
-import { UserRole } from '../../constants/constants';
+import { AppRoutes, UserRole } from '../../constants/constants';
 import { useUser } from '../../hooks';
+import { useMutation } from '@tanstack/react-query';
+import { updatePersonalTraining } from '../../api/updatePersonalTraining';
+import { generatePath, useNavigate } from 'react-router-dom';
 
 interface FriendsUserCardProps {
   user: User;
@@ -21,9 +24,38 @@ const FriendsUserCard: React.FC<FriendsUserCardProps> = ({
     evt.stopPropagation();
     setIsInvite(!isInvite);
   };
-  // Получаем список друзей которых пригласил
-  console.log(initiator.id, user.id);
-  console.log(personalTrainings);
+
+  const navigate = useNavigate();
+
+  const changeStatus = useMutation({
+    mutationKey: ['updateTraining'],
+    mutationFn: (params: { requestTraining: PersonalTraining }) =>
+      updatePersonalTraining(params.requestTraining),
+    onSuccess: (data) => {
+      // eslint-disable-next-line no-console
+      console.log('request update successfully', data);
+    },
+  });
+
+  const handleButtonAcceptClick = () => {
+    const value = {
+      initiator: initiator.id,
+      user: user.id,
+      status: 'принят',
+    };
+
+    changeStatus.mutate({ requestTraining: value });
+  };
+
+  const handleButtonRejectClick = () => {
+    const value = {
+      initiator: initiator.id,
+      user: user.id,
+      status: 'отклонён',
+    };
+
+    changeStatus.mutate({ requestTraining: value });
+  };
 
   return (
     <div className="thumbnail-friend">
@@ -33,6 +65,13 @@ const FriendsUserCard: React.FC<FriendsUserCardProps> = ({
             user.roles === UserRole.sportsman,
           'thumbnail-friend__info--theme-dark': user.roles === UserRole.coach,
         })}
+        onClick={() =>
+          navigate(
+            generatePath(AppRoutes.UserCard, {
+              id: String(user.id),
+            })
+          )
+        }
       >
         <div className="thumbnail-friend__image-status">
           <div className="thumbnail-friend__image">
@@ -108,12 +147,14 @@ const FriendsUserCard: React.FC<FriendsUserCardProps> = ({
                 <button
                   className="btn btn--medium btn--dark-bg thumbnail-friend__button"
                   type="button"
+                  onClick={handleButtonAcceptClick}
                 >
                   Принять
                 </button>
                 <button
                   className="btn btn--medium btn--outlined btn--dark-bg thumbnail-friend__button"
                   type="button"
+                  onClick={handleButtonRejectClick}
                 >
                   Отклонить
                 </button>
