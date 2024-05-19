@@ -8,10 +8,13 @@ import { PurchaseForm } from '../../components/popup-forms';
 import FeedbackForm from '../../components/popup-forms/feedback-form';
 import { loadTraining } from '../../api/loadTraining';
 import { renderHashtag, renderPrice } from '../../utils';
+import ReactPlayer from 'react-player';
+import classNames from 'classnames';
 
 const TrainingCardUserPage: React.FC = () => {
   const [purchasePopupOpen, setPurchasePopupOpen] = useState(false);
   const [feedbackPopupOpen, setFeedbackPopupOpen] = useState(false);
+  const [playingPause, setPlayingPause] = useState(false);
   const { id } = useParams();
   const navigate = useNavigate();
   const training = useQuery({
@@ -22,6 +25,10 @@ const TrainingCardUserPage: React.FC = () => {
   if (!training.data || training.isLoading) {
     return <div>Loading</div>;
   }
+
+  const handleButtonPlayClick = () => {
+    setPlayingPause(!playingPause);
+  };
 
   return (
     <div className="wrapper">
@@ -194,25 +201,42 @@ const TrainingCardUserPage: React.FC = () => {
                   <h2 className="training-video__title">Видео</h2>
                   <div className="training-video__video">
                     <div className="training-video__thumbnail">
-                      <picture>
+                      <ReactPlayer
+                        url="/img/content/training-video/Big_Buck_Bunny_360_10s_1MB.mp4"
+                        controls
+                        height="566px"
+                        width="922px"
+                        playing={playingPause}
+                        onPause={() => setPlayingPause(!playingPause)}
+                        style={{ borderRadius: '20px' }}
+                      />
+                      <button
+                        className={classNames(
+                          'training-video__play-button btn-reset',
+                          { 'visually-hidden': playingPause }
+                        )}
+                        onClick={handleButtonPlayClick}
+                      >
+                        <svg width={18} height={30} aria-hidden="true">
+                          <use xlinkHref="#icon-arrow" />
+                        </svg>
+                      </button>
+
+                      {/* <picture>
                         <img
                           src="/img/content/training-video/video-thumbnail.png"
                           width={922}
                           height={566}
                           alt="Обложка видео"
                         />
-                      </picture>
+                      </picture> */}
                     </div>
-                    <button className="training-video__play-button btn-reset">
-                      <svg width={18} height={30} aria-hidden="true">
-                        <use xlinkHref="#icon-arrow" />
-                      </svg>
-                    </button>
                   </div>
                   <div className="training-video__buttons-wrapper">
                     <button
                       className="btn training-video__button training-video__button--start"
                       type="button"
+                      onClick={handleButtonPlayClick}
                       disabled
                     >
                       Приступить

@@ -4,6 +4,7 @@ import { LengthParameters } from '../../../constants/validate.constants';
 import { PRICE_WITH_DISCOUNT } from '../../../constants/constants';
 import { renderPrice } from '../../../utils';
 import classNames from 'classnames';
+import ReactPlayer from 'react-player';
 
 interface TrainingInfoCardProps {
   training: Training;
@@ -21,6 +22,7 @@ const TrainingInfoCard: React.FC<TrainingInfoCardProps> = ({
   const [description, setDescription] = useState(training.description);
   const [isSpecialOffer, setIsSpecialOffer] = useState(training.specialOffer);
   const [rating, setRating] = useState(training.rating);
+  const [playingPause, setPlayingPause] = useState(false);
 
   const handleEditSaveButton = () => {
     if (isEdit) {
@@ -55,6 +57,10 @@ const TrainingInfoCard: React.FC<TrainingInfoCardProps> = ({
     setIsDeleteVideo(false);
   };
 
+  const handleButtonPlayClick = () => {
+    setPlayingPause(!playingPause);
+  };
+
   return (
     <div className="training-card training-card--edit">
       <div className="training-info">
@@ -73,7 +79,9 @@ const TrainingInfoCard: React.FC<TrainingInfoCardProps> = ({
             </div>
             <div className="training-info__coach-info">
               <span className="training-info__label">Тренер</span>
-              <span className="training-info__name">{training?.user?.name}</span>
+              <span className="training-info__name">
+                {training?.user?.name}
+              </span>
             </div>
           </div>
           <button
@@ -218,20 +226,39 @@ const TrainingInfoCard: React.FC<TrainingInfoCardProps> = ({
           })}
         >
           <div className="training-video__thumbnail">
-            <picture>
+            <ReactPlayer
+              url="/img/content/training-video/Big_Buck_Bunny_360_10s_1MB.mp4"
+              controls
+              height="566px"
+              width="922px"
+              playing={playingPause}
+              onPause={() => setPlayingPause(!playingPause)}
+              style={{ borderRadius: '20px' }}
+            />
+            <button
+              className={classNames('training-video__play-button btn-reset', {
+                'visually-hidden': playingPause,
+              })}
+              onClick={handleButtonPlayClick}
+            >
+              <svg width={18} height={30} aria-hidden="true">
+                <use xlinkHref="#icon-arrow" />
+              </svg>
+            </button>
+            {/* <picture>
               <img
                 src="/img/content/training-video/video-thumbnail.png"
                 width={922}
                 height={566}
                 alt="Обложка видео"
               />
-            </picture>
+            </picture> */}
           </div>
-          <button className="training-video__play-button btn-reset">
+          {/* <button className="training-video__play-button btn-reset">
             <svg width={18} height={30} aria-hidden="true">
               <use xlinkHref="#icon-arrow" />
             </svg>
-          </button>
+          </button> */}
         </div>
         <div
           className="training-video__drop-files"
