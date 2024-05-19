@@ -221,7 +221,7 @@ const TrainingCardUserPage: React.FC = () => {
                           <use xlinkHref="#icon-arrow" />
                         </svg>
                       </button>
-
+                      {/* В перспективе доработать обложку для видео */}
                       {/* <picture>
                         <img
                           src="/img/content/training-video/video-thumbnail.png"

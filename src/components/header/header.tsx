@@ -13,14 +13,10 @@ import { deleteNotify } from '../../api/deleteNotify';
 export default function Header() {
   const user = useUser();
   const { logoutCurrentUser } = useAuth();
-  const Notifications = useQuery({
+  const myNotifications = useQuery({
     queryKey: ['myNotifications'],
     queryFn: () => loadNotifications(user.id),
   }).data;
-
-  const myNotifications = Notifications?.filter(
-    (notify) => notify.user === user.id
-  );
 
   interface NotifyProps {
     notify: Notify;
