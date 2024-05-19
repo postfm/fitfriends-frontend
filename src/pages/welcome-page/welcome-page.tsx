@@ -47,10 +47,10 @@ export default function WelcomePage(): JSX.Element {
                 />
               </picture>
             </div>
-            <div className="intro__buttons">
-              {/* <button className="btn intro__button" type="button">
-                Регистрация
-              </button> */}
+            <div
+              className="intro__buttons"
+              style={{ position: 'absolute', marginTop: '150px' }}
+            >
               <Link className="btn intro__button" to={AppRoutes.Register}>
                 Регистрация
               </Link>
