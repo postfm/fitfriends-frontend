@@ -1,4 +1,7 @@
 import React, { useState } from 'react';
+import { SpecialZoomLevel, Viewer } from '@react-pdf-viewer/core';
+import '@react-pdf-viewer/core/lib/styles/index.css';
+import { Worker } from '@react-pdf-viewer/core';
 
 interface CertificateCardProps {
   certificate: string;
@@ -10,18 +13,17 @@ const CertificateCard: React.FC<CertificateCardProps> = ({ certificate }) => {
   const handleButtonClick = () => {
     setIsEdit(!isEdit);
   };
+
   return (
     <li className="personal-account-coach__item">
       <div className="certificate-card certificate-card--edit">
         <div className="certificate-card__image">
-          <picture>
-            <img
-              src={certificate}
-              width={294}
-              height={360}
-              alt="Сертификат - Биомеханика ударов в боксе"
+          <Worker workerUrl="https://unpkg.com/pdfjs-dist@3.4.120/build/pdf.worker.min.js">
+            <Viewer
+              fileUrl={certificate}
+              defaultScale={SpecialZoomLevel.ActualSize}
             />
-          </picture>
+          </Worker>
         </div>
         <div className="certificate-card__buttons">
           <button

@@ -1,4 +1,4 @@
-import { User } from "../types";
+import { User } from '../types';
 
 export const USERS_MOCK = {
   data: [
@@ -23,7 +23,7 @@ export const USERS_MOCK = {
       caloriesToLose: null,
       caloriesPerDay: null,
       readyToTrain: null,
-      certificates: '/img/content/certificates-and-diplomas/certificate-1.jpg',
+      certificates: '/img/content/certificates-and-diplomas/1.pdf',
       merits: 'Чемпионка города',
       personalTrainings: true,
       refreshToken:
@@ -54,7 +54,7 @@ export const USERS_MOCK = {
       caloriesToLose: null,
       caloriesPerDay: null,
       readyToTrain: null,
-      certificates: '/img/content/certificates-and-diplomas/certificate-1.jpg',
+      certificates: '/img/content/certificates-and-diplomas/2.pdf',
       merits: 'Мастер спорта',
       personalTrainings: false,
       refreshToken:
@@ -115,7 +115,7 @@ export const USERS_MOCK = {
       caloriesToLose: null,
       caloriesPerDay: null,
       readyToTrain: null,
-      certificates: '/img/content/certificates-and-diplomas/certificate-1.jpg',
+      certificates: '/img/content/certificates-and-diplomas/3.pdf',
       merits: 'Чемпионка республики',
       personalTrainings: true,
       refreshToken:
@@ -146,7 +146,7 @@ export const USERS_MOCK = {
       caloriesToLose: null,
       caloriesPerDay: null,
       readyToTrain: null,
-      certificates: '/img/content/certificates-and-diplomas/certificate-1.jpg',
+      certificates: '/img/content/certificates-and-diplomas/4.pdf',
       merits: 'Чемпионка республики',
       personalTrainings: true,
       refreshToken:
@@ -446,7 +446,7 @@ export const USERS_MOCK = {
       caloriesToLose: null,
       caloriesPerDay: null,
       readyToTrain: null,
-      certificates: '/img/content/certificates-and-diplomas/certificate-1.jpg',
+      certificates: '/img/content/certificates-and-diplomas/5.pdf',
       merits: 'Кандидат в мастера спорта',
       personalTrainings: true,
       refreshToken:
@@ -506,7 +506,7 @@ export const USERS_MOCK = {
       caloriesToLose: null,
       caloriesPerDay: null,
       readyToTrain: null,
-      certificates: '/img/content/certificates-and-diplomas/certificate-1.jpg',
+      certificates: '/img/content/certificates-and-diplomas/6.pdf',
       merits: 'Чемпионка города',
       personalTrainings: true,
       refreshToken:
@@ -537,7 +537,7 @@ export const USERS_MOCK = {
       caloriesToLose: null,
       caloriesPerDay: null,
       readyToTrain: null,
-      certificates: '/img/content/certificates-and-diplomas/certificate-1.jpg',
+      certificates: '/img/content/certificates-and-diplomas/1.pdf',
       merits: 'Мастер спорта',
       personalTrainings: false,
       refreshToken:

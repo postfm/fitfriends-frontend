@@ -1,4 +1,5 @@
 import React, { useState } from 'react';
+import { SpecialZoomLevel, Viewer, Worker } from '@react-pdf-viewer/core';
 
 interface CertificateCardProps {
   certificate: string;
@@ -16,14 +17,12 @@ const CertificateCardPopup: React.FC<CertificateCardProps> = ({
     <li className="personal-account-coach__item">
       <div className="certificate-card">
         <div className="certificate-card__image">
-          <picture>
-            <img
-              src={certificate}
-              width={294}
-              height={360}
-              alt="Сертификат - Биомеханика ударов в боксе"
+          <Worker workerUrl="https://unpkg.com/pdfjs-dist@3.4.120/build/pdf.worker.min.js">
+            <Viewer
+              fileUrl={certificate}
+              defaultScale={SpecialZoomLevel.ActualSize}
             />
-          </picture>
+          </Worker>
         </div>
         <div className="certificate-card__buttons">
           <button
