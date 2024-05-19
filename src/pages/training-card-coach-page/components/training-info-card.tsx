@@ -2,7 +2,7 @@ import { useState } from 'react';
 import { Training } from '../../../types';
 import { LengthParameters } from '../../../constants/validate.constants';
 import { PRICE_WITH_DISCOUNT } from '../../../constants/constants';
-import { renderPrice } from '../../../utils';
+import { renderHashtag, renderPrice } from '../../../utils';
 import classNames from 'classnames';
 import ReactPlayer from 'react-player';
 
@@ -165,22 +165,22 @@ const TrainingInfoCard: React.FC<TrainingInfoCardProps> = ({
                 <ul className="training-info__list">
                   <li className="training-info__item">
                     <div className="hashtag hashtag--white">
-                      <span>{`#${training.type}`}</span>
+                      <span>{renderHashtag(training.type)}</span>
                     </div>
                   </li>
                   <li className="training-info__item">
                     <div className="hashtag hashtag--white">
-                      <span>{`#${training.gender}`}</span>
+                      <span>{renderHashtag(training.gender)}</span>
                     </div>
                   </li>
                   <li className="training-info__item">
                     <div className="hashtag hashtag--white">
-                      <span>{`#${training.calories}`}</span>
+                      <span>{renderHashtag(String(training.calories))}</span>
                     </div>
                   </li>
                   <li className="training-info__item">
                     <div className="hashtag hashtag--white">
-                      <span>{`#${training.duration}`}</span>
+                      <span>{renderHashtag(training.duration)}</span>
                     </div>
                   </li>
                 </ul>
