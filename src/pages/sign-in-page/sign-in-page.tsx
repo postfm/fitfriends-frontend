@@ -12,6 +12,7 @@ export default function SignInPage(): JSX.Element {
   const { setCurrentUser } = useAuth();
   const [password, setPassword] = useState<string>('');
   const [email, setEmail] = useState<string>('');
+
   const user = useMutation({
     mutationKey: ['login'],
     mutationFn: (params: { email: string; password: string }) =>
