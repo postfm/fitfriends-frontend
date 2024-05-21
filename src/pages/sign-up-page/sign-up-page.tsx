@@ -37,8 +37,6 @@ export default function SignUpPage(): JSX.Element {
     image: '',
   });
 
-  
-
   const getHandler =
     (name: string) =>
     (event: React.ChangeEvent<HTMLInputElement | HTMLTextAreaElement>) => {
@@ -137,7 +135,13 @@ export default function SignUpPage(): JSX.Element {
                         <label>
                           <span className="custom-input__label">E-mail</span>
                           <span className="custom-input__wrapper">
-                            <input type="email" name="email" required />
+                            <input
+                              type="email"
+                              name="email"
+                              required
+                              value={values.email}
+                              onChange={getHandler('email')}
+                            />
                           </span>
                         </label>
                       </div>
