@@ -2,7 +2,7 @@ import { useRef, useState } from 'react';
 import { LengthParameters } from '../../constants/validate.constants';
 import {
   AppRoutes,
-  Genders,
+  GENDERS,
   Locations,
   UserRole,
 } from '../../constants/constants';
@@ -190,7 +190,7 @@ export default function SignUpPage(): JSX.Element {
                       <div className="sign-up__radio">
                         <RadioToggleInput
                           title="Пол"
-                          options={Genders.map((key) => ({
+                          options={GENDERS.map((key) => ({
                             key,
                             displayValue: key,
                           }))}

@@ -7,6 +7,8 @@ import { useAuth, useUser } from '../../hooks';
 import { User } from '../../types';
 import { updateUser } from '../../api/updateUser';
 
+const MIN_AMOUNT_CERTIFICATES = 3;
+
 export default function PersonalAccountCoach(): JSX.Element {
   const currentUser = useUser();
   const { saveCurrentUser } = useAuth();
@@ -23,7 +25,7 @@ export default function PersonalAccountCoach(): JSX.Element {
 
   let certificates = currentUser.certificates?.split(',') || [];
   certificates =
-    certificates.length < 3
+    certificates.length < MIN_AMOUNT_CERTIFICATES
       ? [...certificates, ...certificates, ...certificates]
       : certificates;
 

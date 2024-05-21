@@ -11,6 +11,8 @@ import { getEnumKeyByEnumValue } from '../../utils';
 import { loadUsers } from '../../api/loadUsers';
 import { useUser } from '../../hooks';
 
+const MAX_TRAINING_RATING = 5;
+
 export default function MainPage(): JSX.Element {
   const currentUser = useUser();
   const trainings = useQuery({
@@ -34,7 +36,9 @@ export default function MainPage(): JSX.Element {
   const specialOfferTrainings =
     trainings.data?.filter((training) => training.specialOffer) || [];
   const popularTrainings =
-    trainings.data?.filter((training) => training.rating === 5) || [];
+    trainings.data?.filter(
+      (training) => training.rating === MAX_TRAINING_RATING
+    ) || [];
 
   const users = useQuery({ queryKey: ['users'], queryFn: loadUsers });
   const lookingForCompanyUsers =

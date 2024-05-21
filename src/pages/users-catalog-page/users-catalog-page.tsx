@@ -1,7 +1,7 @@
 import { useNavigate } from 'react-router-dom';
 import {
   AuthAppRoutes,
-  LevelOfTraining,
+  LEVEL_OF_TRAINS,
   Locations,
   TypesOfTrainings,
 } from '../../constants/constants';
@@ -109,7 +109,7 @@ export default function UsersCatalogPage(): JSX.Element {
                         Ваш уровень
                       </h4>
                       <RadioToggleInput
-                        options={LevelOfTraining.map((key) => ({
+                        options={LEVEL_OF_TRAINS.map((key) => ({
                           key,
                           displayValue: key,
                         }))}

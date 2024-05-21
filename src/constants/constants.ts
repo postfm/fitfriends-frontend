@@ -63,8 +63,8 @@ export const TimeOfTraining = [
   '80-100 мин',
 ];
 
-export const Genders = ['женский', 'мужской', 'неважно'];
+export const GENDERS = ['женский', 'мужской', 'неважно'];
 
-export const LevelOfTraining = ['новичок', 'любитель', 'профессионал'];
+export const LEVEL_OF_TRAINS = ['новичок', 'любитель', 'профессионал'];
 
 export const PRICE_WITH_DISCOUNT = 0.9;

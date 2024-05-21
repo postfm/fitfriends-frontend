@@ -113,22 +113,6 @@ export default function MyTrainingsPage(): JSX.Element {
                       )
                     )}
                   </ul>
-
-                  {/* // TODO: скорее всего не нужны, потому что trainings приходят как часть юзера
-                  <div className="show-more my-trainings__show-more">
-                    <button
-                      className="btn show-more__button show-more__button--more"
-                      type="button"
-                    >
-                      Показать еще
-                    </button>
-                    <button
-                      className="btn show-more__button show-more__button--to-top"
-                      type="button"
-                    >
-                      Вернуться в начало
-                    </button>
-                  </div> */}
                 </div>
               </div>
             </div>

@@ -1,8 +1,8 @@
 import { useRef, useState } from 'react';
 import {
   AuthAppRoutes,
-  Genders,
-  LevelOfTraining,
+  GENDERS,
+  LEVEL_OF_TRAINS,
   TimeOfTraining,
   TypesOfTrainings,
 } from '../../constants/constants';
@@ -176,7 +176,7 @@ export default function CreateTrainingPage(): JSX.Element {
                           <div className="custom-select custom-select--not-selected">
                             <Select
                               title="Выберите уровень тренировки"
-                              options={LevelOfTraining.map((value) => ({
+                              options={LEVEL_OF_TRAINS.map((value) => ({
                                 value,
                                 label: value,
                               }))}
@@ -190,7 +190,7 @@ export default function CreateTrainingPage(): JSX.Element {
                           <div className="create-training__radio-wrapper">
                             <RadioToggleInput
                               title="Кому подойдет тренировка"
-                              options={Genders.map((key) => ({
+                              options={GENDERS.map((key) => ({
                                 key,
                                 displayValue: key,
                               }))}

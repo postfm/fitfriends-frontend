@@ -2,7 +2,7 @@ import { useState } from 'react';
 import { useLocation } from 'react-router-dom';
 import { LengthParameters } from '../../constants/validate.constants';
 import questionnaireStyle from './questionnaire-coach-page.module.css';
-import { LevelOfTraining, TypesOfTrainings } from '../../constants/constants';
+import { LEVEL_OF_TRAINS, TypesOfTrainings } from '../../constants/constants';
 import { RadioToggleInput } from '../../components/filters';
 import { useMutation } from '@tanstack/react-query';
 import { register } from '../../api/register';
@@ -15,7 +15,7 @@ export default function QuestionnaireCoachPage(): JSX.Element {
   const { setCurrentUser } = useAuth();
   const [typeOfTraining, setTypeOfTraining] = useState<string[]>([]);
   const [levelOfTraining, setLevelOfTraining] = useState<string>(
-    LevelOfTraining[0]
+    LEVEL_OF_TRAINS[0]
   );
   const [description, setDescription] = useState<string>('');
   const [isWantInvididuallyTrain, setIsWantIndividuallyTrain] =
@@ -139,11 +139,11 @@ export default function QuestionnaireCoachPage(): JSX.Element {
                         </span>
                         <div className="custom-toggle-radio custom-toggle-radio--big questionnaire-coach__radio">
                           <RadioToggleInput
-                            options={LevelOfTraining.map((key) => ({
+                            options={LEVEL_OF_TRAINS.map((key) => ({
                               key,
                               displayValue: key,
                             }))}
-                            defaultSelected={LevelOfTraining[0]}
+                            defaultSelected={LEVEL_OF_TRAINS[0]}
                             onChange={setLevelOfTraining}
                           />
                         </div>

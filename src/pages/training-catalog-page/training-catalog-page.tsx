@@ -25,7 +25,7 @@ export default function TrainingCatalogPage(): JSX.Element {
     'key'
   );
 
-  const sortOptions = ['Дешевле', 'Дороже', 'Бесплатные'];
+  const SORT_OPTIONS = ['Дешевле', 'Дороже', 'Бесплатные'];
 
   return (
     <div className="wrapper">
@@ -90,7 +90,7 @@ export default function TrainingCatalogPage(): JSX.Element {
                       </div>
                     )}
                     <div className="gym-catalog-form__block gym-catalog-form__block--sort">
-                      <RadioFilter title="Сортировка" options={sortOptions} />
+                      <RadioFilter title="Сортировка" options={SORT_OPTIONS} />
                     </div>
                   </form>
                 </div>

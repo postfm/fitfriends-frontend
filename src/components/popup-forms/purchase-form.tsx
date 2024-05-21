@@ -4,6 +4,8 @@ import { renderPrice } from '../../utils';
 import { useMutation } from '@tanstack/react-query';
 import { createOrder } from '../../api/createOrder';
 
+const TYPE_ORDER = 'абонемент';
+
 interface PurchaseFormProps {
   training: Training;
   onSave: () => void;
@@ -13,8 +15,6 @@ const Value = {
   increment: 1,
   decrement: -1,
 };
-
-const TYPE_ORDER = 'абонемент';
 
 export function PurchaseForm({
   training,

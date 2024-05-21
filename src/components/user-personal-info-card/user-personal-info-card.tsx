@@ -2,8 +2,8 @@ import classNames from 'classnames';
 import { useUser } from '../../hooks';
 import { LengthParameters } from '../../constants/validate.constants';
 import {
-  Genders,
-  LevelOfTraining,
+  GENDERS,
+  LEVEL_OF_TRAINS,
   Locations,
   TypesOfTrainings,
 } from '../../constants/constants';
@@ -233,14 +233,14 @@ const UserPersonalInfoCard: React.FC<UserPersonalInfoCardProps> = ({
         <Select
           title="Пол"
           value={gender}
-          options={Genders.map((value) => ({ value, label: value }))}
+          options={GENDERS.map((value) => ({ value, label: value }))}
           isDisabled={!isEditing}
           onChange={setGender}
         />
         <Select
           title="Уровень"
           value={levelOfTrain}
-          options={LevelOfTraining.map((value) => ({ value, label: value }))}
+          options={LEVEL_OF_TRAINS.map((value) => ({ value, label: value }))}
           isDisabled={!isEditing}
           onChange={setLevelOfTrain}
         />

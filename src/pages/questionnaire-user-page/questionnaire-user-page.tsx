@@ -1,7 +1,7 @@
 import { useRef, useState } from 'react';
 import { LengthParameters } from '../../constants/validate.constants';
 import { useLocation } from 'react-router-dom';
-import { LevelOfTraining, TimeOfTraining } from '../../constants/constants';
+import { LEVEL_OF_TRAINS, TimeOfTraining } from '../../constants/constants';
 import { TypeOfTraining } from '../../components/questionnaire-components';
 import { useMutation } from '@tanstack/react-query';
 import { NewUser } from '../../types';
@@ -17,7 +17,7 @@ export default function QuestionnaireUserPage(): JSX.Element {
   const [typeOfTraining, setTypeOfTraining] = useState<string[]>([]);
   const [duration, setDuration] = useState<string>(TimeOfTraining[0]);
   const [levelOfTraining, setLevelOfTraining] = useState<string>(
-    LevelOfTraining[0]
+    LEVEL_OF_TRAINS[0]
   );
   const [caloriesToLose, setCaloriesToLose] = useState<number>(0);
   const [caloriesPerDay, setCaloriesPerDay] = useState<number>(0);
@@ -66,23 +66,6 @@ export default function QuestionnaireUserPage(): JSX.Element {
     }
   };
 
-  //   evt.preventDefault();
-
-  //   const form = evt.target as HTMLFormElement;
-  //   const formData = new FormData(form);
-
-  //   const userDescription = {
-  //     levelOfTrain: formData.get('level'),
-  //     typeOfTraining: formData.getAll('specialization'),
-  //     timeOfTraining: formData.get('time'),
-  //     caloriesToLose: formData.get('calories-lose'),
-  //     caloriesPerDay: formData.get('calories-waste'),
-  //   };
-
-  //   if (userDescription) {
-  //     navigate(AppRoutes.Main);
-  //   }
-  // };
   return (
     <div className="wrapper">
       <main>
@@ -141,11 +124,11 @@ export default function QuestionnaireUserPage(): JSX.Element {
                         </span>
                         <div className="custom-toggle-radio custom-toggle-radio--big questionnaire-user__radio">
                           <RadioToggleInput
-                            options={LevelOfTraining.map((key) => ({
+                            options={LEVEL_OF_TRAINS.map((key) => ({
                               key,
                               displayValue: key,
                             }))}
-                            defaultSelected={LevelOfTraining[0]}
+                            defaultSelected={LEVEL_OF_TRAINS[0]}
                             onChange={setLevelOfTraining}
                           />
                         </div>
