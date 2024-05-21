@@ -1,11 +1,6 @@
-import { USERS_MOCK } from '../mocks/users.mocks';
-import { User } from '../types';
+import { client } from '../client/client';
 
 // eslint-disable-next-line @typescript-eslint/no-unused-vars
-export function login(email: string, _password: string): Promise<User> {
-  const foundUser = USERS_MOCK.data.find(user => email === user.email)
-  if (!foundUser) {
-    throw Error('error')
-  }
-  return Promise.resolve(foundUser);
+export function login(email: string, password: string) {
+  return client.post('auth/login', { email: email, password: password });
 }

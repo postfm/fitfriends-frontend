@@ -37,6 +37,8 @@ export default function SignUpPage(): JSX.Element {
     image: '',
   });
 
+  
+
   const getHandler =
     (name: string) =>
     (event: React.ChangeEvent<HTMLInputElement | HTMLTextAreaElement>) => {

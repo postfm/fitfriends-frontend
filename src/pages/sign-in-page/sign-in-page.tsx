@@ -6,6 +6,12 @@ import loginStyles from './sign-in-page.module.css';
 import { login } from '../../api/login';
 import { useAuth } from '../../hooks';
 import { useMutation } from '@tanstack/react-query';
+import { saveTokens } from '../../client/token';
+
+export interface Tokens {
+  accessToken: string;
+  refreshToken: string;
+}
 
 export default function SignInPage(): JSX.Element {
   const navigate = useNavigate();
@@ -17,8 +23,9 @@ export default function SignInPage(): JSX.Element {
     mutationKey: ['login'],
     mutationFn: (params: { email: string; password: string }) =>
       login(params.email, params.password),
-    onSuccess: (data) => {
-      setCurrentUser(data);
+    onSuccess: ({ data }) => {
+      setCurrentUser(data.currentUser);
+      saveTokens(data.tokens);
       navigate(AppRoutes.Main);
     },
   });
@@ -52,7 +59,7 @@ export default function SignInPage(): JSX.Element {
                 <h1 className="popup-form__title">Вход</h1>
               </div>
               <div className="popup-form__form">
-                <form onSubmit={(e) => e.preventDefault()}>
+                <form>
                   <div className="sign-in">
                     <div className="custom-input sign-in__input">
                       <label>
@@ -91,7 +98,10 @@ export default function SignInPage(): JSX.Element {
                     <button
                       className="btn sign-in__button"
                       type="submit"
-                      onClick={() => user.mutate({ email, password })}
+                      onClick={(evt) => {
+                        evt.preventDefault();
+                        user.mutate({ email, password });
+                      }}
                       disabled={user.isPending}
                     >
                       Продолжить
