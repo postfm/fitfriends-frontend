@@ -6,7 +6,6 @@ import loginStyles from './sign-in-page.module.css';
 import { login } from '../../api/login';
 import { useAuth } from '../../hooks';
 import { useMutation } from '@tanstack/react-query';
-import { saveTokens } from '../../client/token';
 
 export interface Tokens {
   accessToken: string;
@@ -15,17 +14,16 @@ export interface Tokens {
 
 export default function SignInPage(): JSX.Element {
   const navigate = useNavigate();
-  const { setCurrentUser } = useAuth();
+  const { authUser } = useAuth();
   const [password, setPassword] = useState<string>('');
   const [email, setEmail] = useState<string>('');
 
   const user = useMutation({
     mutationKey: ['login'],
-    mutationFn: (params: { email: string; password: string }) =>
-      login(params.email, params.password),
-    onSuccess: ({ data }) => {
-      setCurrentUser(data.currentUser);
-      saveTokens(data.tokens);
+    mutationFn: async (params: { email: string; password: string }) =>
+      (await login(params.email, params.password)).data,
+    onSuccess: (data) => {
+      authUser(data.currentUser, data.tokens);
       navigate(AppRoutes.Main);
     },
   });

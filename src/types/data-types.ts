@@ -133,3 +133,15 @@ export interface NewOrder {
   amount: number;
   pay: string;
 }
+
+export interface PaginatedResponse<T> {
+  data: T[];
+  links: { current: string };
+  meta: {
+    itemsPerPage: number;
+    totalNumbers: number;
+    currentPage: 1;
+    totalPages: 0;
+    sortBy: Record<string, []>[];
+  };
+}

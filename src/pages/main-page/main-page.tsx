@@ -15,12 +15,15 @@ const MAX_TRAINING_RATING = 5;
 
 export default function MainPage(): JSX.Element {
   const currentUser = useUser();
-  const trainings = useQuery({
+  const trainingsQuery = useQuery({
     queryKey: ['trainings'],
     queryFn: loadTrainings,
+    select: (data) => data.data,
   });
+
+  const trainings = trainingsQuery.data?.data || [];
   const specialForYouTrainings =
-    trainings.data?.filter((training) => {
+    trainings.filter((training) => {
       const levelMatch = training.level === currentUser.levelOfTrain;
       const genderMatch =
         currentUser.gender === UserGender.all ||
@@ -34,11 +37,10 @@ export default function MainPage(): JSX.Element {
       return levelMatch && genderMatch && typeOfTrainingMatch;
     }) || [];
   const specialOfferTrainings =
-    trainings.data?.filter((training) => training.specialOffer) || [];
+    trainings.filter((training) => training.specialOffer) || [];
   const popularTrainings =
-    trainings.data?.filter(
-      (training) => training.rating === MAX_TRAINING_RATING
-    ) || [];
+    trainings.filter((training) => training.rating === MAX_TRAINING_RATING) ||
+    [];
 
   const users = useQuery({ queryKey: ['users'], queryFn: loadUsers });
   const lookingForCompanyUsers =

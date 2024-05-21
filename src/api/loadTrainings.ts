@@ -1,6 +1,6 @@
-import { TRAININGS_MOCK } from '../mocks/trainings.mocks';
-import { Training } from '../types';
+import { client } from '../client/client';
+import { PaginatedResponse, Training } from '../types';
 
-export function loadTrainings(): Promise<Training[]> {
-  return Promise.resolve(TRAININGS_MOCK.data);
+export function loadTrainings() {
+  return client.get<PaginatedResponse<Training>>('trainings/catalog');
 }

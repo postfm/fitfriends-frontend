@@ -1,6 +1,10 @@
 import { client } from '../client/client';
+import { Tokens } from '../client/token';
+import { User } from '../types';
 
-// eslint-disable-next-line @typescript-eslint/no-unused-vars
 export function login(email: string, password: string) {
-  return client.post('auth/login', { email: email, password: password });
+  return client.post<{
+    tokens: Tokens;
+    currentUser: User;
+  }>('auth/login', { email: email, password: password });
 }
