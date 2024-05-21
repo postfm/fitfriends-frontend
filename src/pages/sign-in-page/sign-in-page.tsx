@@ -7,11 +7,6 @@ import { login } from '../../api/login';
 import { useAuth } from '../../hooks';
 import { useMutation } from '@tanstack/react-query';
 
-export interface Tokens {
-  accessToken: string;
-  refreshToken: string;
-}
-
 export default function SignInPage(): JSX.Element {
   const navigate = useNavigate();
   const { authUser } = useAuth();

@@ -15,6 +15,7 @@ export default function TrainingCatalogPage(): JSX.Element {
   const trainings = useQuery({
     queryKey: ['trainings'],
     queryFn: loadTrainings,
+    select: (data) => data.data.data,
   });
 
   const options = uniqBy(

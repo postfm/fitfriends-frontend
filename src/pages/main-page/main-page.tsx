@@ -18,10 +18,10 @@ export default function MainPage(): JSX.Element {
   const trainingsQuery = useQuery({
     queryKey: ['trainings'],
     queryFn: loadTrainings,
-    select: (data) => data.data,
+    select: (data) => data.data.data,
   });
 
-  const trainings = trainingsQuery.data?.data || [];
+  const trainings = trainingsQuery.data || [];
   const specialForYouTrainings =
     trainings.filter((training) => {
       const levelMatch = training.level === currentUser.levelOfTrain;
