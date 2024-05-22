@@ -80,7 +80,7 @@ export default function UserCardUserPage(): JSX.Element {
                       <button
                         className={classNames('btn user-card__btn', {
                           'visually-hidden':
-                            !isFriend && coach.roles[0] === UserRole.coach,
+                            !isFriend && coach.roles === UserRole.coach,
                         })}
                         type="button"
                         onClick={addRemoveFriend}

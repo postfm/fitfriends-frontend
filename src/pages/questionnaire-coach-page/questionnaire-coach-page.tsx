@@ -44,7 +44,7 @@ export default function QuestionnaireCoachPage(): JSX.Element {
         password: registrationData.password,
         gender: registrationData.gender,
         birthday: registrationData.dateOfBirth,
-        roles: [registrationData.role],
+        roles: registrationData.role,
         description,
         location: registrationData.location,
         image: registrationData.image,

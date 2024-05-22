@@ -7,7 +7,7 @@ export const FRIENDS = [
     password: '$2b$10$9YhoGk170nZmBczxX8fhpORjQ4sb3vSNVHC1tlxJ7AHG3fDcZGPWa',
     gender: 'женский',
     birthday: '2002-04-30T20:00:00.000Z',
-    roles: ['тренер'],
+    roles: 'тренер',
     description:
       'Персональный тренер и инструктор групповых программ с опытом  более 4х лет. Специализация: аэробика.',
     location: 'Пионерская',
@@ -34,7 +34,7 @@ export const FRIENDS = [
     password: '$2b$10$UVuV1LzCX7mvLHAC3p7xfOfHIjNMWwWkwAcbMnQ71wtxjhFbAI0SS',
     gender: 'неважно',
     birthday: '1999-07-08T20:00:00.000Z',
-    roles: ['пользователь'],
+    roles: 'пользователь',
     description:
       'Привет! Я Катерина и мне 27 лет. Обожаю спорт и все, что с ним связанно. Регулярно хожу на тренировки по бегу.',
     location: 'Звёздная',
@@ -61,7 +61,7 @@ export const FRIENDS = [
     password: '$2b$10$sE0HTk.6QWw5KcsSwKGFZODbfdiEQCR94ndaCt8tHzvC4khrGD7bq',
     gender: 'женский',
     birthday: '2000-01-02T21:00:00.000Z',
-    roles: ['пользователь'],
+    roles: 'пользователь',
     description: 'Описание пользователя',
     location: 'Удельная',
     image: 'img/content/avatars/users/photo-2.png',
@@ -87,7 +87,7 @@ export const FRIENDS = [
     password: '$2b$10$R00qBZqGyQbeiqVRKa5gPO4KgSOjA2/KltD6IT5nif9lVrySLwyMe',
     gender: 'неважно',
     birthday: '2004-10-12T20:00:00.000Z',
-    roles: ['тренер'],
+    roles: 'тренер',
     description:
       'Персональный тренер и инструктор групповых программ с опытом  более 4х лет. Специализация: пилатес.',
     location: 'Спортивная',
@@ -114,7 +114,7 @@ export const FRIENDS = [
     password: '$2b$10$yOClx3cgW8o3yx6gJLUBueKb2GX7oOjN7W.Q4EE30/eoF2MlqNpkq',
     gender: 'неважно',
     birthday: '1999-07-08T20:00:00.000Z',
-    roles: ['пользователь'],
+    roles: 'пользователь',
     description:
       'Привет! Я Mikle и мне 27 лет. Обожаю спорт и все, что с ним связанно. Регулярно хожу на тренировки по кроссфиту.',
     location: 'Пионерская',

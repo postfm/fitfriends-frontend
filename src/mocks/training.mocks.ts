@@ -23,7 +23,7 @@ export const Training = {
     password: '$2b$10$R00qBZqGyQbeiqVRKa5gPO4KgSOjA2/KltD6IT5nif9lVrySLwyMe',
     gender: 'неважно',
     birthday: '2004-10-12T20:00:00.000Z',
-    roles: ['тренер'],
+    roles: 'тренер',
     description:
       'Персональный тренер и инструктор групповых программ с опытом  более 4х лет. Специализация: пилатес.',
     location: 'Спортивная',

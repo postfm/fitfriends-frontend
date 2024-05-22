@@ -49,7 +49,7 @@ export interface User {
   password: string;
   gender: string;
   birthday: string;
-  roles: string[];
+  roles: string;
   description: string | undefined;
   location: string;
   image: string;

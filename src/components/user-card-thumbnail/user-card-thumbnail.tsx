@@ -14,9 +14,9 @@ const UserCardThumbnail: React.FC<UserCardThumbnailProps> = ({ user }) => (
     <div
       className={classNames({
         'thumbnail-user thumbnail-user--role-user':
-          user.roles[0] === UserRole.sportsman,
+          user.roles === UserRole.sportsman,
         'thumbnail-user thumbnail-user--role-coach':
-          user.roles[0] === UserRole.coach,
+          user.roles === UserRole.coach,
       })}
     >
       <div className="thumbnail-user__image">
@@ -47,7 +47,7 @@ const UserCardThumbnail: React.FC<UserCardThumbnailProps> = ({ user }) => (
       <Link
         className="btn btn--medium thumbnail-user__button"
         to={
-          user.roles[0] === UserRole.coach
+          user.roles === UserRole.coach
             ? generatePath(AppRoutes.СoachCard, { id: String(user.id) })
             : generatePath(AppRoutes.UserCard, {
                 id: String(user.id),

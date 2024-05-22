@@ -50,7 +50,7 @@ export default function QuestionnaireUserPage(): JSX.Element {
         password: registrationData.password,
         gender: registrationData.gender,
         birthday: registrationData.dateOfBirth,
-        roles: [registrationData.role],
+        roles: registrationData.role,
         description: undefined,
         location: registrationData.location,
         image: registrationData.image,
