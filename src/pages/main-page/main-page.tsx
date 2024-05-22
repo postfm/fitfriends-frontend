@@ -17,8 +17,8 @@ export default function MainPage(): JSX.Element {
   const currentUser = useUser();
   const trainingsQuery = useQuery({
     queryKey: ['trainings'],
-    queryFn: loadTrainings,
-    select: (data) => data.data.data,
+    queryFn: async () => (await loadTrainings()).data,
+    select: (data) => data.data,
   });
 
   const trainings = trainingsQuery.data || [];
