@@ -49,8 +49,8 @@ export interface User {
   password: string;
   gender: string;
   birthday: string;
-  roles: string;
-  description: string;
+  roles: string[];
+  description: string | null;
   location: string;
   image: string;
   createdAt?: string;

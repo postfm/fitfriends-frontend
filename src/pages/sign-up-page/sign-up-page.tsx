@@ -26,7 +26,7 @@ export interface RegistrationData {
 export default function SignUpPage(): JSX.Element {
   const form = useRef<HTMLFormElement | null>();
   const [values, setValues] = useState<RegistrationData>({
-    name: '',
+    name: '"/img/content/thumbnails/friend-17.jpg"',
     email: '',
     dateOfBirth: '',
     location: '',
@@ -45,7 +45,8 @@ export default function SignUpPage(): JSX.Element {
 
   const navigate = useNavigate();
 
-  const handleSubmit = () => {
+  const handleSubmit = (evt: React.FormEvent<HTMLButtonElement>) => {
+    evt.preventDefault();
     if (form.current?.checkValidity()) {
       navigate(
         values.role === UserRole.coach
@@ -84,11 +85,7 @@ export default function SignUpPage(): JSX.Element {
                 <h1 className="popup-form__title">Регистрация</h1>
               </div>
               <div className="popup-form__form">
-                <form
-                  method="get"
-                  onSubmit={(e) => e.preventDefault()}
-                  ref={(ref) => (form.current = ref)}
-                >
+                <form method="get" ref={(ref) => (form.current = ref)}>
                   <div className="sign-up">
                     <div className="sign-up__load-photo">
                       <div className="input-load-avatar">
@@ -282,7 +279,7 @@ export default function SignUpPage(): JSX.Element {
                       className="btn sign-up__button"
                       type="submit"
                       disabled={!values.isAgreement}
-                      onClick={handleSubmit}
+                      onClick={(evt) => handleSubmit(evt)}
                     >
                       Продолжить
                     </button>

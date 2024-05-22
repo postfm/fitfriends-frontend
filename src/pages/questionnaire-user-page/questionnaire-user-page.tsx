@@ -9,6 +9,7 @@ import { useAuth } from '../../hooks';
 import { register } from '../../api/register';
 import { RadioToggleInput } from '../../components/filters';
 import { RegistrationData } from '../sign-up-page';
+import { toast } from 'react-toastify';
 
 export default function QuestionnaireUserPage(): JSX.Element {
   const form = useRef<HTMLFormElement | null>();
@@ -25,11 +26,14 @@ export default function QuestionnaireUserPage(): JSX.Element {
 
   const newUser = useMutation({
     mutationKey: ['register'],
-    mutationFn: (params: { user: NewUser }) => register(params.user),
+    mutationFn: async (params: { user: NewUser }) =>
+      (await register(params.user)).data,
     onSuccess: (data) => {
-      // eslint-disable-next-line no-console
-      console.log('user registered successfuly', data);
-      setCurrentUser(data);
+      toast.success('Пользователь успешно зарегистрирован');
+      setCurrentUser(data.user);
+    },
+    onError(error) {
+      toast.error(error.message);
     },
   });
 
@@ -46,8 +50,8 @@ export default function QuestionnaireUserPage(): JSX.Element {
         password: registrationData.password,
         gender: registrationData.gender,
         birthday: registrationData.dateOfBirth,
-        roles: registrationData.role,
-        description: '',
+        roles: [registrationData.role],
+        description: null,
         location: registrationData.location,
         image: registrationData.image,
         levelOfTrain: levelOfTraining,

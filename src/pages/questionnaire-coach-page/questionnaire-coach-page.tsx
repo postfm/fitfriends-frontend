@@ -24,11 +24,10 @@ export default function QuestionnaireCoachPage(): JSX.Element {
 
   const newUser = useMutation({
     mutationKey: ['register'],
-    mutationFn: (params: { user: NewUser }) => register(params.user),
+    mutationFn: async (params: { user: NewUser }) =>
+      (await register(params.user)).data,
     onSuccess: (data) => {
-      // eslint-disable-next-line no-console
-      console.log('user registered successfuly', data);
-      setCurrentUser(data);
+      setCurrentUser(data.user);
     },
   });
 
@@ -45,7 +44,7 @@ export default function QuestionnaireCoachPage(): JSX.Element {
         password: registrationData.password,
         gender: registrationData.gender,
         birthday: registrationData.dateOfBirth,
-        roles: registrationData.role,
+        roles: [registrationData.role],
         description,
         location: registrationData.location,
         image: registrationData.image,
@@ -55,7 +54,7 @@ export default function QuestionnaireCoachPage(): JSX.Element {
         caloriesToLose: null,
         caloriesPerDay: null,
         readyToTrain: null,
-        certificates: null,
+        certificates: '/img/content/certificates-and-diplomas/4.pdf',
         merits: null,
         personalTrainings: isWantInvididuallyTrain,
       };

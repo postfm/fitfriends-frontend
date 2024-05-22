@@ -17,7 +17,7 @@ const CertificateCardPopup: React.FC<CertificateCardProps> = ({
     <li className="personal-account-coach__item">
       <div className="certificate-card">
         <div className="certificate-card__image">
-          <Worker workerUrl="https://unpkg.com/pdfjs-dist@3.4.120/build/pdf.worker.min.js">
+          <Worker workerUrl="https://unpkg.com/pdfjs-dist@^3.4.120/build/pdf.worker.min.js">
             <Viewer
               fileUrl={certificate}
               defaultScale={SpecialZoomLevel.ActualSize}
