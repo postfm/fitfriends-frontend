@@ -181,9 +181,7 @@ const UserPersonalInfoCard: React.FC<UserPersonalInfoCardProps> = ({
                   <use xlinkHref="#arrow-check" />
                 </svg>
               </span>
-              <span className="custom-toggle__label">
-                Готов к персональным тренировкам
-              </span>
+              <span className="custom-toggle__label">Готов к тренировкам</span>
             </label>
           </div>
         </div>

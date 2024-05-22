@@ -35,7 +35,7 @@ export const MY_ORDERS = [
       password: '$2b$10$mTIhOLEyWNLUohh/KzvytuoytP2JFsUB4g.8UIj1Kj1mwL4gmepLS',
       gender: 'мужской',
       birthday: '2004-08-15T20:00:00.000Z',
-      roles: 'пользователь',
+      roles: ['пользователь'],
       description: 'Описание пользователя',
       location: 'Звёздная',
       image: '/img/content/avatars/users/photo-1.png',
@@ -88,7 +88,7 @@ export const MY_ORDERS = [
       password: '$2b$10$mTIhOLEyWNLUohh/KzvytuoytP2JFsUB4g.8UIj1Kj1mwL4gmepLS',
       gender: 'мужской',
       birthday: '2004-08-15T20:00:00.000Z',
-      roles: 'пользователь',
+      roles: ['пользователь'],
       description: 'Описание пользователя',
       location: 'Звёздная',
       image: '/img/content/avatars/users/photo-1.png',
@@ -141,7 +141,7 @@ export const MY_ORDERS = [
       password: '$2b$10$sE0HTk.6QWw5KcsSwKGFZODbfdiEQCR94ndaCt8tHzvC4khrGD7bq',
       gender: 'женский',
       birthday: '2000-01-02T21:00:00.000Z',
-      roles: 'пользователь',
+      roles: ['пользователь'],
       description: 'Описание пользователя',
       location: 'Удельная',
       image: '/img/content/avatars/users/photo-2.png',
@@ -194,7 +194,7 @@ export const MY_ORDERS = [
       password: '$2b$10$sE0HTk.6QWw5KcsSwKGFZODbfdiEQCR94ndaCt8tHzvC4khrGD7bq',
       gender: 'женский',
       birthday: '2000-01-02T21:00:00.000Z',
-      roles: 'пользователь',
+      roles: ['пользователь'],
       description: 'Описание пользователя',
       location: 'Удельная',
       image: '/img/content/avatars/users/photo-2.png',
@@ -247,7 +247,7 @@ export const MY_ORDERS = [
       password: '$2b$10$sE0HTk.6QWw5KcsSwKGFZODbfdiEQCR94ndaCt8tHzvC4khrGD7bq',
       gender: 'женский',
       birthday: '2000-01-02T21:00:00.000Z',
-      roles: 'пользователь',
+      roles: ['пользователь'],
       description: 'Описание пользователя',
       location: 'Удельная',
       image: '/img/content/avatars/users/photo-2.png',
@@ -300,7 +300,7 @@ export const MY_ORDERS = [
       password: '$2b$10$yOClx3cgW8o3yx6gJLUBueKb2GX7oOjN7W.Q4EE30/eoF2MlqNpkq',
       gender: 'неважно',
       birthday: '1999-07-08T20:00:00.000Z',
-      roles: 'пользователь',
+      roles: ['пользователь'],
       description:
         'Привет! Я Mikle и мне 27 лет. Обожаю спорт и все, что с ним связанно. Регулярно хожу на тренировки по кроссфиту.',
       location: 'Пионерская',
@@ -354,7 +354,7 @@ export const MY_ORDERS = [
       password: '$2b$10$yOClx3cgW8o3yx6gJLUBueKb2GX7oOjN7W.Q4EE30/eoF2MlqNpkq',
       gender: 'неважно',
       birthday: '1999-07-08T20:00:00.000Z',
-      roles: 'пользователь',
+      roles: ['пользователь'],
       description:
         'Привет! Я Mikle и мне 27 лет. Обожаю спорт и все, что с ним связанно. Регулярно хожу на тренировки по кроссфиту.',
       location: 'Пионерская',
@@ -408,7 +408,7 @@ export const MY_ORDERS = [
       password: '$2b$10$yOClx3cgW8o3yx6gJLUBueKb2GX7oOjN7W.Q4EE30/eoF2MlqNpkq',
       gender: 'неважно',
       birthday: '1999-07-08T20:00:00.000Z',
-      roles: 'пользователь',
+      roles: ['пользователь'],
       description:
         'Привет! Я Mikle и мне 27 лет. Обожаю спорт и все, что с ним связанно. Регулярно хожу на тренировки по кроссфиту.',
       location: 'Пионерская',
@@ -462,7 +462,7 @@ export const MY_ORDERS = [
       password: '$2b$10$yOClx3cgW8o3yx6gJLUBueKb2GX7oOjN7W.Q4EE30/eoF2MlqNpkq',
       gender: 'неважно',
       birthday: '1999-07-08T20:00:00.000Z',
-      roles: 'пользователь',
+      roles: ['пользователь'],
       description:
         'Привет! Я Mikle и мне 27 лет. Обожаю спорт и все, что с ним связанно. Регулярно хожу на тренировки по кроссфиту.',
       location: 'Пионерская',
@@ -516,7 +516,7 @@ export const MY_ORDERS = [
       password: '$2b$10$hXm29RvOxrQ2.lmp0WBAveLN8atkPFMJLY6cgGQfbKymxZ95vVVZa',
       gender: 'мужской',
       birthday: '2004-08-15T20:00:00.000Z',
-      roles: 'пользователь',
+      roles: ['пользователь'],
       description:
         'Привет! Я Евгений и мне 27 лет. Обожаю спорт и все, что с ним связанно. Регулярно хожу на тренировки по боксу.',
       location: 'Петроградская',
@@ -570,7 +570,7 @@ export const MY_ORDERS = [
       password: '$2b$10$hXm29RvOxrQ2.lmp0WBAveLN8atkPFMJLY6cgGQfbKymxZ95vVVZa',
       gender: 'мужской',
       birthday: '2004-08-15T20:00:00.000Z',
-      roles: 'пользователь',
+      roles: ['пользователь'],
       description:
         'Привет! Я Евгений и мне 27 лет. Обожаю спорт и все, что с ним связанно. Регулярно хожу на тренировки по боксу.',
       location: 'Петроградская',
@@ -624,7 +624,7 @@ export const MY_ORDERS = [
       password: '$2b$10$hXm29RvOxrQ2.lmp0WBAveLN8atkPFMJLY6cgGQfbKymxZ95vVVZa',
       gender: 'мужской',
       birthday: '2004-08-15T20:00:00.000Z',
-      roles: 'пользователь',
+      roles: ['пользователь'],
       description:
         'Привет! Я Евгений и мне 27 лет. Обожаю спорт и все, что с ним связанно. Регулярно хожу на тренировки по боксу.',
       location: 'Петроградская',
@@ -678,7 +678,7 @@ export const MY_ORDERS = [
       password: '$2b$10$hXm29RvOxrQ2.lmp0WBAveLN8atkPFMJLY6cgGQfbKymxZ95vVVZa',
       gender: 'мужской',
       birthday: '2004-08-15T20:00:00.000Z',
-      roles: 'пользователь',
+      roles: ['пользователь'],
       description:
         'Привет! Я Евгений и мне 27 лет. Обожаю спорт и все, что с ним связанно. Регулярно хожу на тренировки по боксу.',
       location: 'Петроградская',
@@ -732,7 +732,7 @@ export const MY_ORDERS = [
       password: '$2b$10$tKzbGXJpmId0NGV8CFlySe9wZ9iV5Hl1wEAYOgYxxTw.6Ax/8SvPq',
       gender: 'женский',
       birthday: '2000-01-02T21:00:00.000Z',
-      roles: 'пользователь',
+      roles: ['пользователь'],
       description:
         'Привет! Я Валерия и мне 27 лет. Обожаю спорт и все, что с ним связанно. Регулярно хожу на тренировки по аэробике.',
       location: 'Удельная',
@@ -786,7 +786,7 @@ export const MY_ORDERS = [
       password: '$2b$10$tKzbGXJpmId0NGV8CFlySe9wZ9iV5Hl1wEAYOgYxxTw.6Ax/8SvPq',
       gender: 'женский',
       birthday: '2000-01-02T21:00:00.000Z',
-      roles: 'пользователь',
+      roles: ['пользователь'],
       description:
         'Привет! Я Валерия и мне 27 лет. Обожаю спорт и все, что с ним связанно. Регулярно хожу на тренировки по аэробике.',
       location: 'Удельная',
@@ -840,7 +840,7 @@ export const MY_ORDERS = [
       password: '$2b$10$tKzbGXJpmId0NGV8CFlySe9wZ9iV5Hl1wEAYOgYxxTw.6Ax/8SvPq',
       gender: 'женский',
       birthday: '2000-01-02T21:00:00.000Z',
-      roles: 'пользователь',
+      roles: ['пользователь'],
       description:
         'Привет! Я Валерия и мне 27 лет. Обожаю спорт и все, что с ним связанно. Регулярно хожу на тренировки по аэробике.',
       location: 'Удельная',
@@ -894,7 +894,7 @@ export const MY_ORDERS = [
       password: '$2b$10$tKzbGXJpmId0NGV8CFlySe9wZ9iV5Hl1wEAYOgYxxTw.6Ax/8SvPq',
       gender: 'женский',
       birthday: '2000-01-02T21:00:00.000Z',
-      roles: 'пользователь',
+      roles: ['пользователь'],
       description:
         'Привет! Я Валерия и мне 27 лет. Обожаю спорт и все, что с ним связанно. Регулярно хожу на тренировки по аэробике.',
       location: 'Удельная',
@@ -948,7 +948,7 @@ export const MY_ORDERS = [
       password: '$2b$10$UVuV1LzCX7mvLHAC3p7xfOfHIjNMWwWkwAcbMnQ71wtxjhFbAI0SS',
       gender: 'неважно',
       birthday: '1999-07-08T20:00:00.000Z',
-      roles: 'пользователь',
+      roles: ['пользователь'],
       description:
         'Привет! Я Катерина и мне 27 лет. Обожаю спорт и все, что с ним связанно. Регулярно хожу на тренировки по бегу.',
       location: 'Звёздная',
@@ -1002,7 +1002,7 @@ export const MY_ORDERS = [
       password: '$2b$10$UVuV1LzCX7mvLHAC3p7xfOfHIjNMWwWkwAcbMnQ71wtxjhFbAI0SS',
       gender: 'неважно',
       birthday: '1999-07-08T20:00:00.000Z',
-      roles: 'пользователь',
+      roles: ['пользователь'],
       description:
         'Привет! Я Катерина и мне 27 лет. Обожаю спорт и все, что с ним связанно. Регулярно хожу на тренировки по бегу.',
       location: 'Звёздная',
@@ -1056,7 +1056,7 @@ export const MY_ORDERS = [
       password: '$2b$10$UVuV1LzCX7mvLHAC3p7xfOfHIjNMWwWkwAcbMnQ71wtxjhFbAI0SS',
       gender: 'неважно',
       birthday: '1999-07-08T20:00:00.000Z',
-      roles: 'пользователь',
+      roles: ['пользователь'],
       description:
         'Привет! Я Катерина и мне 27 лет. Обожаю спорт и все, что с ним связанно. Регулярно хожу на тренировки по бегу.',
       location: 'Звёздная',
@@ -1110,7 +1110,7 @@ export const MY_ORDERS = [
       password: '$2b$10$UVuV1LzCX7mvLHAC3p7xfOfHIjNMWwWkwAcbMnQ71wtxjhFbAI0SS',
       gender: 'неважно',
       birthday: '1999-07-08T20:00:00.000Z',
-      roles: 'пользователь',
+      roles: ['пользователь'],
       description:
         'Привет! Я Катерина и мне 27 лет. Обожаю спорт и все, что с ним связанно. Регулярно хожу на тренировки по бегу.',
       location: 'Звёздная',

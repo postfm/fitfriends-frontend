@@ -50,7 +50,7 @@ export interface User {
   gender: string;
   birthday: string;
   roles: string[];
-  description: string | null;
+  description: string | undefined;
   location: string;
   image: string;
   createdAt?: string;

@@ -13,7 +13,7 @@ export const useFriendQuery = (friendId: number) => {
 
   const friendsUser = useQuery({
     queryKey: ['friends'],
-    queryFn: user.roles === Role.user ? loadFriendsUser : loadFriendsCoach,
+    queryFn: user.roles[0] === Role.user ? loadFriendsUser : loadFriendsCoach,
   });
 
   useEffect(() => {

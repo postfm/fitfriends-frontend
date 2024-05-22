@@ -58,7 +58,7 @@ export const TRAININGS_MOCK = {
           '$2b$10$9YhoGk170nZmBczxX8fhpORjQ4sb3vSNVHC1tlxJ7AHG3fDcZGPWa',
         gender: 'женский',
         birthday: '2002-04-30T20:00:00.000Z',
-        roles: 'тренер',
+        roles: ['тренер'],
         description:
           'Персональный тренер и инструктор групповых программ с опытом  более 4х лет. Специализация: аэробика.',
         location: 'Пионерская',
@@ -144,7 +144,7 @@ export const TRAININGS_MOCK = {
           '$2b$10$9YhoGk170nZmBczxX8fhpORjQ4sb3vSNVHC1tlxJ7AHG3fDcZGPWa',
         gender: 'женский',
         birthday: '2002-04-30T20:00:00.000Z',
-        roles: 'тренер',
+        roles: ['тренер'],
         description:
           'Персональный тренер и инструктор групповых программ с опытом  более 4х лет. Специализация: аэробика.',
         location: 'Пионерская',
@@ -224,7 +224,7 @@ export const TRAININGS_MOCK = {
           '$2b$10$9YhoGk170nZmBczxX8fhpORjQ4sb3vSNVHC1tlxJ7AHG3fDcZGPWa',
         gender: 'женский',
         birthday: '2002-04-30T20:00:00.000Z',
-        roles: 'тренер',
+        roles: ['тренер'],
         description:
           'Персональный тренер и инструктор групповых программ с опытом  более 4х лет. Специализация: аэробика.',
         location: 'Пионерская',
@@ -304,7 +304,7 @@ export const TRAININGS_MOCK = {
           '$2b$10$9YhoGk170nZmBczxX8fhpORjQ4sb3vSNVHC1tlxJ7AHG3fDcZGPWa',
         gender: 'женский',
         birthday: '2002-04-30T20:00:00.000Z',
-        roles: 'тренер',
+        roles: ['тренер'],
         description:
           'Персональный тренер и инструктор групповых программ с опытом  более 4х лет. Специализация: аэробика.',
         location: 'Пионерская',
@@ -369,7 +369,7 @@ export const TRAININGS_MOCK = {
           '$2b$10$9YhoGk170nZmBczxX8fhpORjQ4sb3vSNVHC1tlxJ7AHG3fDcZGPWa',
         gender: 'женский',
         birthday: '2002-04-30T20:00:00.000Z',
-        roles: 'тренер',
+        roles: ['тренер'],
         description:
           'Персональный тренер и инструктор групповых программ с опытом  более 4х лет. Специализация: аэробика.',
         location: 'Пионерская',
@@ -434,7 +434,7 @@ export const TRAININGS_MOCK = {
           '$2b$10$9YhoGk170nZmBczxX8fhpORjQ4sb3vSNVHC1tlxJ7AHG3fDcZGPWa',
         gender: 'женский',
         birthday: '2002-04-30T20:00:00.000Z',
-        roles: 'тренер',
+        roles: ['тренер'],
         description:
           'Персональный тренер и инструктор групповых программ с опытом  более 4х лет. Специализация: аэробика.',
         location: 'Пионерская',
@@ -494,7 +494,7 @@ export const TRAININGS_MOCK = {
           '$2b$10$9YhoGk170nZmBczxX8fhpORjQ4sb3vSNVHC1tlxJ7AHG3fDcZGPWa',
         gender: 'женский',
         birthday: '2002-04-30T20:00:00.000Z',
-        roles: 'тренер',
+        roles: ['тренер'],
         description:
           'Персональный тренер и инструктор групповых программ с опытом  более 4х лет. Специализация: аэробика.',
         location: 'Пионерская',
@@ -555,7 +555,7 @@ export const TRAININGS_MOCK = {
           '$2b$10$9YhoGk170nZmBczxX8fhpORjQ4sb3vSNVHC1tlxJ7AHG3fDcZGPWa',
         gender: 'женский',
         birthday: '2002-04-30T20:00:00.000Z',
-        roles: 'тренер',
+        roles: ['тренер'],
         description:
           'Персональный тренер и инструктор групповых программ с опытом  более 4х лет. Специализация: аэробика.',
         location: 'Пионерская',
@@ -610,7 +610,7 @@ export const TRAININGS_MOCK = {
           '$2b$10$9YhoGk170nZmBczxX8fhpORjQ4sb3vSNVHC1tlxJ7AHG3fDcZGPWa',
         gender: 'женский',
         birthday: '2002-04-30T20:00:00.000Z',
-        roles: 'тренер',
+        roles: ['тренер'],
         description:
           'Персональный тренер и инструктор групповых программ с опытом  более 4х лет. Специализация: аэробика.',
         location: 'Пионерская',
@@ -696,7 +696,7 @@ export const TRAININGS_MOCK = {
           '$2b$10$9YhoGk170nZmBczxX8fhpORjQ4sb3vSNVHC1tlxJ7AHG3fDcZGPWa',
         gender: 'женский',
         birthday: '2002-04-30T20:00:00.000Z',
-        roles: 'тренер',
+        roles: ['тренер'],
         description:
           'Персональный тренер и инструктор групповых программ с опытом  более 4х лет. Специализация: аэробика.',
         location: 'Пионерская',
@@ -776,7 +776,7 @@ export const TRAININGS_MOCK = {
           '$2b$10$9YhoGk170nZmBczxX8fhpORjQ4sb3vSNVHC1tlxJ7AHG3fDcZGPWa',
         gender: 'женский',
         birthday: '2002-04-30T20:00:00.000Z',
-        roles: 'тренер',
+        roles: ['тренер'],
         description:
           'Персональный тренер и инструктор групповых программ с опытом  более 4х лет. Специализация: аэробика.',
         location: 'Пионерская',
@@ -837,7 +837,7 @@ export const TRAININGS_MOCK = {
           '$2b$10$9YhoGk170nZmBczxX8fhpORjQ4sb3vSNVHC1tlxJ7AHG3fDcZGPWa',
         gender: 'женский',
         birthday: '2002-04-30T20:00:00.000Z',
-        roles: 'тренер',
+        roles: ['тренер'],
         description:
           'Персональный тренер и инструктор групповых программ с опытом  более 4х лет. Специализация: аэробика.',
         location: 'Пионерская',
@@ -898,7 +898,7 @@ export const TRAININGS_MOCK = {
           '$2b$10$9YhoGk170nZmBczxX8fhpORjQ4sb3vSNVHC1tlxJ7AHG3fDcZGPWa',
         gender: 'женский',
         birthday: '2002-04-30T20:00:00.000Z',
-        roles: 'тренер',
+        roles: ['тренер'],
         description:
           'Персональный тренер и инструктор групповых программ с опытом  более 4х лет. Специализация: аэробика.',
         location: 'Пионерская',
@@ -984,7 +984,7 @@ export const TRAININGS_MOCK = {
           '$2b$10$R00qBZqGyQbeiqVRKa5gPO4KgSOjA2/KltD6IT5nif9lVrySLwyMe',
         gender: 'неважно',
         birthday: '2004-10-12T20:00:00.000Z',
-        roles: 'тренер',
+        roles: ['тренер'],
         description:
           'Персональный тренер и инструктор групповых программ с опытом  более 4х лет. Специализация: пилатес.',
         location: 'Спортивная',
@@ -1073,7 +1073,7 @@ export const TRAININGS_MOCK = {
           '$2b$10$9YhoGk170nZmBczxX8fhpORjQ4sb3vSNVHC1tlxJ7AHG3fDcZGPWa',
         gender: 'женский',
         birthday: '2002-04-30T20:00:00.000Z',
-        roles: 'тренер',
+        roles: ['тренер'],
         description:
           'Персональный тренер и инструктор групповых программ с опытом  более 4х лет. Специализация: аэробика.',
         location: 'Пионерская',
@@ -1153,7 +1153,7 @@ export const TRAININGS_MOCK = {
           '$2b$10$R00qBZqGyQbeiqVRKa5gPO4KgSOjA2/KltD6IT5nif9lVrySLwyMe',
         gender: 'неважно',
         birthday: '2004-10-12T20:00:00.000Z',
-        roles: 'тренер',
+        roles: ['тренер'],
         description:
           'Персональный тренер и инструктор групповых программ с опытом  более 4х лет. Специализация: пилатес.',
         location: 'Спортивная',
@@ -1224,7 +1224,7 @@ export const TRAININGS_MOCK = {
           '$2b$10$R00qBZqGyQbeiqVRKa5gPO4KgSOjA2/KltD6IT5nif9lVrySLwyMe',
         gender: 'неважно',
         birthday: '2004-10-12T20:00:00.000Z',
-        roles: 'тренер',
+        roles: ['тренер'],
         description:
           'Персональный тренер и инструктор групповых программ с опытом  более 4х лет. Специализация: пилатес.',
         location: 'Спортивная',

@@ -51,7 +51,7 @@ export default function QuestionnaireUserPage(): JSX.Element {
         gender: registrationData.gender,
         birthday: registrationData.dateOfBirth,
         roles: [registrationData.role],
-        description: null,
+        description: undefined,
         location: registrationData.location,
         image: registrationData.image,
         levelOfTrain: levelOfTraining,

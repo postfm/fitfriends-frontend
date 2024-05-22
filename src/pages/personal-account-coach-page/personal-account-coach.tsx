@@ -6,6 +6,7 @@ import { useMutation } from '@tanstack/react-query';
 import { useAuth, useUser } from '../../hooks';
 import { User } from '../../types';
 import { updateUser } from '../../api/updateUser';
+import { toast } from 'react-toastify';
 
 const MIN_AMOUNT_CERTIFICATES = 3;
 
@@ -15,10 +16,10 @@ export default function PersonalAccountCoach(): JSX.Element {
 
   const newUser = useMutation({
     mutationKey: ['updateUser'],
-    mutationFn: (params: { user: User }) => updateUser(params.user),
+    mutationFn: async (params: { user: User; id: number }) =>
+      (await updateUser(params.user, params.id)).data,
     onSuccess: (data) => {
-      // eslint-disable-next-line no-console
-      console.log('user updated successfuly');
+      toast.success('user updated successfuly');
       saveCurrentUser(data);
     },
   });
@@ -37,7 +38,9 @@ export default function PersonalAccountCoach(): JSX.Element {
             <div className="inner-page__wrapper">
               <h1 className="visually-hidden">Личный кабинет</h1>
               <UserPersonalInfoCard
-                onUserSave={(user) => newUser.mutate({ user })}
+                onUserSave={(user) =>
+                  newUser.mutate({ user, id: currentUser.id })
+                }
               />
               <div className="inner-page__content">
                 <div className="personal-account-coach">

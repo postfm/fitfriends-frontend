@@ -23,8 +23,8 @@ const NavigateToMyAccount = () => (
   <Navigate to={AuthAppRoutes.MyAccount} replace />
 );
 
-function getPersonalAccountPage(role: Role): React.ElementType | null {
-  switch (role) {
+function getPersonalAccountPage(role: string[]): React.ElementType | null {
+  switch (role[0]) {
     case Role.coach:
       return PersonalAccountCoach;
     case Role.user:
@@ -34,8 +34,8 @@ function getPersonalAccountPage(role: Role): React.ElementType | null {
   }
 }
 
-function getFriedListPage(role: Role): React.ElementType | null {
-  switch (role) {
+function getFriedListPage(role: string[]): React.ElementType | null {
+  switch (role[0]) {
     case Role.coach:
       return FriendsListCoachPage;
     case Role.user:
@@ -45,8 +45,8 @@ function getFriedListPage(role: Role): React.ElementType | null {
   }
 }
 
-function getMainPage(role: Role): React.ElementType | null {
-  switch (role) {
+function getMainPage(role: string[]): React.ElementType | null {
+  switch (role[0]) {
     case Role.coach:
       return NavigateToMyAccount;
     case Role.user:
@@ -56,8 +56,8 @@ function getMainPage(role: Role): React.ElementType | null {
   }
 }
 
-function getCreateTrainingPage(role: Role): React.ElementType | null {
-  switch (role) {
+function getCreateTrainingPage(role: string[]): React.ElementType | null {
+  switch (role[0]) {
     case Role.coach:
       return CreateTrainingPage;
     case Role.user:
@@ -66,8 +66,8 @@ function getCreateTrainingPage(role: Role): React.ElementType | null {
   }
 }
 
-function getMyTrainingsPage(role: Role): React.ElementType | null {
-  switch (role) {
+function getMyTrainingsPage(role: string[]): React.ElementType | null {
+  switch (role[0]) {
     case Role.coach:
       return MyTrainingsPage;
     case Role.user:
@@ -76,8 +76,8 @@ function getMyTrainingsPage(role: Role): React.ElementType | null {
   }
 }
 
-function getMyOrdersPage(role: Role): React.ElementType | null {
-  switch (role) {
+function getMyOrdersPage(role: string[]): React.ElementType | null {
+  switch (role[0]) {
     case Role.coach:
       return MyOrdersPage;
     case Role.user:
@@ -86,8 +86,8 @@ function getMyOrdersPage(role: Role): React.ElementType | null {
   }
 }
 
-function getUserCataloguePage(role: Role): React.ElementType | null {
-  switch (role) {
+function getUserCataloguePage(role: string[]): React.ElementType | null {
+  switch (role[0]) {
     case Role.user:
       return UsersCatalogPage;
     case Role.coach:
@@ -96,8 +96,8 @@ function getUserCataloguePage(role: Role): React.ElementType | null {
   }
 }
 
-function getTrainingCataloguePage(role: Role): React.ElementType | null {
-  switch (role) {
+function getTrainingCataloguePage(role: string[]): React.ElementType | null {
+  switch (role[0]) {
     case Role.user:
       return TrainingCatalogPage;
     case Role.coach:
@@ -107,8 +107,8 @@ function getTrainingCataloguePage(role: Role): React.ElementType | null {
   }
 }
 
-function getTrainingCardPage(role: Role): React.ElementType | null {
-  switch (role) {
+function getTrainingCardPage(role: string[]): React.ElementType | null {
+  switch (role[0]) {
     case Role.coach:
       return TrainingCardCoachPage;
     case Role.user:
@@ -118,8 +118,8 @@ function getTrainingCardPage(role: Role): React.ElementType | null {
   }
 }
 
-function getUserCardPage(role: Role): React.ElementType | null {
-  switch (role) {
+function getUserCardPage(role: string[]): React.ElementType | null {
+  switch (role[0]) {
     case Role.coach:
     case Role.user:
       return UserCardUserPage;
@@ -128,8 +128,8 @@ function getUserCardPage(role: Role): React.ElementType | null {
   }
 }
 
-function getCoachCardPage(role: Role): React.ElementType | null {
-  switch (role) {
+function getCoachCardPage(role: string[]): React.ElementType | null {
+  switch (role[0]) {
     case Role.coach:
     case Role.user:
       return UserCardCoachPage;
@@ -138,8 +138,8 @@ function getCoachCardPage(role: Role): React.ElementType | null {
   }
 }
 
-function getMyPurchasesPage(role: Role): React.ElementType | null {
-  switch (role) {
+function getMyPurchasesPage(role: string[]): React.ElementType | null {
+  switch (role[0]) {
     case Role.user:
       return MyPurchasesPage;
     case Role.coach:
@@ -149,7 +149,7 @@ function getMyPurchasesPage(role: Role): React.ElementType | null {
 }
 
 export const RoleRouteMapper: React.FC = () => {
-  const userRole = useUser().roles as Role;
+  const userRole = useUser().roles;
   const location = useLocation();
 
   const matchedPattern = matchRoutes(

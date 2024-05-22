@@ -5,7 +5,7 @@ export const Coach = {
   avatar: '/img/content/avatars/coaches/photo-1.png',
   gender: 'женский',
   birthday: '2002-04-30T20:00:00.000Z',
-  roles: 'тренер',
+  roles: ['тренер'],
   description:
     'Персональный тренер и инструктор групповых программ с опытом  более 4х лет. Специализация: аэробика.',
   location: 'Пионерская',

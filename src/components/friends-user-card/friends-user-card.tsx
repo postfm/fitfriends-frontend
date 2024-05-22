@@ -62,8 +62,9 @@ const FriendsUserCard: React.FC<FriendsUserCardProps> = ({
       <div
         className={classNames('thumbnail-friend__info', {
           'thumbnail-friend__info--theme-light':
-            user.roles === UserRole.sportsman,
-          'thumbnail-friend__info--theme-dark': user.roles === UserRole.coach,
+            user.roles[0] === UserRole.sportsman,
+          'thumbnail-friend__info--theme-dark':
+            user.roles[0] === UserRole.coach,
         })}
         onClick={() =>
           navigate(
@@ -104,15 +105,15 @@ const FriendsUserCard: React.FC<FriendsUserCardProps> = ({
           <div
             className={classNames('thumbnail-friend__ready-status', {
               'thumbnail-friend__ready-status--is-ready':
-                (user.readyToTrain && user.roles === UserRole.sportsman) ||
-                (user.personalTrainings && user.roles === UserRole.coach),
+                (user.readyToTrain && user.roles[0] === UserRole.sportsman) ||
+                (user.personalTrainings && user.roles[0] === UserRole.coach),
               'thumbnail-friend__ready-status--is-not-ready':
-                (!user.readyToTrain && user.roles === UserRole.sportsman) ||
-                (!user.personalTrainings && user.roles === UserRole.coach),
+                (!user.readyToTrain && user.roles[0] === UserRole.sportsman) ||
+                (!user.personalTrainings && user.roles[0] === UserRole.coach),
             })}
           >
-            {(user.readyToTrain && user.roles === UserRole.sportsman) ||
-            (user.personalTrainings && user.roles === UserRole.coach) ? (
+            {(user.readyToTrain && user.roles[0] === UserRole.sportsman) ||
+            (user.personalTrainings && user.roles[0] === UserRole.coach) ? (
               <span> Готов к&nbsp;тренировке</span>
             ) : (
               <span>Не готов к&nbsp;тренировке</span>
