@@ -6,6 +6,7 @@ import loginStyles from './sign-in-page.module.css';
 import { login } from '../../api/login';
 import { useAuth } from '../../hooks';
 import { useMutation } from '@tanstack/react-query';
+import { toast } from 'react-toastify';
 
 export default function SignInPage(): JSX.Element {
   const navigate = useNavigate();
@@ -19,6 +20,7 @@ export default function SignInPage(): JSX.Element {
       (await login(params.email, params.password)).data,
     onSuccess: (data) => {
       authUser(data.currentUser, data.tokens);
+      toast.success('User success login');
       navigate(AppRoutes.Main);
     },
   });

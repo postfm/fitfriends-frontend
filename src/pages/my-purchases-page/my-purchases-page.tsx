@@ -1,6 +1,5 @@
 import { useNavigate } from 'react-router-dom';
 import { AuthAppRoutes } from '../../constants/constants';
-import { useUser } from '../../hooks';
 import { loadMyOrders } from '../../api/loadMyOrders';
 import { useQuery } from '@tanstack/react-query';
 import TrainingCard from '../../components/training-card';
@@ -9,16 +8,11 @@ import { useState } from 'react';
 export default function MyPurchasesPage(): JSX.Element {
   const [onlyActive, setOnlyActive] = useState(false);
   const navigate = useNavigate();
-  const currentUser = useUser();
 
   const purchases = useQuery({
     queryKey: ['puchases'],
-    queryFn: loadMyOrders,
+    queryFn: async () => (await loadMyOrders()).data,
   });
-
-  const myPuchases = purchases.data?.filter(
-    (purchase) => purchase.user.id === currentUser.id
-  );
 
   const handleCheckBoxChange = () => {
     setOnlyActive(!onlyActive);
@@ -68,7 +62,7 @@ export default function MyPurchasesPage(): JSX.Element {
                 </div>
               </div>
               <ul className="my-purchases__list">
-                {myPuchases?.map((myPuchase) => (
+                {purchases.data?.map((myPuchase) => (
                   <li
                     className="my-purchases__item"
                     key={myPuchase.training.trainingId}

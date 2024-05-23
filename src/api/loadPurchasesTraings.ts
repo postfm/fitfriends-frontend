@@ -1,6 +1,6 @@
-import { Order } from '../types';
 import { client } from '../client/client';
+import { Order } from '../types';
 
-export function loadMyOrders() {
+export function loadPersonalTraining() {
   return client.get<Order[]>('orders');
 }

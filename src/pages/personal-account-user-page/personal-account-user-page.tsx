@@ -7,6 +7,7 @@ import { User } from '../../types';
 import { updateUser } from '../../api/updateUser';
 import { useState } from 'react';
 import { noop } from 'lodash';
+import { toast } from 'react-toastify';
 
 const DAYS_IN_WEEK = 7;
 
@@ -22,8 +23,7 @@ export default function PersonalAccountUserPage(): JSX.Element {
     mutationFn: async (params: { user: User; id: number }) =>
       (await updateUser(params.user, params.id)).data,
     onSuccess: (data) => {
-      // eslint-disable-next-line no-console
-      console.log('user updated successfuly');
+      toast.success('user updated successfuly');
       saveCurrentUser(data);
     },
   });

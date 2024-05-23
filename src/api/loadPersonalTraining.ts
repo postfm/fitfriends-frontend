@@ -1,6 +1,6 @@
-import { PERSONAL_TRAININGS } from '../mocks/personal-training.mock';
+import { client } from '../client/client';
 import { PersonalTraining } from '../types';
 
-export function loadPersonalTraining(): Promise<PersonalTraining[]> {
-  return Promise.resolve(PERSONAL_TRAININGS);
+export function loadPersonalTraining() {
+  return client.get<PersonalTraining[]>('personal-trainings');
 }

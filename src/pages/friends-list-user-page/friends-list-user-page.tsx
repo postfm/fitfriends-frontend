@@ -10,11 +10,11 @@ export default function FriendsListUserPage(): JSX.Element {
   const navigate = useNavigate();
   const friendsUser = useQuery({
     queryKey: ['friendsUser'],
-    queryFn: loadFriendsUser,
+    queryFn: async () => (await loadFriendsUser()).data,
   });
   const personalTrainings = useQuery({
     queryKey: ['personalTrainings'],
-    queryFn: loadPersonalTraining,
+    queryFn: async () => (await loadPersonalTraining()).data,
   });
 
   return (
