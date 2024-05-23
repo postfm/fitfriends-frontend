@@ -9,9 +9,9 @@ describe('range-filter', () => {
         title="Уровень"
         max={100}
         min={1}
-        defaultMin={10}
         defaultMax={20}
-        step={5}
+        defaultMin={10}
+        step={1}
       />
     );
 

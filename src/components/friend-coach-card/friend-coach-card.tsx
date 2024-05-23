@@ -98,6 +98,7 @@ const FriendCoachCard: React.FC<FriendCoachCardProps> = ({
               'thumbnail-friend__ready-status--is-not-ready':
                 !initiator.readyToTrain,
             })}
+            data-testid="ready-to-train-status"
           >
             {initiator.readyToTrain ? (
               <span> Готов к тренировке</span>
@@ -134,7 +135,10 @@ const FriendCoachCard: React.FC<FriendCoachCardProps> = ({
           )}
           {isInitiator(initiator.id, coach.id, personalTrainings) && (
             <div className="thumbnail-friend__request-status thumbnail-friend__request-status--role-coach">
-              <p className="thumbnail-friend__request-text">
+              <p
+                className="thumbnail-friend__request-text"
+                data-testid="invitation-status"
+              >
                 {`Запрос на персональную тренировку ${getStatus(
                   initiator.id,
                   coach.id,
