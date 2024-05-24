@@ -16,7 +16,7 @@ export enum Role {
 }
 
 export interface Training {
-  trainingId: number;
+  training_id: number;
   name: string;
   image: string;
   level: string;
@@ -133,6 +133,8 @@ export interface NewOrder {
   amount: number;
   pay: string;
 }
+
+export type OrderAmountTraining = Omit<NewOrder, 'type' | 'price' | 'pay'>;
 
 export interface PaginatedResponse<T> {
   data: T[];

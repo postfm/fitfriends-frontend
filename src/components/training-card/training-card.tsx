@@ -13,7 +13,7 @@ const TrainingCard: React.FC<TrainingCardProps> = ({
   showMoreStyle = 'default',
 }) => {
   const trainingPath = generatePath(AppRoutes.TrainingCard, {
-    id: String(training.trainingId),
+    id: String(training.training_id),
   });
 
   return (

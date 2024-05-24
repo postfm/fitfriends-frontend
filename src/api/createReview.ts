@@ -1,5 +1,6 @@
-import { NewReview } from '../types';
+import { client } from '../client/client';
+import { NewReview, Review } from '../types';
 
-export function createReview(review: NewReview): Promise<NewReview> {
-  return Promise.resolve(review);
+export function createReview(trainingId: number, review: NewReview) {
+  return client.post<Review>(`reviews/${trainingId}`, review);
 }

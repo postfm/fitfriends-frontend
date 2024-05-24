@@ -63,10 +63,7 @@ export default function MyPurchasesPage(): JSX.Element {
               </div>
               <ul className="my-purchases__list">
                 {purchases.data?.map((myPuchase) => (
-                  <li
-                    className="my-purchases__item"
-                    key={myPuchase.training.trainingId}
-                  >
+                  <li className="my-purchases__item" key={myPuchase.id}>
                     {onlyActive ? (
                       +myPuchase.amount > 0 && (
                         <TrainingCard training={myPuchase.training} />

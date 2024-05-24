@@ -1,12 +1,13 @@
 import { ChangeEvent, useState } from 'react';
 import { NewOrder, Training } from '../../types';
 import { renderPrice } from '../../utils';
-import { useMutation } from '@tanstack/react-query';
-import { createOrder } from '../../api/createOrder';
+import { useMutation, useQueryClient } from '@tanstack/react-query';
+import { updateOrder } from '../../api/updateOrder';
 
 const TYPE_ORDER = 'абонемент';
 
 interface PurchaseFormProps {
+  orderId: number;
   training: Training;
   onSave: () => void;
 }
@@ -17,9 +18,11 @@ const Value = {
 };
 
 export function PurchaseForm({
+  orderId,
   training,
   onSave,
 }: PurchaseFormProps): JSX.Element {
+  const queryClient = useQueryClient();
   const [amountOfTrainings, setAmountOfTrainings] = useState(1);
   const [paymentMethod, setPaymentMethod] = useState('');
 
@@ -37,11 +40,12 @@ export function PurchaseForm({
 
   const newOrder = useMutation({
     mutationKey: ['createOrder'],
-    mutationFn: (params: { value: NewOrder }) => createOrder(params.value),
-    onSuccess: (data) => {
-      // eslint-disable-next-line no-console
-      console.log('order create successfuly', data);
-
+    mutationFn: (params: { orderId: number; newOrder: NewOrder }) =>
+      updateOrder(params.orderId, params.newOrder),
+    onSuccess: () => {
+      queryClient.invalidateQueries({
+        queryKey: ['puchases'],
+      });
       onSave();
     },
   });
@@ -54,7 +58,7 @@ export function PurchaseForm({
       price: amountOfTrainings * training.price,
     };
 
-    newOrder.mutate({ value });
+    newOrder.mutate({ orderId, newOrder: value });
   };
 
   return (

@@ -1,5 +1,6 @@
+import { client } from '../client/client';
 import { NewOrder, Order } from '../types';
 
-export function createOrder(order: NewOrder): Promise<Order> {
-  return Promise.resolve(order as Order);
+export function createOrder(order: NewOrder, trainingId: number) {
+  return client.post<Order>(`orders/${trainingId}`, order);
 }

@@ -1,4 +1,4 @@
-import { useQuery } from '@tanstack/react-query';
+import { useMutation, useQuery, useQueryClient } from '@tanstack/react-query';
 import { useNavigate, useParams } from 'react-router-dom';
 import ReviewCard from '../../components/review/review-card';
 import { AuthAppRoutes } from '../../constants/constants';
@@ -10,21 +10,69 @@ import { loadTraining } from '../../api/loadTraining';
 import { renderHashtag, renderPrice } from '../../utils';
 import ReactPlayer from 'react-player';
 import classNames from 'classnames';
+import { OrderAmountTraining, Training } from '../../types';
+import { loadMyOrders } from '../../api/loadMyOrders';
+import { updateOrder } from '../../api/updateOrder';
+import { loadReviews } from '../../api/loadReviews';
+
+const AMOUNT_DECREMENT = -1;
 
 const TrainingCardUserPage: React.FC = () => {
   const [purchasePopupOpen, setPurchasePopupOpen] = useState(false);
   const [feedbackPopupOpen, setFeedbackPopupOpen] = useState(false);
   const [playingPause, setPlayingPause] = useState(false);
+  const [isTraining, setIsTraining] = useState(false);
   const { id } = useParams();
   const navigate = useNavigate();
+  const queryClient = useQueryClient();
+
   const training = useQuery({
     queryKey: ['training', id],
-    queryFn: () => loadTraining(Number(id)),
+    queryFn: async () => (await loadTraining(Number(id))).data,
   });
 
-  if (!training.data || training.isLoading) {
-    return <div>Loading</div>;
-  }
+  const orders = useQuery({
+    queryKey: ['puchases'],
+    queryFn: async () => (await loadMyOrders()).data,
+  });
+
+  const reviews = useQuery({
+    queryKey: ['reviews', id],
+    queryFn: async () => (await loadReviews(Number(id))).data,
+  });
+
+  const myOrder = orders.data?.filter(
+    (order) => order.training.training_id === Number(id)
+  )[0];
+
+  const newAmount = useMutation({
+    mutationKey: ['amountTraining'],
+    mutationFn: async (params: {
+      id: number;
+      newAmount: OrderAmountTraining;
+    }) => await updateOrder(params.id, params.newAmount),
+    onSuccess: () => {
+      queryClient.invalidateQueries({
+        queryKey: ['puchases'],
+      });
+    },
+  });
+
+  const handleButtonStartClick = () => {
+    const value = {
+      amount: Number(myOrder?.amount) + AMOUNT_DECREMENT,
+    };
+    setIsTraining(true);
+    newAmount.mutate({
+      id: Number(myOrder?.id),
+      newAmount: value,
+    });
+  };
+
+  const handleButtonFinishClic = () => {
+    setIsTraining(false);
+    setPlayingPause(false);
+  };
 
   const handleButtonPlayClick = () => {
     setPlayingPause(!playingPause);
@@ -50,7 +98,7 @@ const TrainingCardUserPage: React.FC = () => {
                 </button>
                 <h2 className="reviews-side-bar__title">Отзывы</h2>
                 <ul className="reviews-side-bar__list">
-                  {(training.data.reviews || []).map((review) => (
+                  {(reviews.data || []).map((review) => (
                     <ReviewCard key={review.id} review={review} />
                   ))}
                 </ul>
@@ -80,7 +128,7 @@ const TrainingCardUserPage: React.FC = () => {
                       <div className="training-info__coach-info">
                         <span className="training-info__label">Тренер</span>
                         <span className="training-info__name">
-                          {training.data.user?.name}
+                          {training.data?.user?.name}
                         </span>
                       </div>
                     </div>
@@ -97,7 +145,7 @@ const TrainingCardUserPage: React.FC = () => {
                               <input
                                 type="text"
                                 name="training"
-                                defaultValue={training.data.name}
+                                defaultValue={training.data?.name}
                                 disabled
                               />
                             </label>
@@ -113,7 +161,7 @@ const TrainingCardUserPage: React.FC = () => {
                               <textarea
                                 name="description"
                                 disabled
-                                defaultValue={training.data.description}
+                                defaultValue={training.data?.description}
                               />
                             </label>
                           </div>
@@ -132,7 +180,7 @@ const TrainingCardUserPage: React.FC = () => {
                               <input
                                 type="number"
                                 name="rating"
-                                defaultValue={training.data.description}
+                                defaultValue={training.data?.rating}
                                 disabled
                               />
                             </label>
@@ -140,13 +188,15 @@ const TrainingCardUserPage: React.FC = () => {
                           <ul className="training-info__list">
                             <li className="training-info__item">
                               <div className="hashtag hashtag--white">
-                                <span>{renderHashtag(training.data.type)}</span>
+                                <span>
+                                  {renderHashtag(String(training.data?.type))}
+                                </span>
                               </div>
                             </li>
                             <li className="training-info__item">
                               <div className="hashtag hashtag--white">
                                 <span>
-                                  {renderHashtag(training.data.gender)}
+                                  {renderHashtag(String(training.data?.gender))}
                                 </span>
                               </div>
                             </li>
@@ -154,7 +204,7 @@ const TrainingCardUserPage: React.FC = () => {
                               <div className="hashtag hashtag--white">
                                 <span>
                                   {renderHashtag(
-                                    String(training.data.calories)
+                                    String(training.data?.calories)
                                   )}
                                 </span>
                               </div>
@@ -162,7 +212,9 @@ const TrainingCardUserPage: React.FC = () => {
                             <li className="training-info__item">
                               <div className="hashtag hashtag--white">
                                 <span>
-                                  {renderHashtag(training.data.duration)}
+                                  {renderHashtag(
+                                    String(training.data?.duration)
+                                  )}
                                 </span>
                               </div>
                             </li>
@@ -177,7 +229,9 @@ const TrainingCardUserPage: React.FC = () => {
                               <input
                                 type="text"
                                 name="price"
-                                defaultValue={renderPrice(training.data.price)}
+                                value={renderPrice(
+                                  Number(training.data?.price)
+                                )}
                                 disabled
                               />
                             </label>
@@ -189,6 +243,7 @@ const TrainingCardUserPage: React.FC = () => {
                             className="btn training-info__buy"
                             type="button"
                             onClick={() => setPurchasePopupOpen(true)}
+                            disabled={Number(myOrder?.amount) > 0}
                           >
                             Купить
                           </button>
@@ -208,7 +263,6 @@ const TrainingCardUserPage: React.FC = () => {
                         width="922px"
                         playing={playingPause}
                         onPause={() => setPlayingPause(!playingPause)}
-                        style={{ borderRadius: '20px' }}
                       />
                       <button
                         className={classNames(
@@ -216,34 +270,33 @@ const TrainingCardUserPage: React.FC = () => {
                           { 'visually-hidden': playingPause }
                         )}
                         onClick={handleButtonPlayClick}
+                        disabled={!isTraining}
                       >
                         <svg width={18} height={30} aria-hidden="true">
                           <use xlinkHref="#icon-arrow" />
                         </svg>
                       </button>
-                      {/* В перспективе доработать обложку для видео */}
-                      {/* <picture>
-                        <img
-                          src="/img/content/training-video/video-thumbnail.png"
-                          width={922}
-                          height={566}
-                          alt="Обложка видео"
-                        />
-                      </picture> */}
                     </div>
                   </div>
                   <div className="training-video__buttons-wrapper">
                     <button
-                      className="btn training-video__button training-video__button--start"
+                      className={classNames(
+                        'btn training-video__button training-video__button--start',
+                        { 'visually-hidden': isTraining }
+                      )}
                       type="button"
-                      onClick={handleButtonPlayClick}
-                      disabled
+                      onClick={handleButtonStartClick}
+                      disabled={Number(myOrder?.amount) < 1}
                     >
                       Приступить
                     </button>
                     <button
                       className="btn training-video__button training-video__button--stop"
                       type="button"
+                      style={
+                        isTraining ? { display: 'block' } : { display: 'none' }
+                      }
+                      onClick={handleButtonFinishClic}
                     >
                       Закончить
                     </button>
@@ -260,7 +313,8 @@ const TrainingCardUserPage: React.FC = () => {
         title="Купить тренировку"
       >
         <PurchaseForm
-          training={training.data}
+          orderId={Number(myOrder?.id)}
+          training={myOrder?.training as Training}
           onSave={() => setPurchasePopupOpen(false)}
         />
       </PopupModal>
@@ -269,7 +323,10 @@ const TrainingCardUserPage: React.FC = () => {
         onClose={() => setFeedbackPopupOpen(false)}
         title="Оставить отзыв"
       >
-        <FeedbackForm onSave={() => setFeedbackPopupOpen(false)} />
+        <FeedbackForm
+          trainingId={Number(training.data?.training_id)}
+          onSave={() => setFeedbackPopupOpen(false)}
+        />
       </PopupModal>
     </div>
   );

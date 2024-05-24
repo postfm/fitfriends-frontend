@@ -1,4 +1,4 @@
-import { useMutation } from '@tanstack/react-query';
+import { useMutation, useQueryClient } from '@tanstack/react-query';
 import { ChangeEvent, useState } from 'react';
 import { NewReview } from '../../types';
 import { createReview } from '../../api/createReview';
@@ -6,12 +6,17 @@ import { createReview } from '../../api/createReview';
 const GRADES = [1, 2, 3, 4, 5];
 
 interface FeedbackFormProps {
+  trainingId: number;
   onSave: () => void;
 }
 
-export const FeedbackForm: React.FC<FeedbackFormProps> = ({ onSave }) => {
+export const FeedbackForm: React.FC<FeedbackFormProps> = ({
+  trainingId,
+  onSave,
+}) => {
   const [grade, setGrade] = useState(5);
   const [text, setText] = useState('');
+  const queryClient = useQueryClient();
 
   const handleInputhChange = (evt: ChangeEvent<HTMLInputElement>) => {
     setGrade(+evt.target.value);
@@ -22,11 +27,13 @@ export const FeedbackForm: React.FC<FeedbackFormProps> = ({ onSave }) => {
   };
 
   const newReview = useMutation({
-    mutationKey: ['createOrder'],
-    mutationFn: (params: { value: NewReview }) => createReview(params.value),
-    onSuccess: (data) => {
-      // eslint-disable-next-line no-console
-      console.log('review create successfuly', data);
+    mutationKey: ['createReview'],
+    mutationFn: (params: { trainingId: number; value: NewReview }) =>
+      createReview(params.trainingId, params.value),
+    onSuccess: () => {
+      queryClient.invalidateQueries({
+        queryKey: ['training'],
+      });
 
       onSave();
     },
@@ -34,6 +41,7 @@ export const FeedbackForm: React.FC<FeedbackFormProps> = ({ onSave }) => {
 
   const handleButtonClick = () => {
     newReview.mutate({
+      trainingId: trainingId,
       value: {
         grade,
         text,
