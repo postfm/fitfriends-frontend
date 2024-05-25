@@ -77,8 +77,13 @@ export interface Subscription {
   id: number;
   subscriber_id: number;
   trainer_id: number;
-  subscriber_email: string;
+  email: string;
 }
+
+export type NewSubscription = Omit<
+  Subscription,
+  'id' | 'subscriber_id' | 'trainer_id'
+>;
 
 export interface PersonalTraining {
   initiator: number;

@@ -1,4 +1,6 @@
+import { client } from '../client/client';
+
 /* eslint-disable @typescript-eslint/no-unused-vars */
-export function unsubscribeFromCoach(_userId: number): Promise<boolean> {
-  return Promise.resolve(true);
+export function unsubscribeFromCoach(userId: number) {
+  return client.delete(`/subscriber/${userId}`);
 }

@@ -1,5 +1,10 @@
 import React, { useEffect, useRef, useState } from 'react';
-import { NewPersonalTraining, Training, User } from '../../../../types';
+import {
+  NewPersonalTraining,
+  NewSubscription,
+  Training,
+  User,
+} from '../../../../types';
 import Slider from 'react-slick';
 import TrainingCard from '../../../../components/training-card';
 import { useMutation, useQuery } from '@tanstack/react-query';
@@ -25,6 +30,9 @@ const TrainingSlider: React.FC<TrainingsSliderProps> = ({
 }) => {
   const { id } = useParams();
   const user = useUser();
+
+  console.log(isFriend);
+
   const [isSubscribed, setIsSubscribed] = useState(false);
   const sliderRef = useRef<Slider | null>(null);
   const handleNext = () => {
@@ -44,7 +52,7 @@ const TrainingSlider: React.FC<TrainingsSliderProps> = ({
 
   const subscriptions = useQuery({
     queryKey: ['subscrptions'],
-    queryFn: () => loadSubscriptions(Number(id)),
+    queryFn: async () => (await loadSubscriptions(Number(id))).data,
   });
 
   useEffect(() => {
@@ -60,8 +68,8 @@ const TrainingSlider: React.FC<TrainingsSliderProps> = ({
 
   const subscribeMutation = useMutation({
     mutationKey: ['notificationSubscribe', id],
-    mutationFn: (params: { coachId: number }) =>
-      subscribeToCoach(params.coachId),
+    mutationFn: (params: { coachId: number; subscription: NewSubscription }) =>
+      subscribeToCoach(params.coachId, params.subscription),
     onSuccess: () => setIsSubscribed(true),
   });
 
@@ -154,8 +162,14 @@ const TrainingSlider: React.FC<TrainingsSliderProps> = ({
                 checked={isSubscribed}
                 onChange={(e) => {
                   const checked = e.target.checked;
+                  const value = {
+                    email: user.email,
+                  };
                   if (checked) {
-                    subscribeMutation.mutate({ coachId: Number(coach?.id) });
+                    subscribeMutation.mutate({
+                      coachId: Number(coach?.id),
+                      subscription: value,
+                    });
                   } else {
                     unsubscribeMutation.mutate({ coachId: Number(coach?.id) });
                   }
