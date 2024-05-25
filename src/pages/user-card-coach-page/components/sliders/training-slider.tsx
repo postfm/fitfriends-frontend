@@ -31,8 +31,6 @@ const TrainingSlider: React.FC<TrainingsSliderProps> = ({
   const { id } = useParams();
   const user = useUser();
 
-  console.log(isFriend);
-
   const [isSubscribed, setIsSubscribed] = useState(false);
   const sliderRef = useRef<Slider | null>(null);
   const handleNext = () => {
