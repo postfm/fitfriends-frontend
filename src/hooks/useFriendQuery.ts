@@ -18,7 +18,9 @@ export const useFriendQuery = (friendId: number) => {
 
   useEffect(() => {
     if (friendsUser.data) {
-      setIsFriend(friendsUser.data.some((friend) => friend.id === friendId));
+      setIsFriend(
+        friendsUser.data.data.some((friend) => friend.id === friendId)
+      );
     }
   }, [friendsUser.data, friendId]);
 

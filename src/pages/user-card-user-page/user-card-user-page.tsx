@@ -14,8 +14,9 @@ export default function UserCardUserPage(): JSX.Element {
   const { id } = useParams();
   const user = useQuery({
     queryKey: ['user'],
-    queryFn: () => loadUser(+(id as string)),
+    queryFn: () => loadUser(Number(id)),
   }).data;
+
   const [locationMapOpen, setLocationMapOpen] = useState(false);
   const navigate = useNavigate();
 
@@ -43,7 +44,7 @@ export default function UserCardUserPage(): JSX.Element {
                   <div className="user-card__wrapper">
                     <div className="user-card__content">
                       <div className="user-card__head">
-                        <h2 className="user-card__title">{user?.name}</h2>
+                        <h2 className="user-card__title">{user?.data.name}</h2>
                       </div>
                       <div className="user-card__label">
                         <a onClick={() => setLocationMapOpen(true)}>
@@ -55,21 +56,34 @@ export default function UserCardUserPage(): JSX.Element {
                           >
                             <use xlinkHref="#icon-location" />
                           </svg>
-                          <span>{user?.location}</span>
+                          <span>{user?.data.location}</span>
                         </a>
                       </div>
-                      <div className="user-card__status">
+                      <div
+                        className={classNames(
+                          'user-card__status',
+                          {
+                            'thumbnail-friend__ready-status--is-ready':
+                              user?.data.readyToTrain,
+                          },
+
+                          {
+                            'thumbnail-friend__ready-status--is-not-ready':
+                              !user?.data.readyToTrain,
+                          }
+                        )}
+                      >
                         <span>
-                          {user?.readyToTrain
+                          {user?.data.readyToTrain
                             ? 'Готов к тренировке'
                             : 'Не готов к тренировке'}
                         </span>
                       </div>
                       <div className="user-card__text">
-                        <p>{user?.description}</p>
+                        <p>{user?.data.description}</p>
                       </div>
                       <ul className="user-card__hashtag-list">
-                        {user?.typeOfTraining.map((type) => (
+                        {user?.data.typeOfTraining.map((type) => (
                           <li className="user-card__hashtag-item" key={type}>
                             <div className="hashtag">
                               <span>{renderHashtag(type)}</span>
@@ -119,11 +133,11 @@ export default function UserCardUserPage(): JSX.Element {
       </main>
       <PopupModal
         isOpen={locationMapOpen}
-        title={user?.name}
-        subtitle={user?.location}
+        title={user?.data.name}
+        subtitle={user?.data.location}
         onClose={() => setLocationMapOpen(false)}
       >
-        <LocationMap location={user?.location} />
+        <LocationMap location={user?.data.location} />
       </PopupModal>
     </div>
   );

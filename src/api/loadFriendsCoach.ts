@@ -1,6 +1,6 @@
-import { FRIENDS_COACH } from '../mocks/friends-coach.mocks';
+import { client } from '../client/client';
 import { User } from '../types';
 
-export function loadFriendsCoach(): Promise<User[]> {
-  return Promise.resolve(FRIENDS_COACH);
+export function loadFriendsCoach() {
+  return client.get<User[]>('friends/trainer');
 }
