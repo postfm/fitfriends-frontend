@@ -1,7 +1,12 @@
-import { PersonalTraining } from './../types/data-types';
+import { client } from '../client/client';
+import { NewPersonalTraining, PersonalTraining } from './../types/data-types';
 
 export function updatePersonalTraining(
-  personalTraining: PersonalTraining
-): Promise<PersonalTraining> {
-  return Promise.resolve(personalTraining);
+  userId: number,
+  personalTraining: NewPersonalTraining
+) {
+  return client.patch<PersonalTraining>(
+    `personal-trainings/${userId}`,
+    personalTraining
+  );
 }

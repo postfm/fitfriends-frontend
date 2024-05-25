@@ -1,12 +1,20 @@
 import React, { useState } from 'react';
-import { PersonalTraining, User } from '../../types';
-import { getStatus, isInitiator, isInvited, renderHashtag } from '../../utils';
+import { NewPersonalTraining, PersonalTraining, User } from '../../types';
+import {
+  getStatus,
+  isAnswered,
+  isInitiator,
+  isInvited,
+  renderHashtag,
+} from '../../utils';
 import classNames from 'classnames';
-import { AppRoutes, UserRole } from '../../constants/constants';
+import { AppRoutes, RequestStatus, UserRole } from '../../constants/constants';
 import { useUser } from '../../hooks';
-import { useMutation } from '@tanstack/react-query';
+import { useMutation, useQueryClient } from '@tanstack/react-query';
 import { updatePersonalTraining } from '../../api/updatePersonalTraining';
 import { generatePath, useNavigate } from 'react-router-dom';
+import { addPersonalTraining } from '../../api/addPersonalTraining';
+import { toast } from 'react-toastify';
 
 interface FriendsUserCardProps {
   user: User;
@@ -17,44 +25,65 @@ const FriendsUserCard: React.FC<FriendsUserCardProps> = ({
   user,
   personalTrainings,
 }) => {
-  const [isInvite, setIsInvite] = useState(false);
   const initiator = useUser();
-
-  const handleButtonInviteClick = (evt: React.MouseEvent) => {
-    evt.stopPropagation();
-    setIsInvite(!isInvite);
-  };
-
+  const queryClient = useQueryClient();
   const navigate = useNavigate();
+  const [isInvite, setIsInvite] = useState(
+    isInvited(user.id, initiator.id, personalTrainings)
+  );
+
+  const newPersonalTraining = useMutation({
+    mutationKey: ['addPersonalTraining', user.id],
+    mutationFn: (params: {
+      userId: number;
+      personalTraining: NewPersonalTraining;
+    }) => addPersonalTraining(params.userId, params.personalTraining),
+    onSuccess: () => {
+      queryClient.invalidateQueries({
+        queryKey: ['addPersonalTraining'],
+      });
+      toast.success('Request for personal training has been submitted');
+    },
+  });
 
   const changeStatus = useMutation({
-    mutationKey: ['updateTraining'],
-    mutationFn: (params: { requestTraining: PersonalTraining }) =>
-      updatePersonalTraining(params.requestTraining),
-    onSuccess: (data) => {
-      // eslint-disable-next-line no-console
-      console.log('request update successfully', data);
+    mutationKey: ['updateTraining', user.id],
+    mutationFn: (params: {
+      userId: number;
+      requestTraining: NewPersonalTraining;
+    }) => updatePersonalTraining(params.userId, params.requestTraining),
+    onSuccess: () => {
+      queryClient.invalidateQueries({
+        queryKey: ['updateTraining'],
+      });
+      toast.success('request update successfully');
     },
   });
 
   const handleButtonAcceptClick = () => {
     const value = {
-      initiator: initiator.id,
-      user: user.id,
-      status: 'принят',
+      status: RequestStatus.accepted,
     };
-
-    changeStatus.mutate({ requestTraining: value });
+    changeStatus.mutate({ userId: user.id, requestTraining: value });
   };
 
   const handleButtonRejectClick = () => {
     const value = {
-      initiator: initiator.id,
-      user: user.id,
-      status: 'отклонён',
+      status: RequestStatus.rejected,
     };
+    changeStatus.mutate({ userId: user.id, requestTraining: value });
+  };
 
-    changeStatus.mutate({ requestTraining: value });
+  const handleButtonInviteClick = (evt: React.MouseEvent) => {
+    evt.stopPropagation();
+    setIsInvite(!isInvite);
+    const value = {
+      status: RequestStatus['under consideration'],
+    };
+    newPersonalTraining.mutate({
+      userId: Number(user.id),
+      personalTraining: value,
+    });
   };
 
   return (
@@ -138,37 +167,45 @@ const FriendsUserCard: React.FC<FriendsUserCardProps> = ({
       </div>
       {user.readyToTrain && (
         <>
-          {isInvited(initiator.id, user.id, personalTrainings) && (
-            <div className="thumbnail-friend__request-status thumbnail-friend__request-status--role-user">
-              <p className="thumbnail-friend__request-text">
-                Запрос на&nbsp;совместную тренировку
-              </p>
-              <div className="thumbnail-friend__button-wrapper">
-                <button
-                  className="btn btn--medium btn--dark-bg thumbnail-friend__button"
-                  type="button"
-                  onClick={handleButtonAcceptClick}
-                >
-                  Принять
-                </button>
-                <button
-                  className="btn btn--medium btn--outlined btn--dark-bg thumbnail-friend__button"
-                  type="button"
-                  onClick={handleButtonRejectClick}
-                >
-                  Отклонить
-                </button>
+          {isInvited(initiator.id, user.id, personalTrainings) &&
+            !isAnswered(initiator.id, user.id, personalTrainings) && (
+              <div className="thumbnail-friend__request-status thumbnail-friend__request-status--role-user">
+                <p className="thumbnail-friend__request-text">
+                  Запрос на&nbsp;совместную тренировку
+                </p>
+                <div className="thumbnail-friend__button-wrapper">
+                  <button
+                    className="btn btn--medium btn--dark-bg thumbnail-friend__button"
+                    type="button"
+                    onClick={handleButtonAcceptClick}
+                  >
+                    Принять
+                  </button>
+                  <button
+                    className="btn btn--medium btn--outlined btn--dark-bg thumbnail-friend__button"
+                    type="button"
+                    onClick={handleButtonRejectClick}
+                  >
+                    Отклонить
+                  </button>
+                </div>
               </div>
-            </div>
-          )}
+            )}
+
           {isInitiator(initiator.id, user.id, personalTrainings) && (
             <div className="thumbnail-friend__request-status thumbnail-friend__request-status--role-coach">
               <p className="thumbnail-friend__request-text">
-                {`Запрос на персональную тренировку ${getStatus(
-                  initiator.id,
-                  user.id,
-                  personalTrainings
-                )}`}
+                {initiator.roles === UserRole.sportsman
+                  ? `Запрос на совместную тренировку ${getStatus(
+                      initiator.id,
+                      user.id,
+                      personalTrainings
+                    )}`
+                  : `Запрос на персональную тренировку ${getStatus(
+                      initiator.id,
+                      user.id,
+                      personalTrainings
+                    )}`}
               </p>
             </div>
           )}

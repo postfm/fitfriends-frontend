@@ -86,6 +86,8 @@ export interface PersonalTraining {
   status: string;
 }
 
+export type NewPersonalTraining = Omit<PersonalTraining, 'initiator' | 'user'>;
+
 export interface Order {
   id: string;
   type: string;

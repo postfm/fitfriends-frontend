@@ -1,14 +1,26 @@
+import { RequestStatus } from './../constants/constants';
 import { PersonalTraining } from '../types';
 
 export const isInitiator = (
   initiator: number,
   user: number,
   personalTrainings: PersonalTraining[]
-) =>
-  personalTrainings.filter(
-    (personalTraining) =>
-      personalTraining.initiator === initiator && personalTraining.user === user
-  ).length > 0;
+) => {
+  console.log(
+    personalTrainings.filter(
+      (personalTraining) =>
+        personalTraining.initiator === initiator &&
+        personalTraining.user === user
+    ).length > 0
+  );
+  return (
+    personalTrainings.filter(
+      (personalTraining) =>
+        personalTraining.initiator === initiator &&
+        personalTraining.user === user
+    ).length > 0
+  );
+};
 
 export const isInvited = (
   initiator: number,
@@ -19,6 +31,22 @@ export const isInvited = (
     (personalTraining) =>
       personalTraining.initiator === user && personalTraining.user === initiator
   ).length > 0;
+
+export const isAnswered = (
+  initiator: number,
+  user: number,
+  personalTrainings: PersonalTraining[]
+) => {
+  const personalTraining = personalTrainings.filter(
+    (personalTraining) =>
+      personalTraining.initiator === user && personalTraining.user === initiator
+  );
+
+  return (
+    personalTraining[0].status === RequestStatus.accepted ||
+    personalTraining[0].status === RequestStatus.rejected
+  );
+};
 
 export const getStatus = (
   initiator: number,

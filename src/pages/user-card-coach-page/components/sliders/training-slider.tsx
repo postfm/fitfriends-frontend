@@ -126,7 +126,7 @@ const TrainingSlider: React.FC<TrainingsSliderProps> = ({
             {...settings}
           >
             {trainings?.map((training) => (
-              <TrainingCard key={training.trainingId} training={training} />
+              <TrainingCard key={training.training_id} training={training} />
             ))}
           </Slider>
         </>

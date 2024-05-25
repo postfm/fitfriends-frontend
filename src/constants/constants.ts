@@ -43,7 +43,6 @@ export const Locations = [
   'Удельная',
   'Звёздная',
   'Спортивная',
-  'Тестовая',
 ];
 
 export const TypesOfTrainings = [
@@ -62,6 +61,12 @@ export const TimeOfTraining = [
   '50-80 мин',
   '80-100 мин',
 ];
+
+export const RequestStatus = {
+  'under consideration': 'на рассмотрении',
+  rejected: 'отклонён',
+  accepted: 'принят',
+};
 
 export const GENDERS = ['женский', 'мужской', 'неважно'];
 
