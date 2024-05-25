@@ -9,19 +9,19 @@ import TrainingsSlider from '../user-card-coach-page/components/sliders/training
 import CertificatePopupSlider from './components/sliders/certificate-popup.slider';
 import { useFriendQuery } from '../../hooks';
 import classNames from 'classnames';
+import { loadCoachTraining } from '../../api/loadCoachTraining';
 
 const UserCardCoachPage: React.FC = () => {
   const { id } = useParams();
   const user = useQuery({
     queryKey: ['user', id],
-    queryFn: () => {
-      if (!id) {
-        return null;
-      }
+    queryFn: async () => (await loadUser(Number(id))).data,
+  });
 
-      return loadUser(Number(id));
-    },
-  }).data;
+  const trainings = useQuery({
+    queryKey: ['coachTrainings', id],
+    queryFn: async () => (await loadCoachTraining(Number(id))).data,
+  });
 
   const { isFriend, addRemoveFriend } = useFriendQuery(Number(id));
 
@@ -33,7 +33,7 @@ const UserCardCoachPage: React.FC = () => {
     return null;
   }
 
-  let certificates = user?.certificates?.split(',') || [];
+  let certificates = user.data?.certificates?.split(',') || [];
   certificates =
     certificates.length < 3 ? [...certificates, ...certificates] : certificates;
 
@@ -63,7 +63,7 @@ const UserCardCoachPage: React.FC = () => {
                       <div className="user-card-coach__content">
                         <div className="user-card-coach__head">
                           <h2 className="user-card-coach__title">
-                            {user.name}
+                            {user.data?.name}
                           </h2>
                         </div>
                         <div className="user-card-coach__label">
@@ -76,7 +76,7 @@ const UserCardCoachPage: React.FC = () => {
                             >
                               <use xlinkHref="#icon-location" />
                             </svg>
-                            <span>{user?.location}</span>
+                            <span>{user.data?.location}</span>
                           </a>
                         </div>
                         <div className="user-card-coach__status-container">
@@ -96,19 +96,19 @@ const UserCardCoachPage: React.FC = () => {
                               'user-card-coach__status user-card-coach__status--check',
                               {
                                 'user-card-coach-2__status user-card-coach-2__status--check':
-                                  !user.personalTrainings,
+                                  !user.data?.personalTrainings,
                               }
                             )}
                           >
                             <span>
-                              {user.personalTrainings
+                              {user.data?.personalTrainings
                                 ? 'Готов тренировать'
                                 : 'Не готов тренировать'}
                             </span>
                           </div>
                         </div>
                         <div className="user-card-coach__text">
-                          <p>{user.description}</p>
+                          <p>{user.data?.description}</p>
                         </div>
                         <button
                           className="btn-flat user-card-coach__sertificate"
@@ -121,7 +121,7 @@ const UserCardCoachPage: React.FC = () => {
                           <span>Посмотреть сертификаты</span>
                         </button>
                         <ul className="user-card-coach__hashtag-list">
-                          {user.typeOfTraining.map((type) => (
+                          {user.data?.typeOfTraining.map((type) => (
                             <li className="user-card__hashtag-item" key={type}>
                               <div className="hashtag">
                                 <span>{renderHashtag(type)}</span>
@@ -165,9 +165,9 @@ const UserCardCoachPage: React.FC = () => {
                   </div>
 
                   <TrainingsSlider
-                    trainings={user?.trainings}
+                    trainings={trainings.data}
                     isFriend={isFriend}
-                    coach={user}
+                    coach={user.data}
                   />
                 </section>
               </div>
@@ -177,11 +177,11 @@ const UserCardCoachPage: React.FC = () => {
       </main>
       <PopupModal
         isOpen={locationMapOpen}
-        title={user?.name}
-        subtitle={user?.location}
+        title={user.data?.name}
+        subtitle={user.data?.location}
         onClose={() => setLocationMapOpen(false)}
       >
-        <LocationMap location={user?.location} />
+        <LocationMap location={user.data?.location} />
       </PopupModal>
       <PopupModal
         isOpen={certificatesSliderOpen}

@@ -96,9 +96,11 @@ const FriendsUserCard: React.FC<FriendsUserCardProps> = ({
         })}
         onClick={() =>
           navigate(
-            generatePath(AppRoutes.UserCard, {
-              id: String(user.id),
-            })
+            user.roles === UserRole.coach
+              ? generatePath(AppRoutes.СoachCard, { id: String(user.id) })
+              : generatePath(AppRoutes.UserCard, {
+                  id: String(user.id),
+                })
           )
         }
       >

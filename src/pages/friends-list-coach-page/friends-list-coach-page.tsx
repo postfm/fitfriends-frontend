@@ -9,11 +9,11 @@ import { PersonalTraining } from '../../types';
 export default function FriendsListCoachPage(): JSX.Element {
   const friendsCoach = useQuery({
     queryKey: ['friendsCoach'],
-    queryFn: loadFriendsCoach,
+    queryFn: async () => (await loadFriendsCoach()).data,
   });
   const personalTrainings = useQuery({
     queryKey: ['personalTrainings'],
-    queryFn: loadPersonalTraining,
+    queryFn: async () => (await loadPersonalTraining()).data,
   });
 
   return (

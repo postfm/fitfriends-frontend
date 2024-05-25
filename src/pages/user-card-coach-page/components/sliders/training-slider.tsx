@@ -1,5 +1,5 @@
 import React, { useEffect, useRef, useState } from 'react';
-import { PersonalTraining, Training, User } from '../../../../types';
+import { NewPersonalTraining, Training, User } from '../../../../types';
 import Slider from 'react-slick';
 import TrainingCard from '../../../../components/training-card';
 import { useMutation, useQuery } from '@tanstack/react-query';
@@ -9,11 +9,13 @@ import { loadSubscriptions } from '../../../../api/loadSubscriptions';
 import { useUser } from '../../../../hooks';
 import { unsubscribeFromCoach } from '../../../../api/unsubscribeFromCoach';
 import { addPersonalTraining } from '../../../../api/addPersonalTraining';
+import { toast } from 'react-toastify';
+import { RequestStatus } from '../../../../constants/constants';
 
 interface TrainingsSliderProps {
   trainings: Training[] | undefined;
   isFriend: boolean;
-  coach: User;
+  coach: User | undefined;
 }
 
 const TrainingSlider: React.FC<TrainingsSliderProps> = ({
@@ -72,26 +74,28 @@ const TrainingSlider: React.FC<TrainingsSliderProps> = ({
 
   const newPersonalTraining = useMutation({
     mutationKey: ['addPersonalTraining', id],
-    mutationFn: (params: { personalTraining: PersonalTraining }) =>
-      addPersonalTraining(params.personalTraining),
-    onSuccess: (data) =>
-      // eslint-disable-next-line no-console
-      console.log('Request for personal training has been submitted', data),
+    mutationFn: (params: {
+      userId: number;
+      personalTraining: NewPersonalTraining;
+    }) => addPersonalTraining(params.userId, params.personalTraining),
+    onSuccess: () =>
+      toast.success('Request for personal training has been submitted'),
   });
 
   const handleButtonPersonalTrainingClick = () => {
     const value = {
-      initiator: user.id,
-      user: Number(id),
-      status: 'На рассмотрении',
+      status: RequestStatus['under consideration'],
     };
 
-    newPersonalTraining.mutate({ personalTraining: value });
+    newPersonalTraining.mutate({
+      userId: Number(coach?.id),
+      personalTraining: value,
+    });
   };
 
   return (
     <div className="user-card-coach__training">
-      {coach.trainings && coach.trainings.length > 0 ? (
+      {trainings && trainings.length > 0 ? (
         <>
           <div className="user-card-coach__training-head">
             <h2 className="user-card-coach__training-title">Тренировки</h2>
@@ -132,7 +136,7 @@ const TrainingSlider: React.FC<TrainingsSliderProps> = ({
         </>
       ) : null}
       <form className="user-card-coach__training-form">
-        {isFriend && coach.personalTrainings && (
+        {isFriend && coach?.personalTrainings && (
           <button
             className="btn user-card-coach__btn-training"
             type="button"
@@ -151,9 +155,9 @@ const TrainingSlider: React.FC<TrainingsSliderProps> = ({
                 onChange={(e) => {
                   const checked = e.target.checked;
                   if (checked) {
-                    subscribeMutation.mutate({ coachId: coach.id });
+                    subscribeMutation.mutate({ coachId: Number(coach?.id) });
                   } else {
-                    unsubscribeMutation.mutate({ coachId: coach.id });
+                    unsubscribeMutation.mutate({ coachId: Number(coach?.id) });
                   }
                 }}
               />

@@ -21,12 +21,12 @@ export function NotifyComponent({ notify }: NotifyComponentProps): JSX.Element {
       queryClient.invalidateQueries({
         queryKey: ['deleteNotify'],
       });
+      setIsNotifyActive(false);
       toast.success('Notify deleted successfull');
     },
   });
 
   const handleListClick = () => {
-    setIsNotifyActive(false);
     notifyDelete.mutate({ notifyId: notify.id });
   };
 

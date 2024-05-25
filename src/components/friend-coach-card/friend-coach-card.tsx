@@ -1,5 +1,5 @@
 import React from 'react';
-import { PersonalTraining, User } from '../../types';
+import { NewPersonalTraining, PersonalTraining, User } from '../../types';
 import { useUser } from '../../hooks';
 import { useMutation } from '@tanstack/react-query';
 import { generatePath, useNavigate } from 'react-router-dom';
@@ -23,8 +23,10 @@ const FriendCoachCard: React.FC<FriendCoachCardProps> = ({
 
   const changeStatus = useMutation({
     mutationKey: ['updateTraining'],
-    mutationFn: (params: { requestTraining: PersonalTraining }) =>
-      updatePersonalTraining(params.requestTraining),
+    mutationFn: (params: {
+      coachId: number;
+      requestTraining: NewPersonalTraining;
+    }) => updatePersonalTraining(params.coachId, params.requestTraining),
     onSuccess: (data) => {
       // eslint-disable-next-line no-console
       console.log('request update successfully', data);
@@ -33,22 +35,18 @@ const FriendCoachCard: React.FC<FriendCoachCardProps> = ({
 
   const handleButtonAcceptClick = () => {
     const value = {
-      initiator: initiator.id,
-      user: coach.id,
       status: 'принят',
     };
 
-    changeStatus.mutate({ requestTraining: value });
+    changeStatus.mutate({ coachId: coach.id, requestTraining: value });
   };
 
   const handleButtonRejectClick = () => {
     const value = {
-      initiator: initiator.id,
-      user: coach.id,
       status: 'отклонён',
     };
 
-    changeStatus.mutate({ requestTraining: value });
+    changeStatus.mutate({ coachId: coach.id, requestTraining: value });
   };
 
   return (
