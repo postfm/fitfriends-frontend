@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React from 'react';
 import { NewPersonalTraining, PersonalTraining, User } from '../../types';
 import {
   getStatus,
@@ -28,9 +28,6 @@ const FriendsUserCard: React.FC<FriendsUserCardProps> = ({
   const initiator = useUser();
   const queryClient = useQueryClient();
   const navigate = useNavigate();
-  const [isInvite, setIsInvite] = useState(
-    isInvited(user.id, initiator.id, personalTrainings)
-  );
 
   const newPersonalTraining = useMutation({
     mutationKey: ['addPersonalTraining', user.id],
@@ -76,7 +73,6 @@ const FriendsUserCard: React.FC<FriendsUserCardProps> = ({
 
   const handleButtonInviteClick = (evt: React.MouseEvent) => {
     evt.stopPropagation();
-    setIsInvite(!isInvite);
     const value = {
       status: RequestStatus['under consideration'],
     };
@@ -150,7 +146,7 @@ const FriendsUserCard: React.FC<FriendsUserCardProps> = ({
           {user.readyToTrain && (
             <button
               className={classNames('thumbnail-friend__invite-button', {
-                'is-disabled': isInvite,
+                'is-disabled': !user.readyToTrain,
               })}
               type="button"
               onClick={handleButtonInviteClick}

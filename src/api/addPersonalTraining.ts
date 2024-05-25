@@ -5,7 +5,6 @@ export function addPersonalTraining(
   userId: number,
   personalTraining: NewPersonalTraining
 ) {
-  console.log(userId);
   return client.post<PersonalTraining>(
     `personal-trainings/${userId}`,
     personalTraining

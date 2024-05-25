@@ -5,22 +5,11 @@ export const isInitiator = (
   initiator: number,
   user: number,
   personalTrainings: PersonalTraining[]
-) => {
-  console.log(
-    personalTrainings.filter(
-      (personalTraining) =>
-        personalTraining.initiator === initiator &&
-        personalTraining.user === user
-    ).length > 0
-  );
-  return (
-    personalTrainings.filter(
-      (personalTraining) =>
-        personalTraining.initiator === initiator &&
-        personalTraining.user === user
-    ).length > 0
-  );
-};
+) =>
+  personalTrainings.filter(
+    (personalTraining) =>
+      personalTraining.initiator === initiator && personalTraining.user === user
+  ).length > 0;
 
 export const isInvited = (
   initiator: number,
