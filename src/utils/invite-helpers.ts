@@ -28,7 +28,7 @@ export const isAnswered = (
 ) => {
   const personalTraining = personalTrainings.filter(
     (personalTraining) =>
-      personalTraining.initiator === user && personalTraining.user === initiator
+      personalTraining.initiator === initiator && personalTraining.user === user
   );
 
   return (

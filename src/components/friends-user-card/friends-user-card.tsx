@@ -149,10 +149,10 @@ const FriendsUserCard: React.FC<FriendsUserCardProps> = ({
               <span>Не готов к&nbsp;тренировке</span>
             )}
           </div>
-          {user.readyToTrain && (
+          {user.readyToTrain && user.roles === UserRole.sportsman && (
             <button
               className={classNames('thumbnail-friend__invite-button', {
-                'is-disabled': isInvite || !user.readyToTrain,
+                'is-disabled': isInvite,
               })}
               type="button"
               onClick={handleButtonInviteClick}
@@ -197,7 +197,7 @@ const FriendsUserCard: React.FC<FriendsUserCardProps> = ({
           {isInitiator(initiator.id, user.id, personalTrainings) && (
             <div className="thumbnail-friend__request-status thumbnail-friend__request-status--role-coach">
               <p className="thumbnail-friend__request-text">
-                {initiator.roles === UserRole.sportsman
+                {user.roles === UserRole.sportsman
                   ? `Запрос на совместную тренировку ${getStatus(
                       initiator.id,
                       user.id,
