@@ -1,3 +1,5 @@
-export function deleteNotify(id: number): Promise<number> {
-  return Promise.resolve(id);
+import { client } from '../client/client';
+
+export function deleteNotify(id: number) {
+  return client.delete(`alerts/${id}`);
 }

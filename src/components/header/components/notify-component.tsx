@@ -1,9 +1,10 @@
 import classNames from 'classnames';
-import { useMutation } from '@tanstack/react-query';
+import { useMutation, useQueryClient } from '@tanstack/react-query';
 import { getDateTime } from '../../../utils/date-helpers';
 import { useState } from 'react';
 import { deleteNotify } from '../../../api/deleteNotify';
 import { Notify } from '../../../types';
+import { toast } from 'react-toastify';
 
 interface NotifyComponentProps {
   notify: Notify;
@@ -11,13 +12,16 @@ interface NotifyComponentProps {
 
 export function NotifyComponent({ notify }: NotifyComponentProps): JSX.Element {
   const [isNotifyActive, setIsNotifyActive] = useState(true);
+  const queryClient = useQueryClient();
 
   const notifyDelete = useMutation({
     mutationKey: ['deleteNotify'],
     mutationFn: (params: { notifyId: number }) => deleteNotify(params.notifyId),
     onSuccess: () => {
-      // eslint-disable-next-line no-console
-      console.log('Notify deleted successfull');
+      queryClient.invalidateQueries({
+        queryKey: ['deleteNotify'],
+      });
+      toast.success('Notify deleted successfull');
     },
   });
 

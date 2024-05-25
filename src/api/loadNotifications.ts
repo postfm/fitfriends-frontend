@@ -1,7 +1,6 @@
-import { NOTIFICATIONS } from '../mocks/notifications.mocks';
+import { client } from '../client/client';
 import { Notify } from '../types/data-types';
 
-// eslint-disable-next-line @typescript-eslint/no-unused-vars
-export function loadNotifications(_userId: number): Promise<Notify[]> {
-  return Promise.resolve(NOTIFICATIONS);
+export function loadNotifications() {
+  return client.get<Notify[]>('alerts');
 }

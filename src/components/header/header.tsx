@@ -12,7 +12,7 @@ export default function Header() {
   const { logoutCurrentUser } = useAuth();
   const myNotifications = useQuery({
     queryKey: ['myNotifications'],
-    queryFn: () => loadNotifications(user.id),
+    queryFn: () => loadNotifications(),
   }).data;
 
   return (
@@ -79,7 +79,7 @@ export default function Header() {
               <div className="main-nav__dropdown">
                 <p className="main-nav__label">Оповещения</p>
                 <ul className="main-nav__sublist">
-                  {myNotifications?.map((notification) => (
+                  {myNotifications?.data.map((notification) => (
                     <NotifyComponent
                       notify={notification}
                       key={notification?.id}
