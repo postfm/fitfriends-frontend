@@ -47,7 +47,7 @@ export const SpecialOffersSlider: React.FC<SpecialOffersSliderProps> = ({
   );
 
   const renderTraining = (training: Training) => (
-    <li key={training.trainingId} className="special-offers__item is-active">
+    <li key={training.training_id} className="special-offers__item is-active">
       <aside className="promo-slider">
         <div className="promo-slider__overlay" />
         <div className="promo-slider__image">

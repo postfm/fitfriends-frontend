@@ -1,8 +1,6 @@
 import { Purchases } from '../types';
 import { client } from '../client/client';
 
-export function loadMyPurchases() {
-  return client.get<Purchases[]>(
-    'trainings/ordered?sortingType=cost&sortDirection=ASC'
-  );
+export function loadMyPurchases(url: string) {
+  return client.get<Purchases[]>(`trainings/ordered?${url}`);
 }

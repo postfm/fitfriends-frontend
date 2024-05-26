@@ -12,6 +12,7 @@ import { RadioToggleInput } from '../../components/filters';
 import { Role } from '../../types';
 
 export interface RegistrationData {
+  avatar?: string;
   name: string;
   email: string;
   dateOfBirth: string;
@@ -26,7 +27,8 @@ export interface RegistrationData {
 export default function SignUpPage(): JSX.Element {
   const form = useRef<HTMLFormElement | null>();
   const [values, setValues] = useState<RegistrationData>({
-    name: '"/img/content/thumbnails/friend-17.jpg"',
+    avatar: '',
+    name: '',
     email: '',
     dateOfBirth: '',
     location: '',
@@ -34,7 +36,7 @@ export default function SignUpPage(): JSX.Element {
     gender: '',
     role: Role.coach,
     isAgreement: true,
-    image: '',
+    image: '/img/content/thumbnails/friend-17.jpg',
   });
 
   const getHandler =

@@ -3,12 +3,49 @@ import { AuthAppRoutes } from '../../constants/constants';
 import { useQuery } from '@tanstack/react-query';
 import MyOrderCard from '../../components/my-orders-card/my-order-card';
 import { loadMyPurchases } from '../../api/loadMyPurchases';
+import { useState } from 'react';
+
+const DEFAULT_SORTING_TYPE = 'cost';
+
+enum SortingType {
+  cost = 'cost',
+  quantity = 'quantity',
+}
+
+enum SortingDirection {
+  asc = 'ASC',
+  desc = 'DESC',
+}
 
 export default function MyOrdersPage(): JSX.Element {
+  const [sortingType, setSortingType] = useState(DEFAULT_SORTING_TYPE);
+  const [sortingDirection, setSortingDirection] = useState(true);
+  const [url, setUrl] = useState('');
+
   const myOrders = useQuery({
-    queryKey: ['myPurchases'],
-    queryFn: async () => (await loadMyPurchases()).data,
+    queryKey: ['myPurchases', url],
+    queryFn: async () => (await loadMyPurchases(url)).data,
   });
+
+  const handleButtonQuantityClick = () => {
+    setSortingType(SortingType.quantity);
+    setSortingDirection(!sortingDirection);
+    setUrl(
+      `sortingType=${sortingType}&sortDirection=${
+        sortingDirection ? SortingDirection.asc : SortingDirection.desc
+      }`
+    );
+  };
+
+  const handleButtonCostClick = () => {
+    setSortingType(SortingType.cost);
+    setSortingDirection(!sortingDirection);
+    setUrl(
+      `sortingType=${sortingType}&sortDirection=${
+        sortingDirection ? SortingDirection.asc : SortingDirection.desc
+      }`
+    );
+  };
 
   return (
     <div className="wrapper">
@@ -30,15 +67,41 @@ export default function MyOrdersPage(): JSX.Element {
                 <div className="sort-for">
                   <p>Сортировать по:</p>
                   <div className="sort-for__btn-container">
-                    <button className="btn-filter-sort" type="button">
+                    <button
+                      className="btn-filter-sort"
+                      type="button"
+                      onClick={handleButtonCostClick}
+                    >
                       <span>Сумме</span>
-                      <svg width={16} height={10} aria-hidden="true">
+                      <svg
+                        width={16}
+                        height={10}
+                        aria-hidden="true"
+                        style={
+                          sortingDirection
+                            ? { rotate: '0deg' }
+                            : { rotate: '-180deg' }
+                        }
+                      >
                         <use xlinkHref="#icon-sort-up" />
                       </svg>
                     </button>
-                    <button className="btn-filter-sort" type="button">
+                    <button
+                      className="btn-filter-sort"
+                      type="button"
+                      onClick={handleButtonQuantityClick}
+                    >
                       <span>Количеству</span>
-                      <svg width={16} height={10} aria-hidden="true">
+                      <svg
+                        width={16}
+                        height={10}
+                        aria-hidden="true"
+                        style={
+                          sortingDirection
+                            ? { rotate: '-180deg' }
+                            : { rotate: '0deg' }
+                        }
+                      >
                         <use xlinkHref="#icon-sort-down" />
                       </svg>
                     </button>

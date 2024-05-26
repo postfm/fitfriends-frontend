@@ -8,14 +8,39 @@ import {
 } from '../../components/filters';
 import { uniqBy } from 'lodash';
 import TrainingCard from '../../components/training-card';
-import { AppRoutes } from '../../constants/constants';
+import { AppRoutes, TypesOfTrainings } from '../../constants/constants';
+import { useState } from 'react';
+
+const SORT_OPTIONS = ['Дешевле', 'Дороже', 'Бесплатные'];
 
 export default function TrainingCatalogPage(): JSX.Element {
   const navigate = useNavigate();
   const trainings = useQuery({
     queryKey: ['trainings'],
-    queryFn: loadTrainings,
-    select: (data) => data.data.data,
+    queryFn: async () => (await loadTrainings()).data,
+    select: (data) => data.data,
+  });
+
+  const [priceFilter, setPriceFilter] = useState<[number, number]>([0, 3000]);
+  const [calorieFilter, setCalorieFilter] = useState<[number, number]>([
+    1000, 5000,
+  ]);
+  const [ratingFilter, setRaitingFilter] = useState<[number, number]>([1, 5]);
+  const [type, setType] = useState<string[]>(TypesOfTrainings);
+
+  const trainingsToShow = (trainings.data || []).filter((training) => {
+    const pricePredicate =
+      priceFilter[0] <= training.price && training.price <= priceFilter[1];
+    const caloriePredicate =
+      calorieFilter[0] <= training.calories &&
+      training.calories <= calorieFilter[1];
+    const ratingPredicate =
+      ratingFilter[0] <= training.rating && training.rating <= ratingFilter[1];
+    const ензуPredicate = durations.includes(training.duration);
+
+    return (
+      pricePredicate && caloriePredicate && ratingPredicate && durationPredicate
+    );
   });
 
   const options = uniqBy(
@@ -25,8 +50,6 @@ export default function TrainingCatalogPage(): JSX.Element {
     })),
     'key'
   );
-
-  const SORT_OPTIONS = ['Дешевле', 'Дороже', 'Бесплатные'];
 
   return (
     <div className="wrapper">

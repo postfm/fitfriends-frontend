@@ -33,7 +33,7 @@ export const SpecialForYouSlider: React.FC<SpecialForYouSliderProps> = ({
       : trainings;
 
   const renderTraining = (training: Training) => (
-    <li key={training.trainingId} className="special-for-you__item">
+    <li key={training.training_id} className="special-for-you__item">
       <div className="thumbnail-preview">
         <div className="thumbnail-preview__image">
           <picture>
@@ -52,7 +52,7 @@ export const SpecialForYouSlider: React.FC<SpecialForYouSliderProps> = ({
             <Link
               className="btn btn--small thumbnail-preview__button"
               to={generatePath(AppRoutes.TrainingCard, {
-                id: String(training.trainingId),
+                id: String(training.training_id),
               })}
             >
               Подробнее

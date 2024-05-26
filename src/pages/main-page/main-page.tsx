@@ -47,7 +47,7 @@ export default function MainPage(): JSX.Element {
     queryFn: async () => (await loadUsers()).data,
   });
   const lookingForCompanyUsers =
-    users.data?.filter((user) => user.readyToTrain) || [];
+    users.data?.data.filter((user) => user.readyToTrain) || [];
 
   return (
     <div className="wrapper">

@@ -32,7 +32,7 @@ export default function UsersCatalogPage(): JSX.Element {
     queryFn: async () => (await loadUsers()).data.data,
   });
 
-  const filteredUsers = (users?.data || []).filter((user) => {
+  const filteredUsers = (users.data || []).filter((user) => {
     const locationPredicate = locationFilter.includes(user.location);
     const typePredicate =
       intersection(typeFilter, user.typeOfTraining).length > 0;

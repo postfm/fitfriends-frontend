@@ -76,7 +76,10 @@ export const PopularTrainingsSlider: React.FC<PopularTrainingsSliderProps> = ({
             {...settings}
           >
             {trainings.map((training) => (
-              <PopularTrainingCard key={training.trainingId} training={training} />
+              <PopularTrainingCard
+                key={training.training_id}
+                training={training}
+              />
             ))}
           </Slider>
         </div>
