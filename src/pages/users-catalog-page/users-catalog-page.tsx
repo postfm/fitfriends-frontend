@@ -29,7 +29,7 @@ export default function UsersCatalogPage(): JSX.Element {
   const navigate = useNavigate();
   const users = useQuery({
     queryKey: ['users'],
-    queryFn: loadUsers,
+    queryFn: async () => (await loadUsers()).data.data,
   });
 
   const filteredUsers = (users?.data || []).filter((user) => {
