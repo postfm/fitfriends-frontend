@@ -16,7 +16,7 @@ export enum Role {
 }
 
 export interface Training {
-  training_id?: number;
+  training_id: number;
   name: string;
   image: string;
   level: string;
@@ -67,7 +67,7 @@ export interface User {
   refreshToken?: string;
   balance?: number | null;
   reviews?: Review[];
-  orders?: Omit<Order, 'user' | 'trainings'>[];
+  orders?: Omit<Order, 'user' | 'training'>[];
   trainings?: Omit<Training, 'reviews' | 'user'>[];
 }
 
@@ -94,7 +94,7 @@ export interface PersonalTraining {
 export type NewPersonalTraining = Omit<PersonalTraining, 'initiator' | 'user'>;
 
 export interface Order {
-  id: string;
+  id: number;
   type: string;
   price: number;
   amount: number;
@@ -103,8 +103,8 @@ export interface Order {
   training: Training;
   user: User;
   // TODO: Date
-  cratedAt: string;
-  updatedAt: string;
+  cratedAt?: string;
+  updatedAt?: string;
 }
 
 export interface Purchases extends Training {

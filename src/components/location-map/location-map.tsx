@@ -24,7 +24,7 @@ const LocationMap: React.FC<LocationMapProps> = ({ location }) => {
             url="https://{s}.basemaps.cartocdn.com/rastertiles/voyager/{z}/{x}/{y}{r}.png"
           />
           <Marker position={position}>
-            <Popup>Ст.м. Звёздная</Popup>
+            <Popup>Ст.м. {location}</Popup>
           </Marker>
         </MapContainer>
       </div>

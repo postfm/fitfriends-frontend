@@ -32,8 +32,8 @@ export const isAnswered = (
   );
 
   return (
-    personalTraining[0].status === RequestStatus.accepted ||
-    personalTraining[0].status === RequestStatus.rejected
+    personalTraining[0].status === RequestStatus['accepted'] ||
+    personalTraining[0].status === RequestStatus['rejected']
   );
 };
 

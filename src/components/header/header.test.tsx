@@ -10,7 +10,7 @@ jest.mock('../../api/loadNotifications', () => ({
   deleteNotify: jest.fn(() => NOTIFICATIONS),
 }));
 
-describe('friend-coach-card', () => {
+describe('header', () => {
   it('should render header successfully for logged in user', () => {
     render(<Header />, { wrapper: getMockedRoleProviderWrapper(Role.coach) });
 
