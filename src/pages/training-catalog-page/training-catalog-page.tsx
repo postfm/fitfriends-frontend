@@ -6,7 +6,6 @@ import {
   CheckboxFilter,
   RadioFilter,
 } from '../../components/filters';
-import { uniqBy } from 'lodash';
 import TrainingCard from '../../components/training-card';
 import { AppRoutes, TypesOfTrainings } from '../../constants/constants';
 import { useState } from 'react';
@@ -20,13 +19,16 @@ export default function TrainingCatalogPage(): JSX.Element {
     queryFn: async () => (await loadTrainings()).data,
     select: (data) => data.data,
   });
+  const TypesOfTrainingLowerCase = TypesOfTrainings.map((type) =>
+    type.toLowerCase()
+  );
 
   const [priceFilter, setPriceFilter] = useState<[number, number]>([0, 3000]);
   const [calorieFilter, setCalorieFilter] = useState<[number, number]>([
     1000, 5000,
   ]);
   const [ratingFilter, setRaitingFilter] = useState<[number, number]>([1, 5]);
-  const [type, setType] = useState<string[]>(TypesOfTrainings);
+  const [types, setType] = useState<string[]>(TypesOfTrainingLowerCase);
 
   const trainingsToShow = (trainings.data || []).filter((training) => {
     const pricePredicate =
@@ -36,20 +38,12 @@ export default function TrainingCatalogPage(): JSX.Element {
       training.calories <= calorieFilter[1];
     const ratingPredicate =
       ratingFilter[0] <= training.rating && training.rating <= ratingFilter[1];
-    const ензуPredicate = durations.includes(training.duration);
+    const typePredicate = types.includes(training.type);
 
     return (
-      pricePredicate && caloriePredicate && ratingPredicate && durationPredicate
+      pricePredicate && caloriePredicate && ratingPredicate && typePredicate
     );
   });
-
-  const options = uniqBy(
-    (trainings.data || []).map((training) => ({
-      key: training.type,
-      displayValue: training.type,
-    })),
-    'key'
-  );
 
   return (
     <div className="wrapper">
@@ -81,6 +75,7 @@ export default function TrainingCatalogPage(): JSX.Element {
                         step={50}
                         defaultMin={0}
                         defaultMax={3000}
+                        onChange={setPriceFilter}
                       />
                     </div>
                     <div className="gym-catalog-form__block gym-catalog-form__block--calories">
@@ -91,6 +86,7 @@ export default function TrainingCatalogPage(): JSX.Element {
                         step={10}
                         defaultMin={1000}
                         defaultMax={5000}
+                        onChange={setCalorieFilter}
                       />
                     </div>
                     <div className="gym-catalog-form__block gym-catalog-form__block--rating">
@@ -102,17 +98,20 @@ export default function TrainingCatalogPage(): JSX.Element {
                         defaultMin={1}
                         defaultMax={5}
                         showOutputs
+                        onChange={setRaitingFilter}
                       />
                     </div>
-                    {options.length > 0 && (
-                      <div className="gym-catalog-form__block gym-catalog-form__block--type">
-                        <CheckboxFilter
-                          title="Тип"
-                          options={options}
-                          defaultSelected={options.map((option) => option.key)}
-                        />
-                      </div>
-                    )}
+                    <div className="gym-catalog-form__block gym-catalog-form__block--type">
+                      <CheckboxFilter
+                        title="Тип"
+                        options={TypesOfTrainingLowerCase.map((key) => ({
+                          key,
+                          displayValue: key,
+                        }))}
+                        defaultSelected={TypesOfTrainingLowerCase}
+                        onChange={setType}
+                      />
+                    </div>
                     <div className="gym-catalog-form__block gym-catalog-form__block--sort">
                       <RadioFilter title="Сортировка" options={SORT_OPTIONS} />
                     </div>
@@ -121,7 +120,7 @@ export default function TrainingCatalogPage(): JSX.Element {
               </div>
               <div className="training-catalog">
                 <ul className="training-catalog__list">
-                  {(trainings.data || []).map((training) => (
+                  {trainingsToShow.map((training) => (
                     <li
                       key={training.training_id}
                       className="training-catalog__item"
