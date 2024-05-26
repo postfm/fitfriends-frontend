@@ -1,5 +1,6 @@
-import { Training } from '../types';
+import { client } from '../client/client';
+import { NewTraining, Training } from '../types';
 
-export function updateTraining(training: Training): Promise<Training> {
-  return Promise.resolve(training);
+export function updateTraining(trainingId: number, training: NewTraining) {
+  return client.patch<Training>(`trainings/${trainingId}`, training);
 }

@@ -4,19 +4,26 @@ import { useMutation, useQuery } from '@tanstack/react-query';
 import ReviewCard from '../../components/review/review-card';
 import { loadTraining } from '../../api/loadTraining';
 import TrainingInfoCard from './components/training-info-card';
-import { Training } from '../../types';
+import { NewTraining, Training } from '../../types';
 import { updateTraining } from '../../api/updateTraining';
+import { loadReviews } from '../../api/loadReviews';
 
 const TrainingCardCoachPage: React.FC = () => {
   const { id } = useParams();
   const training = useQuery({
     queryKey: ['training', id],
-    queryFn: () => loadTraining(Number(id)),
+    queryFn: async () => (await loadTraining(Number(id))).data,
+  });
+
+  const reviews = useQuery({
+    queryKey: ['reviews', id],
+    queryFn: async () => (await loadReviews(Number(id))).data,
   });
 
   const updateTrainingMutatation = useMutation({
-    mutationKey: ['updateTraining', training.data?.trainingId],
-    mutationFn: (params: { value: Training }) => updateTraining(params.value),
+    mutationKey: ['updateTraining', training.data?.training_id],
+    mutationFn: (params: { value: NewTraining }) =>
+      updateTraining(Number(training.data?.training_id), params.value),
     onSuccess: (data) => {
       // eslint-disable-next-line no-console
       console.log('training updated successfuly', data);
@@ -28,7 +35,9 @@ const TrainingCardCoachPage: React.FC = () => {
   }
 
   const handleSaveTraining = (training: Training) => {
-    updateTrainingMutatation.mutate({ value: training });
+    updateTrainingMutatation.mutate({
+      value: training,
+    });
   };
 
   return (
@@ -50,7 +59,7 @@ const TrainingCardCoachPage: React.FC = () => {
                 </Link>
                 <h2 className="reviews-side-bar__title">Отзывы</h2>
                 <ul className="reviews-side-bar__list">
-                  {(training.data.reviews || []).map((review) => (
+                  {(reviews.data || []).map((review) => (
                     <ReviewCard key={review.id} review={review} />
                   ))}
                 </ul>

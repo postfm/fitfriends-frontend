@@ -1,13 +1,13 @@
 import { Link } from 'react-router-dom';
 import { AuthAppRoutes } from '../../constants/constants';
 import { useQuery } from '@tanstack/react-query';
-import { loadMyOrders } from '../../api/loadMyOrders';
 import MyOrderCard from '../../components/my-orders-card/my-order-card';
+import { loadMyPurchases } from '../../api/loadMyPurchases';
 
 export default function MyOrdersPage(): JSX.Element {
   const myOrders = useQuery({
-    queryKey: ['myOrders'],
-    queryFn: loadMyOrders,
+    queryKey: ['myPurchases'],
+    queryFn: async () => (await loadMyPurchases()).data,
   });
 
   return (
@@ -47,7 +47,7 @@ export default function MyOrdersPage(): JSX.Element {
               </div>
               <ul className="my-orders__list">
                 {myOrders.data?.map((myOrder) => (
-                  <MyOrderCard key={myOrder.id} myOrder={myOrder} />
+                  <MyOrderCard key={myOrder.training_id} myOrder={myOrder} />
                 ))}
               </ul>
               <div className="show-more my-orders__show-more">

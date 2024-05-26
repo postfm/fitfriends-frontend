@@ -11,17 +11,18 @@ import createTrainingStyles from './create-training-page.module.css';
 import { generatePath, useNavigate } from 'react-router-dom';
 import { NewTraining } from '../../types';
 import { createTraining } from '../../api/createTraining';
-import { useMutation } from '@tanstack/react-query';
+import { useMutation, useQueryClient } from '@tanstack/react-query';
 import Select from '../../components/select';
 import { RadioToggleInput } from '../../components/filters';
 
 export default function CreateTrainingPage(): JSX.Element {
   const navigate = useNavigate();
   const form = useRef<HTMLFormElement | null>();
+  const queryClient = useQueryClient();
 
   const [values, setValues] = useState({
     name: '',
-    image: '',
+    image: '/img/content/thumbnails/friend-16.jpg',
     level: '',
     type: '',
     duration: '',
@@ -29,7 +30,7 @@ export default function CreateTrainingPage(): JSX.Element {
     calories: 0,
     description: '',
     gender: '',
-    video: '',
+    video: 'store/training.avi',
     rating: 0,
     specialOffer: false,
   });
@@ -44,14 +45,17 @@ export default function CreateTrainingPage(): JSX.Element {
 
   const newTraining = useMutation({
     mutationKey: ['createTraining'],
-    mutationFn: (params: { training: NewTraining }) =>
-      createTraining(params.training),
+    mutationFn: async (params: { training: NewTraining }) =>
+      await createTraining(params.training),
     onSuccess: (data) => {
       // eslint-disable-next-line no-console
       console.log('training updated successfuly', data);
+      queryClient.invalidateQueries({
+        queryKey: ['trainings'],
+      });
       navigate(
         generatePath(AuthAppRoutes.TrainingCard, {
-          id: String(data.trainingId),
+          id: String(data.data.training_id),
         })
       );
     },
@@ -61,7 +65,7 @@ export default function CreateTrainingPage(): JSX.Element {
     const training = { ...values };
 
     if (form.current?.checkValidity()) {
-      newTraining.mutate({ training });
+      newTraining.mutate({ training: training });
     } else {
       setValidationErrors(true);
     }

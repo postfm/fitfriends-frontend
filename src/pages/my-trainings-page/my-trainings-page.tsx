@@ -3,11 +3,17 @@ import { Training } from '../../types';
 import { AuthAppRoutes, TimeOfTraining } from '../../constants/constants';
 import { Link } from 'react-router-dom';
 import { CheckboxFilter, RangeFilter } from '../../components/filters';
-import { useUser } from '../../hooks';
 import { useState } from 'react';
+import { useQuery } from '@tanstack/react-query';
+import { loadMyTraining } from '../../api/loadMyTrainings';
+import { useUser } from '../../hooks';
 
 export default function MyTrainingsPage(): JSX.Element {
-  const user = useUser();
+  const coach = useUser();
+  const myTrainings = useQuery({
+    queryKey: ['myTrainings', coach.id],
+    queryFn: async () => (await loadMyTraining(coach.id)).data,
+  });
 
   const [priceFilter, setPriceFilter] = useState<[number, number]>([0, 3000]);
   const [calorieFilter, setCalorieFilter] = useState<[number, number]>([
@@ -16,7 +22,7 @@ export default function MyTrainingsPage(): JSX.Element {
   const [ratingFilter, setRaitingFilter] = useState<[number, number]>([1, 5]);
   const [durations, setDurations] = useState<string[]>(TimeOfTraining);
 
-  const trainingsToShow = (user.trainings || []).filter((training) => {
+  const trainingsToShow = (myTrainings.data || []).filter((training) => {
     const pricePredicate =
       priceFilter[0] <= training.price && training.price <= priceFilter[1];
     const caloriePredicate =
@@ -107,7 +113,7 @@ export default function MyTrainingsPage(): JSX.Element {
                     {trainingsToShow.map(
                       (training: Training): JSX.Element => (
                         <MyTrainingCard
-                          key={training.trainingId}
+                          key={training.training_id}
                           training={training}
                         />
                       )

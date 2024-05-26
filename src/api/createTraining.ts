@@ -1,12 +1,13 @@
-import { NewTraining, Training, User } from '../types';
+import { client } from '../client/client';
+import { NewTraining, Training, TrainingGender } from '../types';
 
-export function createTraining(training: NewTraining): Promise<Training> {
-  return Promise.resolve({
+export function createTraining(training: NewTraining) {
+  const newTraining = {
     ...training,
-    trainingId: 1,
-    createdAt: '',
-    updatedAt: '',
-    reviews: [],
-    user: {} as User,
-  });
+    type: training.type.toLowerCase(),
+    price: Number(training.price),
+    calories: Number(training.calories),
+    gender: TrainingGender[training.gender as keyof typeof TrainingGender],
+  };
+  return client.post<Training>('trainings', newTraining);
 }

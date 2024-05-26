@@ -27,7 +27,7 @@ export default function MainPage(): JSX.Element {
       const levelMatch = training.level === currentUser.levelOfTrain;
       const genderMatch =
         currentUser.gender === UserGender.all ||
-        training.gender === TrainingGender.all ||
+        training.gender === TrainingGender['неважно'] ||
         getEnumKeyByEnumValue(UserGender, currentUser.gender) ===
           getEnumKeyByEnumValue(TrainingGender, training.gender);
       const typeOfTrainingMatch = currentUser.typeOfTraining.includes(
@@ -42,7 +42,10 @@ export default function MainPage(): JSX.Element {
     trainings.filter((training) => training.rating === MAX_TRAINING_RATING) ||
     [];
 
-  const users = useQuery({ queryKey: ['users'], queryFn: loadUsers });
+  const users = useQuery({
+    queryKey: ['users'],
+    queryFn: async () => (await loadUsers()).data,
+  });
   const lookingForCompanyUsers =
     users.data?.filter((user) => user.readyToTrain) || [];
 

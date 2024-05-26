@@ -5,9 +5,9 @@ export enum UserGender {
 }
 
 export enum TrainingGender {
-  all = 'для всех',
-  male = 'для мужчин',
-  female = 'для женщин',
+  'неважно' = 'для всех',
+  'мужской' = 'для мужчин',
+  'женский' = 'для женщин',
 }
 
 export enum Role {
@@ -16,7 +16,7 @@ export enum Role {
 }
 
 export interface Training {
-  training_id: number;
+  training_id?: number;
   name: string;
   image: string;
   level: string;
@@ -38,7 +38,7 @@ export interface Training {
 
 export type NewTraining = Omit<
   Training,
-  'trainingId' | 'createdAt' | 'updatedAt' | 'user' | 'reviews'
+  'training_id' | 'createdAt' | 'updatedAt' | 'user' | 'reviews' | 'orders'
 >;
 
 export interface User {
@@ -105,6 +105,11 @@ export interface Order {
   // TODO: Date
   cratedAt: string;
   updatedAt: string;
+}
+
+export interface Purchases extends Training {
+  quantity: number;
+  cost: number;
 }
 
 export interface Review {

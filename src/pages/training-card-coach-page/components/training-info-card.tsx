@@ -5,6 +5,7 @@ import { PRICE_WITH_DISCOUNT } from '../../../constants/constants';
 import { renderHashtag, renderPrice } from '../../../utils';
 import classNames from 'classnames';
 import ReactPlayer from 'react-player';
+import { useUser } from '../../../hooks';
 
 interface TrainingInfoCardProps {
   training: Training;
@@ -15,6 +16,7 @@ const TrainingInfoCard: React.FC<TrainingInfoCardProps> = ({
   training,
   onSave,
 }) => {
+  const user = useUser();
   const [isDeleteVideo, setIsDeleteVideo] = useState(false);
   const [isEdit, setIsEdit] = useState(false);
   const [name, setName] = useState(training.name);
@@ -70,7 +72,7 @@ const TrainingInfoCard: React.FC<TrainingInfoCardProps> = ({
             <div className="training-info__photo">
               <picture>
                 <img
-                  src={training?.user?.avatar}
+                  src={user?.avatar}
                   width={64}
                   height={64}
                   alt="Изображение тренера"
@@ -245,21 +247,7 @@ const TrainingInfoCard: React.FC<TrainingInfoCardProps> = ({
                 <use xlinkHref="#icon-arrow" />
               </svg>
             </button>
-            {/* В перспективе доработать обложку для видео */}
-            {/* <picture>
-              <img
-                src="/img/content/training-video/video-thumbnail.png"
-                width={922}
-                height={566}
-                alt="Обложка видео"
-              />
-            </picture> */}
           </div>
-          {/* <button className="training-video__play-button btn-reset">
-            <svg width={18} height={30} aria-hidden="true">
-              <use xlinkHref="#icon-arrow" />
-            </svg>
-          </button> */}
         </div>
         <div
           className="training-video__drop-files"

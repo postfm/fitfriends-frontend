@@ -100,7 +100,7 @@ export default function TrainingCatalogPage(): JSX.Element {
                 <ul className="training-catalog__list">
                   {(trainings.data || []).map((training) => (
                     <li
-                      key={training.trainingId}
+                      key={training.training_id}
                       className="training-catalog__item"
                     >
                       <TrainingCard training={training} />
