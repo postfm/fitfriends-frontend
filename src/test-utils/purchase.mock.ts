@@ -1,0 +1,50 @@
+import { Purchases } from '../types';
+
+export const PurchaseMock: Purchases = {
+  // eslint-disable-next-line camelcase
+  training_id: 1,
+  name: 'CROSSFIT',
+  image: '/img/content/thumbnails/training-01.jpg',
+  level: 'новичок',
+  type: 'кроссфит',
+  duration: '10-30 мин',
+  price: 150,
+  calories: 1200,
+  description:
+    'Сложный комплекс упражнений для профессиональных атлетов на отработку показателей в классическом стиле.',
+  gender: 'для всех',
+  video: '/img/content/training-video/Video_html_Academy.mov',
+  rating: 2,
+  specialOffer: false,
+  createdAt: '2024-05-10T11:07:21.149Z',
+  updatedAt: '2024-05-10T11:07:21.149Z',
+  user: {
+    id: 7,
+    name: 'Rob',
+    email: 'rob@trainer.com',
+    avatar: '/img/content/thumbnails/friend-16.jpg',
+    password: '$2b$10$R00qBZqGyQbeiqVRKa5gPO4KgSOjA2/KltD6IT5nif9lVrySLwyMe',
+    gender: 'неважно',
+    birthday: '2004-10-12T20:00:00.000Z',
+    roles: 'тренер',
+    description:
+      'Персональный тренер и инструктор групповых программ с опытом  более 4х лет. Специализация: пилатес.',
+    location: 'Спортивная',
+    image: '/img/content/thumbnails/friend-16.jpg',
+    createdAt: '2024-05-10T10:02:09.607Z',
+    updatedAt: '2024-05-10T10:02:09.607Z',
+    levelOfTrain: 'профессионал',
+    typeOfTraining: ['пилатес'],
+    timeOfTraining: null,
+    caloriesToLose: null,
+    caloriesPerDay: null,
+    readyToTrain: null,
+    certificates: '/img/content/certificates-and-diplomas/1.pdf',
+    merits: 'Мастер спорта',
+    personalTrainings: false,
+    refreshToken:
+      '$2b$10$66CBF125XKqtNO8ioe00XevADpTIDJIGVFSbLDqPWOgm2B1z15P86',
+  },
+  quantity: 998,
+  cost: 9999,
+};

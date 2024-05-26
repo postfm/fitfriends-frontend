@@ -1,4 +1,3 @@
-import MyTrainingCard from '../../components/my-training-card';
 import { Training } from '../../types';
 import { AuthAppRoutes, TimeOfTraining } from '../../constants/constants';
 import { Link } from 'react-router-dom';
@@ -7,6 +6,7 @@ import { useState } from 'react';
 import { useQuery } from '@tanstack/react-query';
 import { loadMyTraining } from '../../api/loadMyTrainings';
 import { useUser } from '../../hooks';
+import TrainingCard from '../../components/training-card';
 
 export default function MyTrainingsPage(): JSX.Element {
   const coach = useUser();
@@ -112,10 +112,12 @@ export default function MyTrainingsPage(): JSX.Element {
                   <ul className="my-trainings__list">
                     {trainingsToShow.map(
                       (training: Training): JSX.Element => (
-                        <MyTrainingCard
+                        <li
                           key={training.training_id}
-                          training={training}
-                        />
+                          className="my-trainings__item"
+                        >
+                          <TrainingCard training={training} />
+                        </li>
                       )
                     )}
                   </ul>
