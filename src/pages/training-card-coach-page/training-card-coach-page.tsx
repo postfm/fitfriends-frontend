@@ -24,10 +24,6 @@ const TrainingCardCoachPage: React.FC = () => {
     mutationKey: ['updateTraining', training.data?.training_id],
     mutationFn: (params: { value: NewTraining }) =>
       updateTraining(Number(training.data?.training_id), params.value),
-    onSuccess: (data) => {
-      // eslint-disable-next-line no-console
-      console.log('training updated successfuly', data);
-    },
   });
 
   if (!training.data || training.isLoading) {

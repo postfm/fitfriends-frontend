@@ -29,7 +29,6 @@ export interface Training {
   video: string;
   rating: number;
   specialOffer: boolean;
-  // TODO: Date
   createdAt?: string;
   updatedAt?: string;
   reviews?: Review[];
@@ -102,7 +101,6 @@ export interface Order {
   pay: string;
   training: Training;
   user: User;
-  // TODO: Date
   cratedAt?: string;
   updatedAt?: string;
 }

@@ -48,8 +48,6 @@ export default function CreateTrainingPage(): JSX.Element {
     mutationFn: async (params: { training: NewTraining }) =>
       await createTraining(params.training),
     onSuccess: (data) => {
-      // eslint-disable-next-line no-console
-      console.log('training updated successfuly', data);
       queryClient.invalidateQueries({
         queryKey: ['trainings'],
       });

@@ -1,5 +1,4 @@
-/* eslint-env node */
-
+/** @type {import('eslint').ESLint.ConfigData} */
 module.exports = {
   env: { browser: true, es2022: true },
   extends: [
@@ -12,6 +11,7 @@ module.exports = {
   parser: '@typescript-eslint/parser',
   parserOptions: { ecmaVersion: 'latest', sourceType: 'module', project: 'tsconfig.json', tsconfigRootDir: __dirname, },
   settings: { react: { version: 'detect' } },
+  ignorePatterns: ['.eslintrc.cjs', 'jest.config.js'],
   plugins: ['react-refresh'],
   rules: {
     'react-refresh/only-export-components': 'warn',
