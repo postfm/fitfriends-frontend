@@ -8,7 +8,7 @@ import { deleteNotify } from '../../../api/deleteNotify';
 
 jest.mock('../../../api/deleteNotify');
 
-describe('friend-coach-card', () => {
+describe('notify-component', () => {
   it('should render notification successfully', () => {
     render(
       <NotifyComponent

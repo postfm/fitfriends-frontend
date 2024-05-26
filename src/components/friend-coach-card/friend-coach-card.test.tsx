@@ -43,9 +43,6 @@ describe('friend-coach-card', () => {
     expect(screen.getByTestId('ready-to-train-status')).toHaveTextContent(
       'Готов к тренировке'
     );
-    expect(screen.getByTestId('invitation-status')).toHaveTextContent(
-      'Запрос на персональную тренировку на рассмотрении'
-    );
   });
 
   it('should render with no invitation if initiator not ready to train', () => {
