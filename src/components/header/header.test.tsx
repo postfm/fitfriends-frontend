@@ -7,7 +7,7 @@ import { NOTIFICATIONS } from '../../mocks/notifications.mocks';
 import { loadNotifications } from '../../api/loadNotifications';
 
 jest.mock('../../api/loadNotifications', () => ({
-  deleteNotify: jest.fn(() => NOTIFICATIONS),
+  loadNotifications: jest.fn(() => NOTIFICATIONS),
 }));
 
 describe('header', () => {
