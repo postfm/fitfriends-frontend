@@ -1,4 +1,4 @@
-import { useRef, useState } from 'react';
+import { ChangeEvent, useRef, useState } from 'react';
 import {
   AuthAppRoutes,
   GENDERS,
@@ -14,6 +14,8 @@ import { createTraining } from '../../api/createTraining';
 import { useMutation, useQueryClient } from '@tanstack/react-query';
 import Select from '../../components/select';
 import { RadioToggleInput } from '../../components/filters';
+import { uploadFile } from '../../api/uploadFile';
+import { getURL } from '../../utils';
 
 export default function CreateTrainingPage(): JSX.Element {
   const navigate = useNavigate();
@@ -30,12 +32,33 @@ export default function CreateTrainingPage(): JSX.Element {
     calories: 0,
     description: '',
     gender: '',
-    video: 'store/training.avi',
+    video: '',
     rating: 0,
     specialOffer: false,
   });
 
   const [validationErrors, setValidationErrors] = useState(false);
+
+  const uploadVideo = useMutation({
+    mutationKey: ['video'],
+    mutationFn: async (params: { key: string; formData: FormData }) =>
+      (await uploadFile(params.key, params.formData)).data,
+    onSuccess: (data) => {
+      setValues({ ...values, video: String(getURL(data)) });
+    },
+  });
+
+  const handleFileChange = (e: ChangeEvent<HTMLInputElement>) => {
+    e.preventDefault();
+    if (!e.target.files) {
+      return;
+    }
+    const formData = new FormData();
+    formData.append('avatar', e.target.files[0]);
+    formData.append('fileName', e.target.files[0].name);
+
+    uploadVideo.mutate({ key: 'video', formData });
+  };
 
   const getHandler =
     (name: string) =>
@@ -238,6 +261,7 @@ export default function CreateTrainingPage(): JSX.Element {
                               name="import"
                               tabIndex={-1}
                               accept=".mov, .avi, .mp4"
+                              onChange={handleFileChange}
                             />
                           </label>
                         </div>

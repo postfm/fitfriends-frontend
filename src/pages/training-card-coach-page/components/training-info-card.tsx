@@ -1,11 +1,15 @@
-import { useState } from 'react';
+import { ChangeEvent, useState } from 'react';
 import { Training } from '../../../types';
 import { LengthParameters } from '../../../constants/validate.constants';
 import { PRICE_WITH_DISCOUNT } from '../../../constants/constants';
-import { renderHashtag, renderPrice } from '../../../utils';
+import { getURL, renderHashtag, renderPrice } from '../../../utils';
 import classNames from 'classnames';
 import ReactPlayer from 'react-player';
 import { useUser } from '../../../hooks';
+import { useMutation } from '@tanstack/react-query';
+import { uploadFile } from '../../../api/uploadFile';
+import { deleteFile } from '../../../api/deleteFile';
+import { toast } from 'react-toastify';
 
 interface TrainingInfoCardProps {
   training: Training;
@@ -25,6 +29,36 @@ const TrainingInfoCard: React.FC<TrainingInfoCardProps> = ({
   const [isSpecialOffer, setIsSpecialOffer] = useState(training.specialOffer);
   const [rating, setRating] = useState(training.rating);
   const [playingPause, setPlayingPause] = useState(false);
+
+  const uploadVideo = useMutation({
+    mutationKey: ['video'],
+    mutationFn: async (params: { key: string; formData: FormData }) =>
+      (await uploadFile(params.key, params.formData)).data,
+    onSuccess: (data) => {
+      onSave({ ...training, video: String(getURL(data)) });
+    },
+  });
+
+  const handleFileChange = (e: ChangeEvent<HTMLInputElement>) => {
+    e.preventDefault();
+    if (!e.target.files) {
+      return;
+    }
+    const formData = new FormData();
+    formData.append('video', e.target.files[0]);
+    formData.append('fileName', e.target.files[0].name);
+
+    uploadVideo.mutate({ key: 'video', formData });
+  };
+
+  const deleteVideo = useMutation({
+    mutationKey: ['video'],
+    mutationFn: async (video: string) => (await deleteFile(video)).data,
+    onSuccess: (data) => {
+      onSave({ ...training, video: String(getURL(data)) });
+      toast.success('Avatar deleted successfully');
+    },
+  });
 
   const handleEditSaveButton = () => {
     if (isEdit) {
@@ -52,6 +86,7 @@ const TrainingInfoCard: React.FC<TrainingInfoCardProps> = ({
   };
 
   const handleButtonDeleteVideoClick = () => {
+    deleteVideo.mutate(String(getURL(training.video)));
     setIsDeleteVideo(true);
   };
 
@@ -268,6 +303,7 @@ const TrainingInfoCard: React.FC<TrainingInfoCardProps> = ({
                     name="import"
                     tabIndex={-1}
                     accept=".mov, .avi, .mp4"
+                    onChange={handleFileChange}
                   />
                 </label>
               </div>
