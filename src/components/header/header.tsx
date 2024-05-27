@@ -79,7 +79,7 @@ export default function Header() {
               <div className="main-nav__dropdown">
                 <p className="main-nav__label">Оповещения</p>
                 <ul className="main-nav__sublist">
-                  {myNotifications?.data.map((notification) => (
+                  {myNotifications?.data?.map((notification) => (
                     <NotifyComponent
                       notify={notification}
                       key={notification?.id}
