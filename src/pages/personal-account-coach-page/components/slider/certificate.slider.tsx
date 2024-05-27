@@ -1,14 +1,24 @@
-import React, { useRef } from 'react';
+import React, { ChangeEvent, useRef } from 'react';
 import CertificateCard from '../../../../components/certificate-card';
 import Slider from 'react-slick';
+import { useMutation } from '@tanstack/react-query';
+import { uploadFile } from '../../../../api/uploadFile';
+import { getURL } from '../../../../utils';
+import { User } from '../../../../types';
+import { useUser } from '../../../../hooks';
+
+const MIN_AMOUNT_CERTIFICATES = 3;
 
 interface CertificateSliderProps {
-  certificates: string[];
+  certificates: string;
+  onUserSave: (user: User) => void;
 }
 
 const CertificateSlider: React.FC<CertificateSliderProps> = ({
   certificates,
+  onUserSave,
 }) => {
+  const user = useUser();
   const sliderRef = useRef<Slider | null>(null);
   const handleNext = () => {
     sliderRef.current?.slickNext();
@@ -25,6 +35,37 @@ const CertificateSlider: React.FC<CertificateSliderProps> = ({
     slidesToScroll: 1,
   };
 
+  const uploadCertificate = useMutation({
+    mutationKey: ['certificate'],
+    mutationFn: async (params: { key: string; formData: FormData }) =>
+      (await uploadFile(params.key, params.formData)).data,
+    onSuccess: (data) => {
+      const newUser = {
+        ...user,
+        certificates: `${user.certificates || ''},${getURL(String(data))}`,
+      };
+      onUserSave(newUser);
+    },
+  });
+
+  const handleCertificateChange = (e: ChangeEvent<HTMLInputElement>) => {
+    e.preventDefault();
+    if (!e.target.files) {
+      return;
+    }
+    const formData = new FormData();
+    formData.append('certificate', e.target.files[0]);
+    formData.append('fileName', e.target.files[0].name);
+
+    uploadCertificate.mutate({ key: 'certificate', formData });
+  };
+
+  let certificatesArray = certificates?.split(',') || [];
+  certificatesArray =
+    certificatesArray.length < MIN_AMOUNT_CERTIFICATES
+      ? [...certificatesArray, ...certificatesArray, ...certificatesArray]
+      : certificatesArray;
+
   return (
     <div className="personal-account-coach__additional-info">
       <div className="personal-account-coach__label-wrapper">
@@ -34,7 +75,8 @@ const CertificateSlider: React.FC<CertificateSliderProps> = ({
             <input
               className="visually-hidden"
               type="file"
-              accept="image/png, image/jpeg"
+              accept="*.pdf,*.png, *.jpeg"
+              onChange={handleCertificateChange}
             />
             <svg width={14} height={14} aria-hidden="true">
               <use xlinkHref="#icon-import" />
@@ -72,7 +114,7 @@ const CertificateSlider: React.FC<CertificateSliderProps> = ({
         className="personal-account-coach__list"
         {...settings}
       >
-        {certificates.map((certificate) => (
+        {certificatesArray.map((certificate) => (
           <CertificateCard key={certificate} certificate={certificate} />
         ))}
       </Slider>

@@ -8,8 +8,6 @@ import { User } from '../../types';
 import { updateUser } from '../../api/updateUser';
 import { toast } from 'react-toastify';
 
-const MIN_AMOUNT_CERTIFICATES = 3;
-
 export default function PersonalAccountCoach(): JSX.Element {
   const currentUser = useUser();
   const { saveCurrentUser } = useAuth();
@@ -23,12 +21,6 @@ export default function PersonalAccountCoach(): JSX.Element {
       saveCurrentUser(data);
     },
   });
-
-  let certificates = currentUser.certificates?.split(',') || [];
-  certificates =
-    certificates.length < MIN_AMOUNT_CERTIFICATES
-      ? [...certificates, ...certificates, ...certificates]
-      : certificates;
 
   return (
     <div className="wrapper">
@@ -120,7 +112,12 @@ export default function PersonalAccountCoach(): JSX.Element {
                       </div>
                     </div>
                   </div>
-                  <CertificateSlider certificates={certificates} />
+                  <CertificateSlider
+                    certificates={currentUser.certificates || ''}
+                    onUserSave={(user) =>
+                      newUser.mutate({ user, id: currentUser.id })
+                    }
+                  />
                 </div>
               </div>
             </div>

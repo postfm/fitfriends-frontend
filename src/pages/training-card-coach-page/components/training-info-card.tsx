@@ -264,7 +264,7 @@ const TrainingInfoCard: React.FC<TrainingInfoCardProps> = ({
         >
           <div className="training-video__thumbnail">
             <ReactPlayer
-              url="/img/content/training-video/Big_Buck_Bunny_360_10s_1MB.mp4"
+              url={training.video}
               controls
               height="566px"
               width="922px"
