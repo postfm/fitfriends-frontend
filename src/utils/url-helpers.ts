@@ -1,5 +1,3 @@
-import { DEFAULT_PORT } from '../constants/constants';
-
 export function getURL(file: string) {
-  return `${DEFAULT_PORT}${file}`;
+  return `${process.env.VITE_API_BASE_URL as string}${file}`;
 }

@@ -1,0 +1,13 @@
+version: '3.9'
+services:
+  fitfriends.frontend:
+    build: .
+    container_name: fitfriends.frontend-app
+    ports:
+      - 3003:80
+    networks:
+      - fitfriends
+
+networks:
+  fitfriends:
+    driver: bridge

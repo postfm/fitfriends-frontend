@@ -3,11 +3,20 @@ import createAuthRefreshInterceptor from 'axios-auth-refresh';
 import { getToken } from './token';
 import { refreshAuth } from './refresh-auth';
 
-const BASE_URL = 'http://localhost:4000/fitfriends';
+const resolveBaseUrl = () => {
+  const { VITE_API_BASE_URL, VITE_API_PREFIX } = process.env;
+
+  if (!VITE_API_BASE_URL || !VITE_API_PREFIX) {
+    throw new Error('Env variables for API URL host are missing');
+  }
+
+  return `${VITE_API_BASE_URL}/${VITE_API_PREFIX}`;
+};
+
 const TIMEOUT = 5000;
 
 export const client = axios.create({
-  baseURL: BASE_URL,
+  baseURL: resolveBaseUrl(),
   timeout: TIMEOUT,
 });
 

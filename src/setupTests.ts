@@ -13,3 +13,6 @@ global.matchMedia =
       },
     };
   };
+
+process.env.VITE_API_PREFIX = 'foo';
+process.env.VITE_API_BASE_URL = 'bar';
