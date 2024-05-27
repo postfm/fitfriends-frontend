@@ -7,11 +7,16 @@ import {
   Locations,
   TypesOfTrainings,
 } from '../../constants/constants';
-import { useEffect, useState } from 'react';
+import { ChangeEvent, useEffect, useState } from 'react';
 import accountCoachStyles from './personal-account-page.module.css';
 import { User } from '../../types';
 import Select from '../select';
 import { isEmpty } from 'lodash';
+import { useMutation } from '@tanstack/react-query';
+import { uploadFile } from '../../api/uploadFile';
+import { deleteFile } from '../../api/deleteFile';
+import { getURL } from '../../utils';
+import { toast } from 'react-toastify';
 
 interface UserPersonalInfoCardProps {
   onUserSave: (user: User) => void;
@@ -27,7 +32,6 @@ const UserPersonalInfoCard: React.FC<UserPersonalInfoCardProps> = ({
     isEmpty(user.typeOfTraining)
   );
 
-  const [avatar] = useState(user.avatar);
   const [name, setName] = useState(user.name);
   const [description, setDescription] = useState(user.description);
   const [readyToTrain, setReadyToTrain] = useState(user.readyToTrain || false);
@@ -35,6 +39,41 @@ const UserPersonalInfoCard: React.FC<UserPersonalInfoCardProps> = ({
   const [location, setLocation] = useState(user.location);
   const [gender, setGender] = useState(user.gender);
   const [levelOfTrain, setLevelOfTrain] = useState(user.levelOfTrain);
+  const [avatar, setAvatar] = useState(user.avatar);
+
+  const changeAvatar = useMutation({
+    mutationKey: ['avatar'],
+    mutationFn: async (params: { key: string; formData: FormData }) =>
+      (await uploadFile(params.key, params.formData)).data,
+    onSuccess: (data) => {
+      setAvatar(String(getURL(data)));
+    },
+  });
+
+  const deleteAvatar = useMutation({
+    mutationKey: ['avatar'],
+    mutationFn: async (avatar: string) => await deleteFile(avatar),
+    onSuccess: (data) => {
+      setAvatar(String(data));
+      toast.success('Avatar deleted successfully');
+    },
+  });
+
+  const handleFileChange = (e: ChangeEvent<HTMLInputElement>) => {
+    e.preventDefault();
+    if (!e.target.files) {
+      return;
+    }
+    const formData = new FormData();
+    formData.append('avatar', e.target.files[0]);
+    formData.append('fileName', e.target.files[0].name);
+
+    changeAvatar.mutate({ key: 'avatar', formData });
+  };
+
+  const handleFileDelete = () => {
+    deleteAvatar.mutate(avatar);
+  };
 
   useEffect(() => {
     if (isEditing) {
@@ -69,6 +108,7 @@ const UserPersonalInfoCard: React.FC<UserPersonalInfoCardProps> = ({
               name="user-photo-1"
               accept="image/png, image/jpeg"
               readOnly
+              disabled
             />
             <span className="input-load-avatar__avatar">
               <img src={avatar} width={98} height={98} alt="user photo" />
@@ -84,8 +124,10 @@ const UserPersonalInfoCard: React.FC<UserPersonalInfoCardProps> = ({
             <label>
               <input
                 className="visually-hidden"
+                name="avatar"
                 type="file"
                 accept="image/png, image/jpeg"
+                onChange={handleFileChange}
                 readOnly
               />
 
@@ -94,7 +136,11 @@ const UserPersonalInfoCard: React.FC<UserPersonalInfoCardProps> = ({
               </svg>
             </label>
           </button>
-          <button className="user-info-edit__control-btn" aria-label="удалить">
+          <button
+            className="user-info-edit__control-btn"
+            aria-label="удалить"
+            onClick={handleFileDelete}
+          >
             <svg width={14} height={16} aria-hidden="true">
               <use xlinkHref="#icon-trash" />
             </svg>

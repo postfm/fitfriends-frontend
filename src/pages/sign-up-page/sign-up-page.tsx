@@ -1,4 +1,4 @@
-import { useRef, useState } from 'react';
+import { ChangeEvent, useRef, useState } from 'react';
 import { LengthParameters } from '../../constants/validate.constants';
 import {
   AppRoutes,
@@ -10,6 +10,9 @@ import { useNavigate } from 'react-router-dom';
 import Select from '../../components/select';
 import { RadioToggleInput } from '../../components/filters';
 import { Role } from '../../types';
+import { useMutation } from '@tanstack/react-query';
+import { uploadFile } from '../../api/uploadFile';
+import { getURL } from '../../utils';
 
 export interface RegistrationData {
   avatar?: string;
@@ -38,6 +41,27 @@ export default function SignUpPage(): JSX.Element {
     isAgreement: true,
     image: '/img/content/thumbnails/friend-17.jpg',
   });
+
+  const addAvatar = useMutation({
+    mutationKey: ['avatar'],
+    mutationFn: async (params: { key: string; formData: FormData }) =>
+      (await uploadFile(params.key, params.formData)).data,
+    onSuccess: (data) => {
+      setValues({ ...values, avatar: getURL(data) });
+    },
+  });
+
+  const handleAvatarAdd = (e: ChangeEvent<HTMLInputElement>) => {
+    e.preventDefault();
+    if (!e.target.files) {
+      return;
+    }
+    const formData = new FormData();
+    formData.append('avatar', e.target.files[0]);
+    formData.append('fileName', e.target.files[0].name);
+
+    addAvatar.mutate({ key: 'avatar', formData });
+  };
 
   const getHandler =
     (name: string) =>
@@ -94,8 +118,10 @@ export default function SignUpPage(): JSX.Element {
                         <label>
                           <input
                             className="visually-hidden"
+                            name="avatar"
                             type="file"
                             accept="image/png, image/jpeg"
+                            onChange={handleAvatarAdd}
                           />
                           <span className="input-load-avatar__btn">
                             <svg width={20} height={20} aria-hidden="true">

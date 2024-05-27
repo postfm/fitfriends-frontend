@@ -73,3 +73,5 @@ export const GENDERS = ['женский', 'мужской', 'неважно'];
 export const LEVEL_OF_TRAINS = ['новичок', 'любитель', 'профессионал'];
 
 export const PRICE_WITH_DISCOUNT = 0.9;
+
+export const DEFAULT_PORT = 'http://localhost:4000';
