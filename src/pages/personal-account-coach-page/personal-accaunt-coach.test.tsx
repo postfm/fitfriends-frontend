@@ -6,6 +6,8 @@ import { Role } from '../../types';
 import { USERS_MOCK } from '../../mocks/users.mocks';
 import { TRAININGS_MOCK } from '../../mocks/trainings.mocks';
 
+import '../../mocks/test-mocks/intersection-observer.mock';
+
 jest.mock('../../api/loadUsers', () => ({
   loadUsers: jest.fn(() => USERS_MOCK),
 }));
