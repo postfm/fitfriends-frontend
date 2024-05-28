@@ -1,5 +1,4 @@
 import { useState } from 'react';
-import { Helmet } from 'react-helmet-async';
 import { useNavigate } from 'react-router-dom';
 import { AppRoutes } from '../../constants/constants';
 import loginStyles from './sign-in-page.module.css';
@@ -28,7 +27,6 @@ export default function SignInPage(): JSX.Element {
   return (
     <div className="wrapper">
       <main>
-        <Helmet>fitfriends:sing-in</Helmet>
         <div className="background-logo">
           <svg
             className="background-logo__logo"

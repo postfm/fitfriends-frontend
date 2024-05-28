@@ -1,4 +1,3 @@
-import { Helmet } from 'react-helmet-async';
 import { Link } from 'react-router-dom';
 import { AppRoutes } from '../../constants/constants';
 
@@ -6,7 +5,6 @@ export default function WelcomePage(): JSX.Element {
   return (
     <div className="wrapper">
       <main>
-        <Helmet>fitfriends</Helmet>
         <div className="intro">
           <div className="intro__background">
             <picture>
