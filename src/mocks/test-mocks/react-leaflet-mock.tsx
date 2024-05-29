@@ -1,5 +1,5 @@
 const MapContainer = ({ children }: { children: React.ReactNode }) => (
-  <div data-testId="MapContainer">{children}</div>
+  <div data-testid="MapContainer">{children}</div>
 );
 
 const useMap = () => ({
@@ -8,12 +8,14 @@ const useMap = () => ({
   },
 });
 
-const TileLayer = () => <div data-testId="TileLayer" />;
+const TileLayer = () => <div data-testid="TileLayer" />;
 
 const Marker = ({ children }: { children: React.ReactNode }) => (
-  <div data-testId="Marker">{children}</div>
+  <div data-testid="Marker">{children}</div>
 );
 
-const Popup = () => <div data-testId="Popup" />;
+const Popup = ({ children }: { children: React.ReactNode }) => (
+  <div data-testid="Popup">{children}</div>
+);
 
 export { MapContainer, TileLayer, Marker, Popup, useMap };

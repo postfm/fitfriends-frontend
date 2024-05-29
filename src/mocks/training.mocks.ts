@@ -1,5 +1,6 @@
 export const Training = {
-  trainingId: 1,
+  // eslint-disable-next-line camelcase
+  training_id: 1,
   name: 'CROSSFIT',
   image: '/img/content/thumbnails/training-01.jpg',
   level: 'новичок',

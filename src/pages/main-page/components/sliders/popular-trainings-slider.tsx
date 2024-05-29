@@ -3,7 +3,7 @@ import { Training } from '../../../../types';
 import { useRef } from 'react';
 import { useNavigate } from 'react-router-dom';
 import { AppRoutes } from '../../../../constants/constants';
-import PopularTrainingCard from '../../../../components/popular-training-card';
+import TrainingCard from '../../../../components/training-card';
 
 interface PopularTrainingsSliderProps {
   trainings: Training[];
@@ -76,7 +76,12 @@ export const PopularTrainingsSlider: React.FC<PopularTrainingsSliderProps> = ({
             {...settings}
           >
             {trainings.map((training) => (
-              <PopularTrainingCard key={training.training_id} training={training} />
+              <li
+                className="popular-trainings__item"
+                key={training.training_id}
+              >
+                <TrainingCard training={training} />
+              </li>
             ))}
           </Slider>
         </div>
