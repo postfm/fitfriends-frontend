@@ -98,7 +98,7 @@ const UserPersonalInfoCard: React.FC<UserPersonalInfoCardProps> = ({
   };
 
   return (
-    <section className="user-info-edit">
+    <section className="user-info-edit" data-testid='user-personal-info-card'>
       <div className="user-info-edit__header">
         <div className="input-load-avatar">
           <label>

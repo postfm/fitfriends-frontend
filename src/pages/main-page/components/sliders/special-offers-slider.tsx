@@ -87,7 +87,7 @@ export const SpecialOffersSlider: React.FC<SpecialOffersSliderProps> = ({
   );
 
   return (
-    <section className="special-offers">
+    <section className="special-offers" data-testid="slider">
       <div className="container">
         <div className="special-offers__wrapper">
           <h2 className="visually-hidden">Специальные предложения</h2>

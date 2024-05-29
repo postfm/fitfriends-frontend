@@ -67,6 +67,7 @@ export const SpecialForYouSlider: React.FC<SpecialForYouSliderProps> = ({
     <section
       className="special-for-you"
       style={trainings.length < 1 ? { display: 'none' } : { display: 'block' }}
+      data-testid="slider"
     >
       <div className="container">
         <div className="special-for-you__wrapper">

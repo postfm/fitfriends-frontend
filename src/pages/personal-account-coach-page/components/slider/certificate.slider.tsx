@@ -67,7 +67,10 @@ const CertificateSlider: React.FC<CertificateSliderProps> = ({
       : certificatesArray;
 
   return (
-    <div className="personal-account-coach__additional-info">
+    <div
+      className="personal-account-coach__additional-info"
+      data-testid="slider"
+    >
       <div className="personal-account-coach__label-wrapper">
         <h2 className="personal-account-coach__label">Дипломы и сертификаты</h2>
         <label className="btn-flat btn-flat--underlined personal-account-coach__button">

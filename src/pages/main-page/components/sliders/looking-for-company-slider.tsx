@@ -30,7 +30,7 @@ export const LookingForCompanySlider: React.FC<
   };
 
   return (
-    <section className="look-for-company">
+    <section className="look-for-company" data-testid='slider'>
       <div className="container">
         <div className="look-for-company__wrapper">
           <div className="look-for-company__title-wrapper">

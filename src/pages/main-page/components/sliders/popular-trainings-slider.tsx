@@ -30,7 +30,7 @@ export const PopularTrainingsSlider: React.FC<PopularTrainingsSliderProps> = ({
   };
 
   return (
-    <section className="popular-trainings">
+    <section className="popular-trainings" data-testid="slider">
       <div className="container">
         <div className="popular-trainings__wrapper">
           <div className="popular-trainings__title-wrapper">
