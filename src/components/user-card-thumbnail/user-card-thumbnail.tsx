@@ -10,7 +10,7 @@ interface UserCardThumbnailProps {
 }
 
 const UserCardThumbnail: React.FC<UserCardThumbnailProps> = ({ user }) => (
-  <li className="users-catalog__item">
+  <li className="users-catalog__item" data-testid="user-card-thumbnail">
     <div
       className={classNames({
         'thumbnail-user thumbnail-user--role-user':

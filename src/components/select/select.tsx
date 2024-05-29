@@ -18,7 +18,7 @@ const Select: React.FC<SelectProps> = ({
   onChange,
   required,
 }) => (
-  <div className="custom-select user-info-edit__select">
+  <div className="custom-select user-info-edit__select" data-testid='select-wrapper'>
     <span className="custom-select__label">{title}</span>
     <SelectInput
       className="custom-select__button"

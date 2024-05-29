@@ -17,7 +17,7 @@ const TrainingCard: React.FC<TrainingCardProps> = ({
   });
 
   return (
-    <div className="thumbnail-training">
+    <div className="thumbnail-training" data-testid='training-card'>
       <div className="thumbnail-training__inner">
         <div className="thumbnail-training__image">
           <picture>

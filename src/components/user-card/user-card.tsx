@@ -7,7 +7,7 @@ interface UserCardProps {
   user: User;
 }
 const UserCard: React.FC<UserCardProps> = ({ user }) => (
-  <li className="look-for-company__item">
+  <li className="look-for-company__item" data-testid="user-card">
     <div className="thumbnail-user thumbnail-user--role-user thumbnail-user--dark">
       <div className="thumbnail-user__image">
         <picture>
