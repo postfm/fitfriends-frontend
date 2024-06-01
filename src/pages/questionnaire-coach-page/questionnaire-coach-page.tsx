@@ -1,4 +1,4 @@
-import { useState } from 'react';
+import { ChangeEvent, useState } from 'react';
 import { useLocation } from 'react-router-dom';
 import { LengthParameters } from '../../constants/validate.constants';
 import questionnaireStyle from './questionnaire-coach-page.module.css';
@@ -9,6 +9,9 @@ import { register } from '../../api/register';
 import { NewUser } from '../../types';
 import { RegistrationData } from '../sign-up-page/sign-up-page';
 import { useAuth } from '../../hooks';
+import { uploadFile } from '../../api/uploadFile';
+import { getURL } from '../../utils';
+import { SpecialZoomLevel, Viewer, Worker } from '@react-pdf-viewer/core';
 
 export default function QuestionnaireCoachPage(): JSX.Element {
   const location = useLocation();
@@ -21,6 +24,16 @@ export default function QuestionnaireCoachPage(): JSX.Element {
   const [isWantInvididuallyTrain, setIsWantIndividuallyTrain] =
     useState<boolean>(false);
   const [validationErrors, setValidationErrors] = useState(false);
+  const [certificate, setCertificates] = useState<string | null>(null);
+
+  const addCertificate = useMutation({
+    mutationKey: ['certificate'],
+    mutationFn: async (params: { key: string; formData: FormData }) =>
+      (await uploadFile(params.key, params.formData)).data,
+    onSuccess: (data) => {
+      setCertificates(getURL(data));
+    },
+  });
 
   const newUser = useMutation({
     mutationKey: ['register'],
@@ -54,7 +67,7 @@ export default function QuestionnaireCoachPage(): JSX.Element {
         caloriesToLose: null,
         caloriesPerDay: null,
         readyToTrain: null,
-        certificates: '/img/content/certificates-and-diplomas/4.pdf',
+        certificates: certificate,
         merits: null,
         personalTrainings: isWantInvididuallyTrain,
       };
@@ -62,6 +75,20 @@ export default function QuestionnaireCoachPage(): JSX.Element {
     } else {
       setValidationErrors(true);
     }
+  };
+
+  const isCertificatePdf = certificate?.split('.').at(-1) === 'pdf';
+
+  const handleFileAdd = (e: ChangeEvent<HTMLInputElement>) => {
+    e.preventDefault();
+    if (!e.target.files) {
+      return;
+    }
+    const formData = new FormData();
+    formData.append('certificate', e.target.files[0]);
+    formData.append('fileName', e.target.files[0].name);
+
+    addCertificate.mutate({ key: 'certificate', formData });
   };
 
   return (
@@ -151,7 +178,10 @@ export default function QuestionnaireCoachPage(): JSX.Element {
                         <span className="questionnaire-coach__legend">
                           Ваши дипломы и сертификаты
                         </span>
-                        <div className="drag-and-drop questionnaire-coach__drag-and-drop">
+                        <div
+                          className="drag-and-drop questionnaire-coach__drag-and-drop"
+                          style={{ marginBottom: '1rem' }}
+                        >
                           <label>
                             <span className="drag-and-drop__label" tabIndex={0}>
                               Загрузите сюда файлы формата PDF, JPG или PNG
@@ -165,9 +195,21 @@ export default function QuestionnaireCoachPage(): JSX.Element {
                               tabIndex={-1}
                               accept=".pdf, .jpg, .png"
                               required
+                              onChange={handleFileAdd}
                             />
                           </label>
                         </div>
+                        {certificate &&
+                          (isCertificatePdf ? (
+                            <Worker workerUrl="https://unpkg.com/pdfjs-dist@^3.4.120/build/pdf.worker.min.js">
+                              <Viewer
+                                fileUrl={certificate}
+                                defaultScale={SpecialZoomLevel.PageFit}
+                              />
+                            </Worker>
+                          ) : (
+                            <img src={certificate} />
+                          ))}
                       </div>
                       <div className="questionnaire-coach__block">
                         <span className="questionnaire-coach__legend">
