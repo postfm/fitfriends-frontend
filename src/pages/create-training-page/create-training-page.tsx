@@ -33,7 +33,7 @@ export default function CreateTrainingPage(): JSX.Element {
     description: '',
     gender: '',
     video: '',
-    rating: 0,
+    rating: 5,
     specialOffer: false,
   });
 
@@ -82,10 +82,30 @@ export default function CreateTrainingPage(): JSX.Element {
     },
   });
 
+  const checkCustomValidity = () => {
+    const descriptionTextArea = document.getElementById(
+      'description'
+    ) as HTMLTextAreaElement;
+    if (!descriptionTextArea) return;
+
+    if (
+      descriptionTextArea.value.length < LengthParameters.MinText ||
+      descriptionTextArea.value.length > LengthParameters.MaxText
+    ) {
+      descriptionTextArea.setCustomValidity(
+        `Value length must be between ${LengthParameters.MinText} and ${LengthParameters.MaxText} characters`
+      );
+    } else {
+      descriptionTextArea.setCustomValidity('');
+    }
+
+    return descriptionTextArea.validity.valid;
+  };
+
   const handleSubmit = () => {
     const training = { ...values };
 
-    if (form.current?.checkValidity()) {
+    if (checkCustomValidity() && form.current?.checkValidity()) {
       newTraining.mutate({ training: training });
     } else {
       setValidationErrors(true);
@@ -233,13 +253,12 @@ export default function CreateTrainingPage(): JSX.Element {
                         <div className="custom-textarea create-training__textarea">
                           <label>
                             <textarea
+                              id="description"
                               name="description"
                               placeholder=" "
                               value={values.description}
                               onChange={getHandler('description')}
                               required
-                              minLength={LengthParameters.MinText}
-                              maxLength={LengthParameters.MaxText}
                             />
                           </label>
                         </div>
@@ -263,6 +282,7 @@ export default function CreateTrainingPage(): JSX.Element {
                               type="file"
                               name="import"
                               tabIndex={-1}
+                              required
                               accept=".mov, .avi, .mp4"
                               onChange={handleFileChange}
                             />
