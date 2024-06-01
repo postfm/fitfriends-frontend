@@ -54,7 +54,7 @@ export default function CreateTrainingPage(): JSX.Element {
       return;
     }
     const formData = new FormData();
-    formData.append('avatar', e.target.files[0]);
+    formData.append('video', e.target.files[0]);
     formData.append('fileName', e.target.files[0].name);
 
     uploadVideo.mutate({ key: 'video', formData });
@@ -248,7 +248,10 @@ export default function CreateTrainingPage(): JSX.Element {
                         <h2 className="create-training__legend">
                           Загрузите видео-тренировку
                         </h2>
-                        <div className="drag-and-drop create-training__drag-and-drop">
+                        <div
+                          className="drag-and-drop create-training__drag-and-drop"
+                          style={{ marginBottom: '1rem' }}
+                        >
                           <label>
                             <span className="drag-and-drop__label" tabIndex={0}>
                               Загрузите сюда файлы формата MOV, AVI или MP4
@@ -265,6 +268,7 @@ export default function CreateTrainingPage(): JSX.Element {
                             />
                           </label>
                         </div>
+                        {values.video && <video src={values.video} controls />}
                       </div>
                     </div>
                     <button
