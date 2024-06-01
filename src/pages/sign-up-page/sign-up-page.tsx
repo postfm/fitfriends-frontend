@@ -39,7 +39,7 @@ export default function SignUpPage(): JSX.Element {
     gender: '',
     role: Role.coach,
     isAgreement: true,
-    image: '/img/content/thumbnails/friend-17.jpg',
+    image: '/img/content/user-card-photo1.jpg',
   });
 
   const addAvatar = useMutation({

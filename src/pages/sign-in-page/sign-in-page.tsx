@@ -12,6 +12,7 @@ export default function SignInPage(): JSX.Element {
   const { authUser } = useAuth();
   const [password, setPassword] = useState<string>('');
   const [email, setEmail] = useState<string>('');
+  const [error, setError] = useState<string>('');
 
   const user = useMutation({
     mutationKey: ['login'],
@@ -21,6 +22,9 @@ export default function SignInPage(): JSX.Element {
       authUser(data.currentUser, data.tokens);
       toast.success('User success login');
       navigate(AppRoutes.Main);
+    },
+    onError: (error) => {
+      setError(String(String(error.response.data.message)));
     },
   });
 
@@ -82,9 +86,7 @@ export default function SignInPage(): JSX.Element {
                         </span>
                       </label>
                       {user.isError && (
-                        <p className={loginStyles.password__error}>
-                          Такого пользователя не существует!
-                        </p>
+                        <p className={loginStyles.password__error}>{error}</p>
                       )}
                     </div>
 

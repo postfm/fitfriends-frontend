@@ -40,7 +40,7 @@ export default function QuestionnaireCoachPage(): JSX.Element {
       const user: NewUser = {
         name: registrationData.name,
         email: registrationData.email,
-        avatar: registrationData.image,
+        avatar: registrationData.avatar || registrationData.image,
         password: registrationData.password,
         gender: registrationData.gender,
         birthday: registrationData.dateOfBirth,
