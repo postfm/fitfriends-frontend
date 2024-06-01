@@ -23,7 +23,7 @@ export default function SignInPage(): JSX.Element {
       toast.success('User success login');
       navigate(AppRoutes.Main);
     },
-    onError: (error) => {
+    onError: (error: { response: { data: { message: string } } }) => {
       setError(String(String(error.response.data.message)));
     },
   });

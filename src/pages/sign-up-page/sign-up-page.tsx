@@ -124,9 +124,16 @@ export default function SignUpPage(): JSX.Element {
                             onChange={handleAvatarAdd}
                           />
                           <span className="input-load-avatar__btn">
-                            <svg width={20} height={20} aria-hidden="true">
-                              <use xlinkHref="#icon-import" />
-                            </svg>
+                            {values.avatar ? (
+                              <img
+                                className="input-load-avatar__btn"
+                                src={values.avatar}
+                              />
+                            ) : (
+                              <svg width={20} height={20} aria-hidden="true">
+                                <use xlinkHref="#icon-import" />
+                              </svg>
+                            )}
                           </span>
                         </label>
                       </div>
