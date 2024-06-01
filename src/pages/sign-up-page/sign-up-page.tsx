@@ -74,6 +74,7 @@ export default function SignUpPage(): JSX.Element {
 
   const handleSubmit = (evt: React.FormEvent<HTMLButtonElement>) => {
     evt.preventDefault();
+    form.current?.reportValidity();
     if (form.current?.checkValidity()) {
       navigate(
         values.role === UserRole.coach
@@ -112,7 +113,11 @@ export default function SignUpPage(): JSX.Element {
                 <h1 className="popup-form__title">Регистрация</h1>
               </div>
               <div className="popup-form__form">
-                <form method="get" ref={(ref) => (form.current = ref)}>
+                <form
+                  method="get"
+                  ref={(ref) => (form.current = ref)}
+                  onSubmit={(e) => e.preventDefault()}
+                >
                   <div className="sign-up">
                     <div className="sign-up__load-photo">
                       <div className="input-load-avatar">
@@ -229,10 +234,12 @@ export default function SignUpPage(): JSX.Element {
                       <div className="sign-up__radio">
                         <RadioToggleInput
                           title="Пол"
+                          name="gender"
                           options={GENDERS.map((key) => ({
                             key,
                             displayValue: key,
                           }))}
+                          required
                           onChange={(value) =>
                             setValues({ ...values, gender: value })
                           }

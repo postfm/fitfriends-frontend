@@ -6,14 +6,16 @@ interface RadioToggleOption {
 }
 
 interface RadioToggleInputProps {
+  name?: string;
   title?: string;
   options: RadioToggleOption[];
   defaultSelected?: string;
   onChange?: (selectedKey: string) => void;
+  required?: boolean;
 }
 
 export const RadioToggleInput: React.FC<RadioToggleInputProps> = (props) => {
-  const { options, title, defaultSelected, onChange } = props;
+  const { options, title, defaultSelected, onChange, required, name } = props;
   const [selected, setSelected] = useState(defaultSelected);
 
   return (
@@ -30,6 +32,8 @@ export const RadioToggleInput: React.FC<RadioToggleInputProps> = (props) => {
             <label>
               <input
                 type="radio"
+                name={name}
+                required={required}
                 checked={option.key === selected}
                 onChange={(evt) => {
                   if (evt.target.checked) {
