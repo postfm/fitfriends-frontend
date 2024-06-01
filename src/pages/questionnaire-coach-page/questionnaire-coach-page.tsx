@@ -10,7 +10,7 @@ import { NewUser } from '../../types';
 import { RegistrationData } from '../sign-up-page/sign-up-page';
 import { useAuth } from '../../hooks';
 import { uploadFile } from '../../api/uploadFile';
-import { getURL } from '../../utils';
+import { getURL, postApiResponseError } from '../../utils';
 import { SpecialZoomLevel, Viewer, Worker } from '@react-pdf-viewer/core';
 
 export default function QuestionnaireCoachPage(): JSX.Element {
@@ -33,6 +33,7 @@ export default function QuestionnaireCoachPage(): JSX.Element {
     onSuccess: (data) => {
       setCertificates(getURL(data));
     },
+    onError: postApiResponseError
   });
 
   const newUser = useMutation({
@@ -42,6 +43,7 @@ export default function QuestionnaireCoachPage(): JSX.Element {
     onSuccess: (data) => {
       setCurrentUser(data.user);
     },
+    onError: postApiResponseError
   });
 
   const handleSubmit = () => {

@@ -8,6 +8,7 @@ import { updateUser } from '../../api/updateUser';
 import { useState } from 'react';
 import { noop } from 'lodash';
 import { toast } from 'react-toastify';
+import { postApiResponseError } from '../../utils';
 
 const DAYS_IN_WEEK = 7;
 
@@ -26,6 +27,7 @@ export default function PersonalAccountUserPage(): JSX.Element {
       toast.success('user updated successfuly');
       saveCurrentUser(data);
     },
+    onError: postApiResponseError,
   });
 
   return (

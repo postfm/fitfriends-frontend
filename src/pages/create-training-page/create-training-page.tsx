@@ -15,7 +15,7 @@ import { useMutation, useQueryClient } from '@tanstack/react-query';
 import Select from '../../components/select';
 import { RadioToggleInput } from '../../components/filters';
 import { uploadFile } from '../../api/uploadFile';
-import { getURL } from '../../utils';
+import { getURL, postApiResponseError } from '../../utils';
 
 export default function CreateTrainingPage(): JSX.Element {
   const navigate = useNavigate();
@@ -46,6 +46,7 @@ export default function CreateTrainingPage(): JSX.Element {
     onSuccess: (data) => {
       setValues({ ...values, video: String(getURL(data)) });
     },
+    onError: postApiResponseError,
   });
 
   const handleFileChange = (e: ChangeEvent<HTMLInputElement>) => {
@@ -80,6 +81,7 @@ export default function CreateTrainingPage(): JSX.Element {
         })
       );
     },
+    onError: postApiResponseError,
   });
 
   const checkCustomValidity = () => {

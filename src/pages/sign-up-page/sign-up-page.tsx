@@ -12,7 +12,7 @@ import { RadioToggleInput } from '../../components/filters';
 import { Role } from '../../types';
 import { useMutation } from '@tanstack/react-query';
 import { uploadFile } from '../../api/uploadFile';
-import { getURL } from '../../utils';
+import { getURL, postApiResponseError } from '../../utils';
 
 export interface RegistrationData {
   avatar?: string;
@@ -49,6 +49,7 @@ export default function SignUpPage(): JSX.Element {
     onSuccess: (data) => {
       setValues({ ...values, avatar: getURL(data) });
     },
+    onError: postApiResponseError,
   });
 
   const handleAvatarAdd = (e: ChangeEvent<HTMLInputElement>) => {

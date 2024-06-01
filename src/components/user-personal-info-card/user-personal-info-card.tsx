@@ -15,7 +15,7 @@ import { isEmpty } from 'lodash';
 import { useMutation } from '@tanstack/react-query';
 import { uploadFile } from '../../api/uploadFile';
 import { deleteFile } from '../../api/deleteFile';
-import { getURL } from '../../utils';
+import { getURL, postApiResponseError } from '../../utils';
 import { toast } from 'react-toastify';
 
 interface UserPersonalInfoCardProps {
@@ -48,6 +48,7 @@ const UserPersonalInfoCard: React.FC<UserPersonalInfoCardProps> = ({
     onSuccess: (data) => {
       setAvatar(String(getURL(data)));
     },
+    onError: postApiResponseError
   });
 
   const deleteAvatar = useMutation({
@@ -57,6 +58,7 @@ const UserPersonalInfoCard: React.FC<UserPersonalInfoCardProps> = ({
       setAvatar(String(data));
       toast.success('Avatar deleted successfully');
     },
+    onError: postApiResponseError
   });
 
   const handleFileChange = (e: ChangeEvent<HTMLInputElement>) => {

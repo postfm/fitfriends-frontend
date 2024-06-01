@@ -7,6 +7,7 @@ import { useAuth, useUser } from '../../hooks';
 import { User } from '../../types';
 import { updateUser } from '../../api/updateUser';
 import { toast } from 'react-toastify';
+import { postApiResponseError } from '../../utils';
 
 export default function PersonalAccountCoach(): JSX.Element {
   const currentUser = useUser();
@@ -20,6 +21,7 @@ export default function PersonalAccountCoach(): JSX.Element {
       toast.success('user updated successfuly');
       saveCurrentUser(data);
     },
+    onError: postApiResponseError
   });
 
   return (

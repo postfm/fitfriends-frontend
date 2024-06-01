@@ -10,6 +10,7 @@ import { register } from '../../api/register';
 import { RadioToggleInput } from '../../components/filters';
 import { RegistrationData } from '../sign-up-page';
 import { toast } from 'react-toastify';
+import { postApiResponseError } from '../../utils';
 
 export default function QuestionnaireUserPage(): JSX.Element {
   const form = useRef<HTMLFormElement | null>();
@@ -32,9 +33,7 @@ export default function QuestionnaireUserPage(): JSX.Element {
       toast.success('Пользователь успешно зарегистрирован');
       setCurrentUser(data.user);
     },
-    onError(error) {
-      toast.error(error.message);
-    },
+    onError: postApiResponseError
   });
 
   const handleSubmit = () => {
