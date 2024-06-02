@@ -4,6 +4,7 @@ import { renderHashtag } from '../../utils';
 import { Link, generatePath } from 'react-router-dom';
 import { AppRoutes, UserRole } from '../../constants/constants';
 import classNames from 'classnames';
+import Avatar from '../avatar';
 
 interface UserCardThumbnailProps {
   user: User;
@@ -21,7 +22,7 @@ const UserCardThumbnail: React.FC<UserCardThumbnailProps> = ({ user }) => (
     >
       <div className="thumbnail-user__image">
         <picture>
-          <img src={user.avatar} width={82} height={82} alt="" />
+          <Avatar src={user.avatar} width={82} height={82} />
         </picture>
       </div>
       <div className="thumbnail-user__header">

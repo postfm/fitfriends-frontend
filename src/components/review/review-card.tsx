@@ -1,5 +1,6 @@
 import React from 'react';
 import { Review } from '../../types';
+import Avatar from '../avatar';
 
 interface ReviewCardProps {
   review: Review;
@@ -11,12 +12,7 @@ const ReviewCard: React.FC<ReviewCardProps> = ({ review }) => (
       <div className="review__user-info">
         <div className="review__user-photo">
           <picture>
-            <img
-              src="/img/content/avatars/users/photo-1.png"
-              width={64}
-              height={64}
-              alt="Изображение пользователя"
-            />
+            <Avatar src={review.user.avatar} width={64} height={64} />
           </picture>
         </div>
         <span className="review__user-name">Никита</span>

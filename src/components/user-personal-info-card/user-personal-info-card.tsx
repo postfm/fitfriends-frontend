@@ -17,6 +17,7 @@ import { uploadFile } from '../../api/uploadFile';
 import { deleteFile } from '../../api/deleteFile';
 import { getURL, postApiResponseError } from '../../utils';
 import { toast } from 'react-toastify';
+import Avatar from '../avatar';
 
 interface UserPersonalInfoCardProps {
   onUserSave: (user: User) => void;
@@ -48,7 +49,7 @@ const UserPersonalInfoCard: React.FC<UserPersonalInfoCardProps> = ({
     onSuccess: (data) => {
       setAvatar(String(getURL(data)));
     },
-    onError: postApiResponseError
+    onError: postApiResponseError,
   });
 
   const deleteAvatar = useMutation({
@@ -58,7 +59,7 @@ const UserPersonalInfoCard: React.FC<UserPersonalInfoCardProps> = ({
       setAvatar(String(data));
       toast.success('Avatar deleted successfully');
     },
-    onError: postApiResponseError
+    onError: postApiResponseError,
   });
 
   const handleFileChange = (e: ChangeEvent<HTMLInputElement>) => {
@@ -100,7 +101,7 @@ const UserPersonalInfoCard: React.FC<UserPersonalInfoCardProps> = ({
   };
 
   return (
-    <section className="user-info-edit" data-testid='user-personal-info-card'>
+    <section className="user-info-edit" data-testid="user-personal-info-card">
       <div className="user-info-edit__header">
         <div className="input-load-avatar">
           <label>
@@ -113,7 +114,7 @@ const UserPersonalInfoCard: React.FC<UserPersonalInfoCardProps> = ({
               disabled
             />
             <span className="input-load-avatar__avatar">
-              <img src={avatar} width={98} height={98} alt="user photo" />
+              <Avatar src={avatar} width={98} height={98} />
             </span>
           </label>
         </div>

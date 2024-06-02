@@ -115,6 +115,7 @@ export interface Review {
   grade: number;
   text: string;
   createdAt: string;
+  user: User;
 }
 
 export interface NewReview {

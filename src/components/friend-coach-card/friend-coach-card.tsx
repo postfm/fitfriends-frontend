@@ -8,6 +8,7 @@ import { updatePersonalTraining } from '../../api/updatePersonalTraining';
 import classNames from 'classnames';
 import { isAnswered, isInvited, renderHashtag } from '../../utils';
 import { toast } from 'react-toastify';
+import Avatar from '../avatar';
 
 interface FriendCoachCardProps {
   initiator: User;
@@ -68,7 +69,7 @@ const FriendCoachCard: React.FC<FriendCoachCardProps> = ({
         <div className="thumbnail-friend__image-status">
           <div className="thumbnail-friend__image">
             <picture>
-              <img src={initiator.avatar} width={78} height={78} alt="" />
+              <Avatar src={initiator.avatar} width={78} height={78} />
             </picture>
           </div>
         </div>

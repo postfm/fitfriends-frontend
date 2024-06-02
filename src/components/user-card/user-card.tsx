@@ -2,6 +2,7 @@ import { Link, generatePath } from 'react-router-dom';
 import { User } from '../../types';
 import { renderHashtag } from '../../utils';
 import { AppRoutes } from '../../constants/constants';
+import Avatar from '../avatar';
 
 interface UserCardProps {
   user: User;
@@ -11,13 +12,7 @@ const UserCard: React.FC<UserCardProps> = ({ user }) => (
     <div className="thumbnail-user thumbnail-user--role-user thumbnail-user--dark">
       <div className="thumbnail-user__image">
         <picture>
-          <img
-            src={user.avatar}
-            srcSet={`${user.avatar}@2x.png 2x`}
-            width={82}
-            height={82}
-            alt=""
-          />
+          <Avatar src={user.avatar} width={82} height={82} />
         </picture>
       </div>
       <div className="thumbnail-user__top-status thumbnail-user__top-status--role-user">

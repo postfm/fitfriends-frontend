@@ -15,6 +15,7 @@ import { updatePersonalTraining } from '../../api/updatePersonalTraining';
 import { generatePath, useNavigate } from 'react-router-dom';
 import { addPersonalTraining } from '../../api/addPersonalTraining';
 import { toast } from 'react-toastify';
+import Avatar from '../avatar';
 
 interface FriendsUserCardProps {
   user: User;
@@ -107,7 +108,7 @@ const FriendsUserCard: React.FC<FriendsUserCardProps> = ({
         <div className="thumbnail-friend__image-status">
           <div className="thumbnail-friend__image">
             <picture>
-              <img src={user.avatar} width={78} height={78} alt="" />
+              <Avatar src={user.avatar} width={78} height={78} />
             </picture>
           </div>
         </div>

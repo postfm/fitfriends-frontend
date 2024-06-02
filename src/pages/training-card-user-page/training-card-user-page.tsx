@@ -14,6 +14,7 @@ import { OrderAmountTraining, Training } from '../../types';
 import { loadMyOrders } from '../../api/loadMyOrders';
 import { updateOrder } from '../../api/updateOrder';
 import { loadReviews } from '../../api/loadReviews';
+import Avatar from '../../components/avatar';
 
 const AMOUNT_DECREMENT = -1;
 
@@ -117,11 +118,10 @@ const TrainingCardUserPage: React.FC = () => {
                     <div className="training-info__coach">
                       <div className="training-info__photo">
                         <picture>
-                          <img
-                            src="/img/content/avatars/coaches//photo-1.png"
+                          <Avatar
+                            src={String(training.data?.user?.avatar)}
                             width={64}
                             height={64}
-                            alt="Изображение тренера"
                           />
                         </picture>
                       </div>

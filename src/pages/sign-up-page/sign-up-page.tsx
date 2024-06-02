@@ -13,6 +13,7 @@ import { Role } from '../../types';
 import { useMutation } from '@tanstack/react-query';
 import { uploadFile } from '../../api/uploadFile';
 import { getURL, postApiResponseError } from '../../utils';
+import Avatar from '../../components/avatar';
 
 export interface RegistrationData {
   avatar?: string;
@@ -131,7 +132,7 @@ export default function SignUpPage(): JSX.Element {
                           />
                           <span className="input-load-avatar__btn">
                             {values.avatar ? (
-                              <img
+                              <Avatar
                                 className="input-load-avatar__btn"
                                 src={values.avatar}
                               />

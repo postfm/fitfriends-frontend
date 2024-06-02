@@ -15,6 +15,8 @@ const TrainingCardCoachPage: React.FC = () => {
     queryFn: async () => (await loadTraining(Number(id))).data,
   });
 
+  String(training.data?.user?.avatar);
+
   const reviews = useQuery({
     queryKey: ['reviews', id],
     queryFn: async () => (await loadReviews(Number(id))).data,

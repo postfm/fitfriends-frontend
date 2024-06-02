@@ -10,6 +10,7 @@ import { useMutation } from '@tanstack/react-query';
 import { uploadFile } from '../../../api/uploadFile';
 import { deleteFile } from '../../../api/deleteFile';
 import { toast } from 'react-toastify';
+import Avatar from '../../../components/avatar';
 
 interface TrainingInfoCardProps {
   training: Training;
@@ -106,12 +107,7 @@ const TrainingInfoCard: React.FC<TrainingInfoCardProps> = ({
           <div className="training-info__coach">
             <div className="training-info__photo">
               <picture>
-                <img
-                  src={user?.avatar}
-                  width={64}
-                  height={64}
-                  alt="Изображение тренера"
-                />
+                <Avatar src={user?.avatar} width={64} height={64} />
               </picture>
             </div>
             <div className="training-info__coach-info">
