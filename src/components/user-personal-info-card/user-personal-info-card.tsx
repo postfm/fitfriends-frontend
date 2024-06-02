@@ -7,11 +7,9 @@ import {
   Locations,
   TypesOfTrainings,
 } from '../../constants/constants';
-import { ChangeEvent, useEffect, useState } from 'react';
-import accountCoachStyles from './personal-account-page.module.css';
+import { ChangeEvent, useState } from 'react';
 import { User } from '../../types';
 import Select from '../select';
-import { isEmpty } from 'lodash';
 import { useMutation } from '@tanstack/react-query';
 import { uploadFile } from '../../api/uploadFile';
 import { deleteFile } from '../../api/deleteFile';
@@ -29,9 +27,6 @@ const UserPersonalInfoCard: React.FC<UserPersonalInfoCardProps> = ({
   const user = useUser();
 
   const [isEditing, setIsEditing] = useState(false);
-  const [isSpecializationEmpty, setIsSpecializationEmpty] = useState(
-    isEmpty(user.typeOfTraining)
-  );
 
   const [name, setName] = useState(user.name);
   const [description, setDescription] = useState(user.description);
@@ -77,12 +72,6 @@ const UserPersonalInfoCard: React.FC<UserPersonalInfoCardProps> = ({
   const handleFileDelete = () => {
     deleteAvatar.mutate(avatar);
   };
-
-  useEffect(() => {
-    if (isEditing) {
-      setIsSpecializationEmpty(isEmpty(typeOfTraining));
-    }
-  }, [typeOfTraining, isEditing]);
 
   const handleSave = () => {
     const newUser = {
@@ -158,7 +147,7 @@ const UserPersonalInfoCard: React.FC<UserPersonalInfoCardProps> = ({
           className="btn-flat btn-flat--underlined user-info-edit__save-button"
           aria-label={!isEditing ? 'Редактировать' : 'Сохранить'}
           onClick={() => {
-            if (isEditing && !isSpecializationEmpty) {
+            if (isEditing) {
               handleSave();
               setIsEditing(false);
             } else if (!isEditing) {
@@ -171,11 +160,6 @@ const UserPersonalInfoCard: React.FC<UserPersonalInfoCardProps> = ({
           </svg>
           <span> {!isEditing ? 'Редактировать' : 'Сохранить'}</span>
         </button>
-        {isSpecializationEmpty && (
-          <p className={accountCoachStyles.specialization__error}>
-            Выберите хотя бы одну специализацию!
-          </p>
-        )}
 
         <div className="user-info-edit__section">
           <h2 className="user-info-edit__title">Обо мне</h2>

@@ -12,6 +12,8 @@ import { useAuth } from '../../hooks';
 import { uploadFile } from '../../api/uploadFile';
 import { getURL, postApiResponseError } from '../../utils';
 import { SpecialZoomLevel, Viewer, Worker } from '@react-pdf-viewer/core';
+import { isEmpty } from 'lodash';
+import questionnaireCoachStyles from './questionnaire-coach-page.module.css';
 
 export default function QuestionnaireCoachPage(): JSX.Element {
   const location = useLocation();
@@ -25,6 +27,8 @@ export default function QuestionnaireCoachPage(): JSX.Element {
     useState<boolean>(false);
   const [validationErrors, setValidationErrors] = useState(false);
   const [certificate, setCertificates] = useState<string | null>(null);
+  const [isSpecializationEmpty, setIsSpecializationEmpty] =
+    useState<boolean>(true);
 
   const addCertificate = useMutation({
     mutationKey: ['certificate'],
@@ -33,7 +37,7 @@ export default function QuestionnaireCoachPage(): JSX.Element {
     onSuccess: (data) => {
       setCertificates(getURL(data));
     },
-    onError: postApiResponseError
+    onError: postApiResponseError,
   });
 
   const newUser = useMutation({
@@ -43,7 +47,7 @@ export default function QuestionnaireCoachPage(): JSX.Element {
     onSuccess: (data) => {
       setCurrentUser(data.user);
     },
-    onError: postApiResponseError
+    onError: postApiResponseError,
   });
 
   const handleSubmit = () => {
@@ -51,6 +55,12 @@ export default function QuestionnaireCoachPage(): JSX.Element {
       const registrationData = (
         location.state as { firstStepState: RegistrationData }
       ).firstStepState;
+
+      setIsSpecializationEmpty(isEmpty(typeOfTraining));
+
+      if (isSpecializationEmpty) {
+        return;
+      }
 
       const user: NewUser = {
         name: registrationData.name,
@@ -143,12 +153,18 @@ export default function QuestionnaireCoachPage(): JSX.Element {
                                             (t) => t !== type
                                           )
                                         );
+                                        // setIsSpecializationEmpty(
+                                        //   isEmpty(typeOfTraining)
+                                        // );
                                       } else {
                                         setTypeOfTraining([
                                           ...typeOfTraining,
                                           type,
                                         ]);
                                       }
+                                      // setIsSpecializationEmpty(
+                                      //   isEmpty(typeOfTraining)
+                                      // );
                                     }}
                                     checked={typeOfTraining.includes(type)}
                                   />
@@ -265,10 +281,23 @@ export default function QuestionnaireCoachPage(): JSX.Element {
                     <button
                       className="btn questionnaire-coach__button"
                       type="submit"
-                      onClick={handleSubmit}
+                      onClick={() => {
+                        if (!isSpecializationEmpty) {
+                          handleSubmit();
+                        }
+                      }}
                     >
                       Продолжить
                     </button>
+                    {isEmpty(typeOfTraining) && (
+                      <p
+                        className={
+                          questionnaireCoachStyles.specialization__error
+                        }
+                      >
+                        Выберите хотя бы одну специализацию!
+                      </p>
+                    )}
                   </div>
                 </form>
               </div>

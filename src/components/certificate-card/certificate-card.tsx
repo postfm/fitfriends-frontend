@@ -18,6 +18,8 @@ const CertificateCard: React.FC<CertificateCardProps> = ({ certificate }) => {
   const [isEdit, setIsEdit] = useState(false);
   const [certificates, setCertificate] = useState(user.certificates);
 
+  const isCertificatePdf = certificate.split('.').at(-1) === 'pdf';
+
   const changeCertificate = useMutation({
     mutationKey: ['certificate'],
     mutationFn: async (params: { key: string; formData: FormData }) =>
@@ -64,12 +66,17 @@ const CertificateCard: React.FC<CertificateCardProps> = ({ certificate }) => {
     <li className="personal-account-coach__item">
       <div className="certificate-card certificate-card--edit">
         <div className="certificate-card__image">
-          <Worker workerUrl="https://unpkg.com/pdfjs-dist@^3.4.120/build/pdf.worker.min.js">
-            <Viewer
-              fileUrl={certificate}
-              defaultScale={SpecialZoomLevel.PageFit}
-            />
-          </Worker>
+          {certificate &&
+            (isCertificatePdf ? (
+              <Worker workerUrl="https://unpkg.com/pdfjs-dist@^3.4.120/build/pdf.worker.min.js">
+                <Viewer
+                  fileUrl={certificate}
+                  defaultScale={SpecialZoomLevel.PageFit}
+                />
+              </Worker>
+            ) : (
+              <img src={certificate} />
+            ))}
         </div>
         <div className="certificate-card__buttons">
           <button
