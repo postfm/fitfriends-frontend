@@ -65,7 +65,7 @@ export interface User {
   personalTrainings: boolean | null;
   refreshToken?: string;
   balance?: number | null;
-  reviews?: Review[];
+  reviews?: Omit<Review, 'user'>[];
   orders?: Omit<Order, 'user' | 'training'>[];
   trainings?: Omit<Training, 'reviews' | 'user'>[];
 }
