@@ -153,18 +153,12 @@ export default function QuestionnaireCoachPage(): JSX.Element {
                                             (t) => t !== type
                                           )
                                         );
-                                        // setIsSpecializationEmpty(
-                                        //   isEmpty(typeOfTraining)
-                                        // );
                                       } else {
                                         setTypeOfTraining([
                                           ...typeOfTraining,
                                           type,
                                         ]);
                                       }
-                                      // setIsSpecializationEmpty(
-                                      //   isEmpty(typeOfTraining)
-                                      // );
                                     }}
                                     checked={typeOfTraining.includes(type)}
                                   />
