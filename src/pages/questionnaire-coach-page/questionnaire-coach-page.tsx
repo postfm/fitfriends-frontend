@@ -27,8 +27,7 @@ export default function QuestionnaireCoachPage(): JSX.Element {
     useState<boolean>(false);
   const [validationErrors, setValidationErrors] = useState(false);
   const [certificate, setCertificates] = useState<string | null>(null);
-  const [isSpecializationEmpty, setIsSpecializationEmpty] =
-    useState<boolean>(true);
+  useState<boolean>(true);
 
   const addCertificate = useMutation({
     mutationKey: ['certificate'],
@@ -55,12 +54,6 @@ export default function QuestionnaireCoachPage(): JSX.Element {
       const registrationData = (
         location.state as { firstStepState: RegistrationData }
       ).firstStepState;
-
-      setIsSpecializationEmpty(isEmpty(typeOfTraining));
-
-      if (isSpecializationEmpty) {
-        return;
-      }
 
       const user: NewUser = {
         name: registrationData.name,
@@ -276,7 +269,7 @@ export default function QuestionnaireCoachPage(): JSX.Element {
                       className="btn questionnaire-coach__button"
                       type="submit"
                       onClick={() => {
-                        if (!isSpecializationEmpty) {
+                        if (!isEmpty(typeOfTraining)) {
                           handleSubmit();
                         }
                       }}
