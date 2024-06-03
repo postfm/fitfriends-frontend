@@ -15,7 +15,7 @@ const ReviewCard: React.FC<ReviewCardProps> = ({ review }) => (
             <Avatar src={review.user.avatar} width={64} height={64} />
           </picture>
         </div>
-        <span className="review__user-name">Никита</span>
+        <span className="review__user-name">{review.user.name}</span>
         <div className="review__rating">
           <svg width={16} height={16} aria-hidden="true">
             <use xlinkHref="#icon-star" />
